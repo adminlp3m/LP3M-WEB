@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Dashboard - LP3M
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="dashboard.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="dashboard.html"
+            class="nav-logo"
+        >
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>
+                LP3M PBA
+            </span>
+
+        </a>
+
+
+        <button
+            class="nav-toggle"
+            id="navToggle"
+            type="button"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link active"
+                id="dashboardNav"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+                id="bukuNav"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link"
+                id="jurnalNav"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link"
+                id="adminMenu"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="login.html"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="dashboard-container">
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero-section">
+
+        <div class="hero-content">
+
+            <span class="hero-label">
+                SISTEM INFORMASI LP3M
+            </span>
+
+
+            <h1>
+
+                Selamat Datang di
+
+                <span>
+                    Dashboard LP3M
+                </span>
+
+            </h1>
+
+
+            <p id="welcome">
+
+                Kelola dan pantau data publikasi
+                buku serta jurnal dengan mudah.
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <a
+                    href="buku.html"
+                    class="hero-button primary"
+                >
+
+                    <span>
+                        📚
+                    </span>
+
+                    Data Buku
+
+                </a>
+
+
+                <a
+                    href="jurnal.html"
+                    class="hero-button secondary"
+                >
+
+                    <span>
+                        📝
+                    </span>
+
+                    Data Jurnal
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-decoration">
+
+            <div
+                class="decoration-circle circle-one"
+            >
+            </div>
+
+
+            <div
+                class="decoration-circle circle-two"
+            >
+            </div>
+
+
+            <div class="decoration-book">
+                📚
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         STATISTIK
+    ================================================== -->
+
+    <section class="stats-grid">
+
+
+        <!-- =================================================
+             TOTAL BUKU
+        ================================================== -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon buku-icon">
+                📚
+            </div>
+
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    TOTAL
+                </span>
+
+
+                <h2 id="totalBuku">
+                    0
+                </h2>
+
+
+                <p>
+                    Buku
+                </p>
+
+            </div>
+
+
+            <a
+                href="buku.html"
+                class="stat-link"
+            >
+                Lihat →
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TOTAL JURNAL
+        ================================================== -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon jurnal-icon">
+                📝
+            </div>
+
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    TOTAL
+                </span>
+
+
+                <h2 id="totalJurnal">
+                    0
+                </h2>
+
+
+                <p>
+                    Jurnal
+                </p>
+
+            </div>
+
+
+            <a
+                href="jurnal.html"
+                class="stat-link"
+            >
+                Lihat →
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TOTAL PUBLIKASI
+        ================================================== -->
+
+        <div class="stat-card">
+
+            <div class="stat-icon publikasi-icon">
+                📊
+            </div>
+
+
+            <div class="stat-content">
+
+                <span class="stat-label">
+                    TOTAL
+                </span>
+
+
+                <h2 id="totalPublikasi">
+                    0
+                </h2>
+
+
+                <p>
+                    Publikasi
+                </p>
+
+            </div>
+
+
+            <div class="stat-link static">
+                Buku + Jurnal
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         PUBLIKASI TERBARU
+    ================================================== -->
+
+    <section class="latest-section">
+
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="section-label">
+                    AKTIVITAS TERBARU
+                </span>
+
+
+                <h2>
+                    Publikasi Terbaru
+                </h2>
+
+
+                <p>
+                    Tiga data publikasi terakhir yang
+                    ditambahkan ke sistem.
+                </p>
+
+            </div>
+
+
+            <div class="section-actions">
+
+                <a
+                    href="buku.html"
+                    class="outline-button"
+                >
+                    Semua Buku
+                </a>
+
+
+                <a
+                    href="jurnal.html"
+                    class="outline-button"
+                >
+                    Semua Jurnal
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             DATA TERBARU
+        ================================================== -->
+
+        <div
+            class="latest-grid"
+            id="latestGrid"
+        >
+
+            <div class="latest-loading">
+
+                <div class="loading-spinner">
+                </div>
+
+
+                <p>
+                    Memuat publikasi terbaru...
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         INFO SISTEM
+    ================================================== -->
+
+    <section class="info-box">
+
+        <div class="info-icon">
+            ℹ
+        </div>
+
+
+        <div class="info-content">
+
+            <h3>
+                Informasi Sistem
+            </h3>
+
+
+            <p>
+
+                Data pada dashboard diperbarui secara
+                otomatis berdasarkan data yang tersimpan
+                pada Google Spreadsheet.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <p>
+        © 2026 LP3M System
+    </p>
+
+
+    <span>
+        Sistem Informasi Publikasi
+    </span>
+
+</footer>
+
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+/* =========================================================
+   URL GOOGLE APPS SCRIPT
+========================================================= */
+
+const API_URL_DASHBOARD =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+
+/* =========================================================
+   DATA DASHBOARD
+========================================================= */
+
+let dataBukuDashboard = [];
+
+let dataJurnalDashboard = [];
+
+
+
+/* =========================================================
+   ELEMENT
+========================================================= */
+
+const totalBukuElement =
+    document.getElementById(
+        "totalBuku"
+    );
+
+
+const totalJurnalElement =
+    document.getElementById(
+        "totalJurnal"
+    );
+
+
+const totalPublikasiElement =
+    document.getElementById(
+        "totalPublikasi"
+    );
+
+
+const latestGrid =
+    document.getElementById(
+        "latestGrid"
+    );
+
+
+const welcomeElement =
+    document.getElementById(
+        "welcome"
+    );
+
+
+const navToggle =
+    document.getElementById(
+        "navToggle"
+    );
+
+
+const navMenu =
+    document.getElementById(
+        "navMenu"
+    );
+
+
+const adminMenu =
+    document.getElementById(
+        "adminMenu"
+    );
+
+
+const loginLogoutButton =
+    document.getElementById(
+        "loginLogoutButton"
+    );
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value) {
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    );
+
+}
+
+
+
+/* =========================================================
+   PARSE TANGGAL
+========================================================= */
+
+function parseTanggalDashboard(value) {
+
+    if (!value) {
+
+        return 0;
+
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    /* DD/MM/YYYY */
+
+    let match =
+        teks.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return new Date(
+            Number(match[3]),
+            Number(match[2]) - 1,
+            Number(match[1])
+        ).getTime();
+
+    }
+
+
+    /* DD-MM-YYYY */
+
+    match =
+        teks.match(
+            /^(\d{1,2})-(\d{1,2})-(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return new Date(
+            Number(match[3]),
+            Number(match[2]) - 1,
+            Number(match[1])
+        ).getTime();
+
+    }
+
+
+    /* YYYY-MM-DD */
+
+    match =
+        teks.match(
+            /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+        );
+
+
+    if (match) {
+
+        return new Date(
+            Number(match[1]),
+            Number(match[2]) - 1,
+            Number(match[3])
+        ).getTime();
+
+    }
+
+
+    const tanggal =
+        new Date(value);
+
+
+    if (
+        !isNaN(
+            tanggal.getTime()
+        )
+    ) {
+
+        return tanggal.getTime();
+
+    }
+
+
+    return 0;
+
+}
+
+
+
+/* =========================================================
+   FORMAT WAKTU
+========================================================= */
+
+function formatWaktu(value) {
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    const waktu =
+        parseTanggalDashboard(
+            value
+        );
+
+
+    if (!waktu) {
+
+        return escapeHTML(
+            value
+        );
+
+    }
+
+
+    return new Date(
+        waktu
+    ).toLocaleString(
+        "id-ID",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   AMBIL WAKTU DATA
+========================================================= */
+
+function ambilWaktuData(item) {
+
+    if (!item) {
+
+        return 0;
+
+    }
+
+
+    const kandidat = [
+
+        item.waktu,
+
+        item.timestamp,
+
+        item.createdAt,
+
+        item.tanggalInput,
+
+        item.tanggal,
+
+        item.tanggalTerbit
+
+    ];
+
+
+    for (
+        let i = 0;
+        i < kandidat.length;
+        i++
+    ) {
+
+        const waktu =
+            parseTanggalDashboard(
+                kandidat[i]
+            );
+
+
+        if (waktu > 0) {
+
+            return waktu;
+
+        }
+
+    }
+
+
+    return 0;
+
+}
+
+
+
+/* =========================================================
+   LOAD BUKU DARI SPREADSHEET
+========================================================= */
+
+async function loadDataBukuDashboard() {
+
+    const response =
+        await fetch(
+            API_URL_DASHBOARD +
+            "?action=getBuku"
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Gagal mengambil data buku. HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const result =
+        await response.json();
+
+
+    console.log(
+        "RESPONS DATA BUKU:",
+        result
+    );
+
+
+    if (
+        !result.success ||
+        !Array.isArray(
+            result.data
+        )
+    ) {
+
+        throw new Error(
+            result.message ||
+            "Data buku tidak tersedia."
+        );
+
+    }
+
+
+    dataBukuDashboard =
+        result.data;
+
+}
+
+
+
+/* =========================================================
+   LOAD JURNAL DARI SPREADSHEET
+========================================================= */
+
+async function loadDataJurnalDashboard() {
+
+    const response =
+        await fetch(
+            API_URL_DASHBOARD +
+            "?action=getJurnal"
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            "Gagal mengambil data jurnal. HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const result =
+        await response.json();
+
+
+    console.log(
+        "RESPONS DATA JURNAL:",
+        result
+    );
+
+
+    if (
+        !result.success ||
+        !Array.isArray(
+            result.data
+        )
+    ) {
+
+        throw new Error(
+            result.message ||
+            "Data jurnal tidak tersedia."
+        );
+
+    }
+
+
+    dataJurnalDashboard =
+        result.data;
+
+}
+
+
+
+/* =========================================================
+   BUAT DATA PUBLIKASI TERBARU
+========================================================= */
+
+function buatDataTerbaru() {
+
+    const dataBuku =
+        dataBukuDashboard.map(
+            function (
+                item,
+                index
+            ) {
+
+                return {
+
+                    ...item,
+
+                    tipe: "Buku",
+
+                    _urutan:
+                        index,
+
+                    _waktu:
+                        ambilWaktuData(
+                            item
+                        )
+
+                };
+
+            }
+        );
+
+
+    const dataJurnal =
+        dataJurnalDashboard.map(
+            function (
+                item,
+                index
+            ) {
+
+                return {
+
+                    ...item,
+
+                    tipe: "Jurnal",
+
+                    _urutan:
+                        index,
+
+                    _waktu:
+                        ambilWaktuData(
+                            item
+                        )
+
+                };
+
+            }
+        );
+
+
+    const semuaData = [
+
+        ...dataBuku,
+
+        ...dataJurnal
+
+    ];
+
+
+    /*
+       Jika data memiliki tanggal/waktu,
+       gunakan tanggal tersebut.
+
+       Jika tidak ada tanggal,
+       data yang berada paling belakang
+       dianggap data yang paling baru.
+    */
+
+    semuaData.sort(
+        function (a, b) {
+
+            if (
+                a._waktu > 0 &&
+                b._waktu > 0
+            ) {
+
+                return (
+                    b._waktu -
+                    a._waktu
+                );
+
+            }
+
+
+            if (
+                a._waktu > 0 &&
+                b._waktu === 0
+            ) {
+
+                return -1;
+
+            }
+
+
+            if (
+                a._waktu === 0 &&
+                b._waktu > 0
+            ) {
+
+                return 1;
+
+            }
+
+
+            /*
+               Jika waktu tidak tersedia,
+               pertahankan urutan data
+               masing-masing Spreadsheet.
+            */
+
+            return (
+                b._urutan -
+                a._urutan
+            );
+
+        }
+    );
+
+
+    return semuaData.slice(
+        0,
+        3
+    );
+
+}
+
+
+
+/* =========================================================
+   TAMPILKAN PUBLIKASI TERBARU
+========================================================= */
+
+function tampilkanPublikasiTerbaru(
+    data
+) {
+
+    if (
+        !latestGrid
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !Array.isArray(data) ||
+        data.length === 0
+    ) {
+
+        latestGrid.innerHTML = `
+
+            <div class="empty-latest">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+
+                <h3>
+                    Belum Ada Publikasi
+                </h3>
+
+
+                <p>
+
+                    Data buku atau jurnal yang baru
+                    ditambahkan akan muncul di sini.
+
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    latestGrid.innerHTML =
+        data
+            .map(
+                function (
+                    item,
+                    index
+                ) {
+
+                    const isBuku =
+                        String(
+                            item.tipe ||
+                            ""
+                        )
+                        .toLowerCase() ===
+                        "buku";
+
+
+                    const tipeClass =
+                        isBuku
+                            ? "book"
+                            : "journal";
+
+
+                    const icon =
+                        isBuku
+                            ? "📚"
+                            : "📝";
+
+
+                    let informasi =
+                        "";
+
+
+
+                    /* =====================================
+                       INFORMASI BUKU
+                    ===================================== */
+
+                    if (isBuku) {
+
+                        informasi = `
+
+                            <div class="latest-meta">
+
+                                <span>
+
+                                    🏢
+
+                                    ${escapeHTML(
+                                        item.penerbit ||
+                                        "Penerbit belum diisi"
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="latest-extra">
+
+                                ${
+                                    item.isbn
+                                        ? `
+                                            <span>
+                                                ISBN:
+                                                ${escapeHTML(
+                                                    item.isbn
+                                                )}
+                                            </span>
+                                          `
+                                        : ""
+                                }
+
+
+                                ${
+                                    item.hki
+                                        ? `
+                                            <span>
+                                                HKI:
+                                                ${escapeHTML(
+                                                    item.hki
+                                                )}
+                                            </span>
+                                          `
+                                        : ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+
+                    /* =====================================
+                       INFORMASI JURNAL
+                    ===================================== */
+
+                    else {
+
+                        informasi = `
+
+                            <div class="latest-meta">
+
+                                <span>
+
+                                    👤
+
+                                    ${escapeHTML(
+                                        item.namaDosen ||
+                                        "Nama dosen belum diisi"
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="latest-meta">
+
+                                <span>
+
+                                    🎓
+
+                                    ${escapeHTML(
+                                        item.progdi ||
+                                        "Program studi belum diisi"
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="latest-extra">
+
+                                ${
+                                    item.status
+                                        ? `
+                                            <span
+                                                class="status-badge"
+                                            >
+                                                ${escapeHTML(
+                                                    item.status
+                                                )}
+                                            </span>
+                                          `
+                                        : ""
+                                }
+
+                            </div>
+
+                        `;
+
+                    }
+
+
+
+                    /* =====================================
+                       TOMBOL
+                    ===================================== */
+
+                    let tombol =
+                        "";
+
+
+                    if (
+                        !isBuku &&
+                        item.linkPublikasi
+                    ) {
+
+                        tombol = `
+
+                            <a
+                                href="${escapeAttribute(
+                                    item.linkPublikasi
+                                )}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="latest-button"
+                            >
+
+                                Lihat Publikasi
+
+                                <span>
+                                    ↗
+                                </span>
+
+                            </a>
+
+                        `;
+
+                    }
+
+                    else {
+
+                        tombol = `
+
+                            <a
+                                href="${
+                                    isBuku
+                                        ? "buku.html"
+                                        : "jurnal.html"
+                                }"
+                                class="latest-button"
+                            >
+
+                                Lihat Data
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        `;
+
+                    }
+
+
+
+                    /* =====================================
+                       CARD
+                    ===================================== */
+
+                    return `
+
+                        <article
+                            class="
+                                latest-card
+                                ${tipeClass}
+                            "
+                        >
+
+                            <div class="latest-top">
+
+                                <span
+                                    class="
+                                        type-badge
+                                        ${tipeClass}
+                                    "
+                                >
+
+                                    <span>
+                                        ${icon}
+                                    </span>
+
+                                    ${escapeHTML(
+                                        item.tipe
+                                    )}
+
+                                </span>
+
+
+                                <span class="latest-number">
+
+                                    0${index + 1}
+
+                                </span>
+
+                            </div>
+
+
+                            <h3>
+
+                                ${escapeHTML(
+                                    item.judul ||
+                                    "Judul belum diisi"
+                                )}
+
+                            </h3>
+
+
+                            <div class="latest-author">
+
+                                <span>
+                                    ✍️
+                                </span>
+
+
+                                <span>
+
+                                    ${escapeHTML(
+                                        item.penulis ||
+                                        "Penulis belum diisi"
+                                    )}
+
+                                </span>
+
+                            </div>
+
+
+                            ${informasi}
+
+
+                            <div class="latest-bottom">
+
+                                <span class="latest-date">
+
+                                    🕒
+
+                                    ${
+                                        item.waktu ||
+                                        item.timestamp ||
+                                        item.createdAt ||
+                                        item.tanggalTerbit
+                                            ? formatWaktu(
+                                                item.waktu ||
+                                                item.timestamp ||
+                                                item.createdAt ||
+                                                item.tanggalTerbit
+                                            )
+                                            : "Data terbaru"
+                                    }
+
+                                </span>
+
+
+                                ${tombol}
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+
+/* =========================================================
+   LOAD DASHBOARD DARI GOOGLE SPREADSHEET
+========================================================= */
+
+async function loadDashboard() {
+
+    if (latestGrid) {
+
+        latestGrid.innerHTML = `
+
+            <div class="latest-loading">
+
+                <div class="loading-spinner">
+                </div>
+
+
+                <p>
+                    Mengambil data dari Google Spreadsheet...
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    try {
+
+        /*
+           Ambil Buku dan Jurnal
+           langsung dari Spreadsheet.
+        */
+
+        await Promise.all([
+
+            loadDataBukuDashboard(),
+
+            loadDataJurnalDashboard()
+
+        ]);
+
+
+        console.log(
+            "TOTAL BUKU:",
+            dataBukuDashboard.length
+        );
+
+
+        console.log(
+            "TOTAL JURNAL:",
+            dataJurnalDashboard.length
+        );
+
+
+        /*
+           TOTAL BUKU
+        */
+
+        totalBukuElement.innerText =
+            dataBukuDashboard.length;
+
+
+        /*
+           TOTAL JURNAL
+        */
+
+        totalJurnalElement.innerText =
+            dataJurnalDashboard.length;
+
+
+        /*
+           TOTAL PUBLIKASI
+        */
+
+        const totalPublikasi =
+            dataBukuDashboard.length +
+            dataJurnalDashboard.length;
+
+
+        totalPublikasiElement.innerText =
+            totalPublikasi;
+
+
+        /*
+           PUBLIKASI TERBARU
+        */
+
+        const dataTerbaru =
+            buatDataTerbaru();
+
+
+        tampilkanPublikasiTerbaru(
+            dataTerbaru
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "ERROR DASHBOARD:",
+            error
+        );
+
+
+        /*
+           Jika gagal, statistik
+           tetap dibuat 0.
+        */
+
+        totalBukuElement.innerText =
+            "0";
+
+
+        totalJurnalElement.innerText =
+            "0";
+
+
+        totalPublikasiElement.innerText =
+            "0";
+
+
+        if (latestGrid) {
+
+            latestGrid.innerHTML = `
+
+                <div class="error-latest">
+
+                    <div class="empty-icon">
+                        ⚠️
+                    </div>
+
+
+                    <h3>
+                        Data Belum Dapat Dimuat
+                    </h3>
+
+
+                    <p>
+
+                        Dashboard tidak dapat mengambil
+                        data dari Google Spreadsheet.
+
+                    </p>
+
+
+                    <button
+                        type="button"
+                        onclick="loadDashboard()"
+                        class="retry-button"
+                    >
+
+                        Coba Lagi
+
+                    </button>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   STATUS LOGIN
+========================================================= */
+
+function aturStatusLogin() {
+
+    const userData =
+        localStorage.getItem(
+            "user"
+        );
+
+
+    /*
+       Jika belum login:
+       - Dashboard tetap dapat dibuka.
+       - Buku dan Jurnal tetap dapat dibuka.
+       - Kelola Data disembunyikan.
+       - Tombol menjadi Login.
+    */
+
+    if (!userData) {
+
+        if (adminMenu) {
+
+            adminMenu.style.display =
+                "none";
+
+        }
+
+
+        if (loginLogoutButton) {
+
+            loginLogoutButton.textContent =
+                "Login";
+
+            loginLogoutButton.href =
+                "login.html";
+
+            loginLogoutButton.onclick =
+                null;
+
+        }
+
+
+        return;
+
+    }
+
+
+
+    try {
+
+        const user =
+            JSON.parse(
+                userData
+            );
+
+
+        if (
+            !user ||
+            !user.username
+        ) {
+
+            throw new Error(
+                "Data user tidak valid."
+            );
+
+        }
+
+
+
+        /* ===============================================
+           NAMA USER
+        =============================================== */
+
+        if (
+            welcomeElement &&
+            user.nama
+        ) {
+
+            welcomeElement.innerHTML = `
+
+                Selamat datang,
+
+                <strong>
+                    ${escapeHTML(
+                        user.nama
+                    )}
+                </strong>.
+
+                Kelola dan pantau data publikasi
+                LP3M dengan mudah.
+
+            `;
+
+        }
+
+
+
+        /* ===============================================
+           ROLE ADMIN
+        =============================================== */
+
+        const role =
+            String(
+                user.role || ""
+            )
+            .trim()
+            .toLowerCase();
+
+
+        if (adminMenu) {
+
+            if (
+                role === "admin"
+            ) {
+
+                adminMenu.style.display =
+                    "";
+
+            }
+
+            else {
+
+                adminMenu.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+
+        /* ===============================================
+           LOGOUT
+        =============================================== */
+
+        if (loginLogoutButton) {
+
+            loginLogoutButton.textContent =
+                "Logout";
+
+            loginLogoutButton.href =
+                "#";
+
+
+            loginLogoutButton.onclick =
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const yakin =
+                        confirm(
+                            "Apakah Anda yakin ingin Logout?"
+                        );
+
+
+                    if (!yakin) {
+
+                        return;
+
+                    }
+
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                };
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "USER DATA ERROR:",
+            error
+        );
+
+
+        localStorage.removeItem(
+            "user"
+        );
+
+
+        if (adminMenu) {
+
+            adminMenu.style.display =
+                "none";
+
+        }
+
+
+        if (loginLogoutButton) {
+
+            loginLogoutButton.textContent =
+                "Login";
+
+            loginLogoutButton.href =
+                "login.html";
+
+            loginLogoutButton.onclick =
+                null;
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   NAVBAR MOBILE
+========================================================= */
+
+if (
+    navToggle &&
+    navMenu
+) {
+
+    navToggle.addEventListener(
+        "click",
+        function () {
+
+            navMenu.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   JALANKAN DASHBOARD
+========================================================= */
+
+aturStatusLogin();
+
+
+loadDashboard();
+
+</script>
+
+
+</body>
+
+</html>

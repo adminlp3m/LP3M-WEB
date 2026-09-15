@@ -1,0 +1,1232 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    color: #1f2937;
+
+    background: #eef4f9;
+
+}
+
+
+
+/* =====================================================
+   LOGIN PAGE
+===================================================== */
+
+.login-page {
+
+    min-height: 100vh;
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 30px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b3d68 0%,
+            #0f4c81 38%,
+            #1769aa 70%,
+            #2b82bd 100%
+        );
+
+}
+
+
+
+/* =====================================================
+   BACKGROUND DECORATION
+===================================================== */
+
+.background-shape {
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    filter:
+        blur(1px);
+
+}
+
+
+
+/* SHAPE ONE */
+
+.shape-one {
+
+    width: 500px;
+
+    height: 500px;
+
+    top: -240px;
+
+    right: -160px;
+
+}
+
+
+
+/* SHAPE TWO */
+
+.shape-two {
+
+    width: 430px;
+
+    height: 430px;
+
+    bottom: -220px;
+
+    left: -160px;
+
+}
+
+
+
+/* SHAPE THREE */
+
+.shape-three {
+
+    width: 220px;
+
+    height: 220px;
+
+    top: 45%;
+
+    right: 7%;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+}
+
+
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card {
+
+    width: 100%;
+
+    max-width: 450px;
+
+    position: relative;
+
+    z-index: 2;
+
+    padding:
+        42px 44px 30px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.65);
+
+    border-radius: 24px;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    box-shadow:
+        0 30px 70px
+        rgba(0, 28, 55, 0.28),
+
+        0 8px 25px
+        rgba(0, 0, 0, 0.08);
+
+    animation:
+        loginAppear 0.55s ease;
+
+}
+
+
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes loginAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand {
+
+    text-align: center;
+
+}
+
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.brand-logo {
+
+    width: 88px;
+
+    height: 88px;
+
+    margin:
+        0 auto 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 8px 22px
+        rgba(15, 76, 129, 0.12);
+
+}
+
+
+
+/* GAMBAR LOGO */
+
+.brand-logo img {
+
+    max-width: 100%;
+
+    max-height: 100%;
+
+    width: auto;
+
+    height: auto;
+
+    object-fit: contain;
+
+    display: block;
+
+}
+
+
+
+/* =====================================================
+   NAMA LP3M
+===================================================== */
+
+.brand h1 {
+
+    color:
+        #12395b;
+
+    font-size:
+        27px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        1.5px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+
+/* =====================================================
+   DESKRIPSI LP3M
+===================================================== */
+
+.brand p {
+
+    color:
+        #718096;
+
+    font-size:
+        12px;
+
+    line-height:
+        1.65;
+
+    max-width:
+        310px;
+
+    margin:
+        0 auto;
+
+}
+
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider {
+
+    width:
+        100%;
+
+    height:
+        1px;
+
+    margin:
+        27px 0;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #dfe7ee,
+            transparent
+        );
+
+}
+
+
+
+/* =====================================================
+   LOGIN HEADING
+===================================================== */
+
+.login-heading {
+
+    margin-bottom:
+        25px;
+
+}
+
+
+
+/* ICON SELAMAT DATANG */
+
+.welcome-icon {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    margin-bottom:
+        10px;
+
+    border-radius:
+        11px;
+
+    background:
+        #edf6fc;
+
+    font-size:
+        18px;
+
+}
+
+
+
+/* TITLE */
+
+.login-heading h2 {
+
+    color:
+        #1f3f5b;
+
+    font-size:
+        24px;
+
+    font-weight:
+        750;
+
+    margin-bottom:
+        7px;
+
+}
+
+
+
+/* DESCRIPTION */
+
+.login-heading p {
+
+    color:
+        #718096;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.5;
+
+}
+
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+
+    margin-bottom:
+        19px;
+
+}
+
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.form-group label {
+
+    display:
+        block;
+
+    color:
+        #334e68;
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+
+/* =====================================================
+   INPUT WRAPPER
+===================================================== */
+
+.input-wrapper {
+
+    width:
+        100%;
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+}
+
+
+
+/* =====================================================
+   INPUT ICON
+===================================================== */
+
+.input-icon {
+
+    position:
+        absolute;
+
+    left:
+        15px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    font-size:
+        16px;
+
+    line-height:
+        1;
+
+    z-index:
+        2;
+
+    opacity:
+        0.65;
+
+    pointer-events:
+        none;
+
+}
+
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-wrapper input {
+
+    width:
+        100%;
+
+    height:
+        51px;
+
+    padding:
+        0 15px 0 44px;
+
+    border:
+        1px solid #d7e1e9;
+
+    border-radius:
+        12px;
+
+    outline:
+        none;
+
+    background:
+        #f8fafc;
+
+    color:
+        #1f2937;
+
+    font-size:
+        14px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+
+/* =====================================================
+   PASSWORD INPUT
+===================================================== */
+
+.password-wrapper input {
+
+    padding-right:
+        50px;
+
+}
+
+
+
+/* =====================================================
+   PLACEHOLDER
+===================================================== */
+
+.input-wrapper input::placeholder {
+
+    color:
+        #9aa7b4;
+
+    font-size:
+        13px;
+
+}
+
+
+
+/* =====================================================
+   INPUT HOVER
+===================================================== */
+
+.input-wrapper input:hover {
+
+    border-color:
+        #b8c9d8;
+
+    background:
+        #ffffff;
+
+}
+
+
+
+/* =====================================================
+   INPUT FOCUS
+===================================================== */
+
+.input-wrapper input:focus {
+
+    border-color:
+        #1769aa;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(23, 105, 170, 0.10);
+
+}
+
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+===================================================== */
+
+.password-toggle {
+
+    position:
+        absolute;
+
+    right:
+        8px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        none;
+
+    border-radius:
+        9px;
+
+    background:
+        transparent;
+
+    color:
+        #64748b;
+
+    cursor:
+        pointer;
+
+    font-size:
+        16px;
+
+    line-height:
+        1;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+
+/* HOVER PASSWORD */
+
+.password-toggle:hover {
+
+    background:
+        #edf4f9;
+
+    color:
+        #1769aa;
+
+}
+
+
+
+/* ACTIVE PASSWORD */
+
+.password-toggle:active {
+
+    transform:
+        translateY(-50%)
+        scale(0.94);
+
+}
+
+
+
+/* FOCUS PASSWORD */
+
+.password-toggle:focus {
+
+    outline:
+        none;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23, 105, 170, 0.12);
+
+}
+
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+#loginButton {
+
+    width:
+        100%;
+
+    height:
+        51px;
+
+    margin-top:
+        6px;
+
+    border:
+        none;
+
+    border-radius:
+        12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f4c81,
+            #1769aa
+        );
+
+    color:
+        #ffffff;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.9px;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 9px 22px
+        rgba(15, 76, 129, 0.22);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+
+}
+
+
+
+/* =====================================================
+   BUTTON HOVER
+===================================================== */
+
+#loginButton:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 13px 28px
+        rgba(15, 76, 129, 0.29);
+
+}
+
+
+
+/* =====================================================
+   BUTTON ACTIVE
+===================================================== */
+
+#loginButton:active {
+
+    transform:
+        translateY(0);
+
+    box-shadow:
+        0 7px 16px
+        rgba(15, 76, 129, 0.20);
+
+}
+
+
+
+/* =====================================================
+   BUTTON DISABLED
+===================================================== */
+
+#loginButton:disabled {
+
+    cursor:
+        not-allowed;
+
+    opacity:
+        0.65;
+
+    transform:
+        none;
+
+    box-shadow:
+        none;
+
+}
+
+
+
+/* =====================================================
+   LOGIN MESSAGE
+===================================================== */
+
+#message {
+
+    min-height:
+        20px;
+
+    margin-top:
+        14px;
+
+    padding:
+        0 5px;
+
+    text-align:
+        center;
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+    line-height:
+        1.5;
+
+}
+
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.login-footer {
+
+    text-align:
+        center;
+
+    margin-top:
+        27px;
+
+    padding-top:
+        19px;
+
+    border-top:
+        1px solid #edf1f5;
+
+}
+
+
+
+/* =====================================================
+   FOOTER LINE
+===================================================== */
+
+.footer-line {
+
+    display:
+        none;
+
+}
+
+
+
+/* FOOTER TEXT */
+
+.login-footer p {
+
+    color:
+        #718096;
+
+    font-size:
+        11px;
+
+    margin-bottom:
+        5px;
+
+}
+
+
+
+/* FOOTER COPYRIGHT */
+
+.login-footer span {
+
+    color:
+        #a0aab5;
+
+    font-size:
+        10px;
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE TABLET / HP
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .login-page {
+
+        padding:
+            25px 15px;
+
+    }
+
+
+    .login-card {
+
+        max-width:
+            430px;
+
+        padding:
+            34px 27px 26px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    /* LOGO */
+
+    .brand-logo {
+
+        width:
+            76px;
+
+        height:
+            76px;
+
+        margin-bottom:
+            12px;
+
+        border-radius:
+            15px;
+
+    }
+
+
+    /* LP3M */
+
+    .brand h1 {
+
+        font-size:
+            24px;
+
+    }
+
+
+    /* DESKRIPSI */
+
+    .brand p {
+
+        font-size:
+            11px;
+
+    }
+
+
+    /* DIVIDER */
+
+    .divider {
+
+        margin:
+            23px 0;
+
+    }
+
+
+    /* LOGIN TITLE */
+
+    .login-heading h2 {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .login-heading p {
+
+        font-size:
+            12px;
+
+    }
+
+
+    /* INPUT */
+
+    .input-wrapper input {
+
+        height:
+            49px;
+
+    }
+
+
+    /* BUTTON */
+
+    #loginButton {
+
+        height:
+            49px;
+
+    }
+
+
+    /* BACKGROUND */
+
+    .background-shape {
+
+        opacity:
+            0.7;
+
+    }
+
+
+    .shape-three {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE HP KECIL
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .login-page {
+
+        padding:
+            18px 12px;
+
+    }
+
+
+    .login-card {
+
+        padding:
+            28px 20px 22px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    /* LOGO */
+
+    .brand-logo {
+
+        width:
+            62px;
+
+        height:
+            62px;
+
+        margin-bottom:
+            10px;
+
+        border-radius:
+            13px;
+
+    }
+
+
+    /* LP3M */
+
+    .brand h1 {
+
+        font-size:
+            22px;
+
+    }
+
+
+    /* DESKRIPSI */
+
+    .brand p {
+
+        font-size:
+            10.5px;
+
+    }
+
+
+    /* LOGIN HEADING */
+
+    .login-heading {
+
+        margin-bottom:
+            21px;
+
+    }
+
+
+    .login-heading h2 {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .login-heading p {
+
+        font-size:
+            11.5px;
+
+    }
+
+
+    /* LABEL */
+
+    .form-group label {
+
+        font-size:
+            12px;
+
+    }
+
+
+    /* INPUT */
+
+    .input-wrapper input {
+
+        height:
+            47px;
+
+        font-size:
+            13px;
+
+    }
+
+
+    /* LOGIN */
+
+    #loginButton {
+
+        height:
+            47px;
+
+        font-size:
+            13px;
+
+    }
+
+
+    /* FOOTER */
+
+    .login-footer {
+
+        margin-top:
+            23px;
+
+        padding-top:
+            17px;
+
+    }
+
+}

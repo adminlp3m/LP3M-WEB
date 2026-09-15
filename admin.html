@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Kelola Data - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="dashboard.html"
+            class="nav-logo"
+        >
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>
+                LP3M PBA
+            </span>
+
+        </a>
+
+
+        <!-- HAMBURGER -->
+
+        <button
+            class="nav-toggle"
+            id="navToggle"
+            type="button"
+            aria-label="Buka menu"
+        >
+            ☰
+        </button>
+
+
+        <!-- MENU -->
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link active"
+                id="adminMenu"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <h1>
+            Kelola Data
+        </h1>
+
+        <p>
+            Kelola dan tambahkan data publikasi LP3M.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MENU KELOLA DATA
+    ================================================== -->
+
+    <div class="admin-grid">
+
+
+        <!-- =============================================
+             DATA BUKU
+        ============================================== -->
+
+        <div class="admin-card">
+
+            <div class="card-icon">
+                📚
+            </div>
+
+            <h2>
+                Data Buku
+            </h2>
+
+            <p>
+                Tambahkan data buku baru yang nantinya
+                akan ditampilkan pada menu Buku.
+            </p>
+
+
+            <div class="card-buttons">
+
+                <a
+                    href="input_buku.html"
+                    target="_blank"
+                    class="btn-admin"
+                >
+                    Input Data Buku
+                </a>
+
+
+                <a
+                    href="laporan_buku.html"
+                    target="_blank"
+                    class="btn-admin secondary"
+                >
+                    Laporan Data Buku
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             DATA JURNAL
+        ============================================== -->
+
+        <div class="admin-card">
+
+            <div class="card-icon">
+                📖
+            </div>
+
+            <h2>
+                Data Jurnal
+            </h2>
+
+            <p>
+                Tambahkan data jurnal baru yang nantinya
+                akan ditampilkan pada menu Jurnal.
+            </p>
+
+
+            <div class="card-buttons">
+
+                <a
+                    href="input_jurnal.html"
+                    target="_blank"
+                    class="btn-admin"
+                >
+                    Input Data Jurnal
+                </a>
+
+
+                <a
+                    href="laporan_jurnal.html"
+                    target="_blank"
+                    class="btn-admin secondary"
+                >
+                    Laporan Data Jurnal
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     SCRIPT UTAMA
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =====================================================
+     SCRIPT NAVBAR MOBILE
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const navToggle =
+            document.getElementById(
+                "navToggle"
+            );
+
+
+        const navMenu =
+            document.getElementById(
+                "navMenu"
+            );
+
+
+        if (
+            navToggle &&
+            navMenu
+        ) {
+
+            navToggle.addEventListener(
+                "click",
+                function () {
+
+                    navMenu.classList.toggle(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,2994 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Data Jurnal - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="jurnal.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="dashboard.html"
+            class="nav-logo"
+        >
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>LP3M PBA</span>
+
+        </a>
+
+
+        <button
+            class="nav-toggle"
+            id="navToggle"
+            type="button"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link active"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link admin-menu"
+                id="adminMenu"
+                style="display: none;"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="login.html"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     CONTENT
+========================================================= -->
+
+<main class="main-container">
+
+
+    <div class="page-header">
+
+        <h1>
+            Data Jurnal
+        </h1>
+
+        <p>
+            Daftar jurnal yang telah dipublikasikan
+            melalui LP3M.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TABLE CARD
+    ====================================================== -->
+
+    <div class="table-card">
+
+
+        <!-- =================================================
+             TABLE HEADER
+        ================================================== -->
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+                    Daftar Jurnal
+                </h2>
+
+                <span
+                    id="jumlahData"
+                    class="jumlah-data"
+                >
+                    Memuat data...
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTER
+        ================================================== -->
+
+        <div class="filter-container">
+
+
+            <div class="search-box">
+
+                <label for="searchInput">
+                    Pencarian
+                </label>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari nama dosen, judul, penulis, progdi..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+
+            <div class="sort-box">
+
+                <label for="sortTanggal">
+                    Urutkan Tanggal Terbit
+                </label>
+
+                <select id="sortTanggal">
+
+                    <option value="terbaru">
+                        Terbaru → Terlama
+                    </option>
+
+                    <option value="terlama">
+                        Terlama → Terbaru
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <button
+                type="button"
+                id="resetFilter"
+                class="reset-button"
+            >
+                Reset
+            </button>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+
+        <div class="table-wrapper">
+
+            <table class="data-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+
+                        <th>Nama Dosen</th>
+
+                        <th>Progdi</th>
+
+                        <th>Judul Jurnal</th>
+
+                        <th>Penulis</th>
+
+                        <th>Tanggal Terbit</th>
+
+                        <th>Sitasi</th>
+
+                        <th>Status</th>
+
+                        <th>Publikasi</th>
+
+                        <th
+                            id="aksiHeader"
+                            class="kolom-admin"
+                            style="display: none;"
+                        >
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="jurnalTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="10"
+                            class="loading"
+                        >
+                            Memuat data jurnal...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     MODAL EDIT JURNAL
+========================================================= -->
+
+<div
+    id="editModal"
+    class="edit-modal"
+>
+
+
+    <div class="edit-modal-content">
+
+
+        <!-- =================================================
+             MODAL HEADER
+        ================================================== -->
+
+        <div class="edit-modal-header">
+
+            <h2>
+                Edit Data Jurnal
+            </h2>
+
+
+            <button
+                type="button"
+                class="close-modal"
+                id="closeEditModal"
+                aria-label="Tutup"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM EDIT
+        ================================================== -->
+
+        <form
+            id="editJurnalForm"
+            novalidate
+        >
+
+            <!--
+                Menyimpan nomor baris Spreadsheet.
+                Tidak mengubah tampilan form.
+            -->
+
+            <input
+                type="hidden"
+                id="editRow"
+                name="editRow"
+            >
+
+
+            <div class="edit-form-group">
+
+                <label for="editNamaDosen">
+                    Nama Dosen
+                </label>
+
+                <input
+                    type="text"
+                    id="editNamaDosen"
+                    name="namaDosen"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editProgdi">
+                    Progdi
+                </label>
+
+                <select
+                    id="editProgdi"
+                    name="progdi"
+                >
+
+                    <option value="">
+                        Pilih Progdi
+                    </option>
+
+                    <option value="TROK">
+                        TROK
+                    </option>
+
+                    <option value="TRPK">
+                        TRPK
+                    </option>
+
+                    <option value="MPLM">
+                        MPLM
+                    </option>
+
+                    <option value="TRANSLA">
+                        TRANSLA
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editLinkPublikasi">
+                    Link Publikasi
+                </label>
+
+                <input
+                    type="url"
+                    id="editLinkPublikasi"
+                    name="linkPublikasi"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editJudul">
+                    Judul
+                </label>
+
+                <textarea
+                    id="editJudul"
+                    name="judul"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label>
+                    Penulis
+                </label>
+
+                <div id="editPenulisContainer"></div>
+
+
+                <button
+                    type="button"
+                    id="tambahEditPenulis"
+                    class="btn-add"
+                >
+                    + Tambah Penulis
+                </button>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editTanggalTerbit">
+                    Tanggal Terbit
+                </label>
+
+                <input
+                    type="date"
+                    id="editTanggalTerbit"
+                    name="tanggalTerbit"
+                >
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editSitasi">
+                    Sitasi
+                </label>
+
+                <select
+                    id="editSitasi"
+                    name="sitasi"
+                >
+
+                    <option value="">
+                        Pilih Sitasi
+                    </option>
+
+                    <option value="Nasional Tidak Terakreditasi">
+                        Nasional Tidak Terakreditasi
+                    </option>
+
+                    <option value="Internasional Tidak Terakreditasi">
+                        Internasional Tidak Terakreditasi
+                    </option>
+
+                    <option value="Scopus Q1">
+                        Scopus Q1
+                    </option>
+
+                    <option value="Scopus Q2">
+                        Scopus Q2
+                    </option>
+
+                    <option value="Scopus Q3">
+                        Scopus Q3
+                    </option>
+
+                    <option value="Scopus Q4">
+                        Scopus Q4
+                    </option>
+
+                    <option value="Sinta 1">
+                        Sinta 1
+                    </option>
+
+                    <option value="Sinta 2">
+                        Sinta 2
+                    </option>
+
+                    <option value="Sinta 3">
+                        Sinta 3
+                    </option>
+
+                    <option value="Sinta 4">
+                        Sinta 4
+                    </option>
+
+                    <option value="Sinta 5">
+                        Sinta 5
+                    </option>
+
+                    <option value="Prosiding">
+                        Prosiding
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="edit-form-group">
+
+                <label for="editStatus">
+                    Status
+                </label>
+
+                <select
+                    id="editStatus"
+                    name="status"
+                >
+
+                    <option value="Belum di Ajukan">
+                        Belum di Ajukan
+                    </option>
+
+                    <option value="Sudah di Ajukan">
+                        Sudah di Ajukan
+                    </option>
+
+                    <option value="Proses di Ajukan">
+                        Proses di Ajukan
+                    </option>
+
+                    <option value="Ditolak">
+                        Ditolak
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                id="editStatusMessage"
+                class="edit-status-message"
+            ></div>
+
+
+            <div class="edit-form-actions">
+
+                <button
+                    type="button"
+                    id="cancelEditButton"
+                    class="cancel-edit-button"
+                >
+                    Batal
+                </button>
+
+
+                <button
+                    type="button"
+                    id="resetEditButton"
+                    class="reset-edit-button"
+                >
+                    Reset
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="saveEditButton"
+                    class="save-edit-button"
+                >
+                    Simpan Perubahan
+                </button>
+
+            </div>
+
+        </form>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     SCRIPT.JS
+========================================================= -->
+
+<script src="script.js"></script>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT JURNAL
+========================================================= -->
+
+<script>
+
+"use strict";
+
+
+/* =========================================================
+   API
+========================================================= */
+
+const JURNAL_TABLE_API_URL =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+
+/* =========================================================
+   DATA GLOBAL
+========================================================= */
+
+let semuaDataJurnal = [];
+
+let dataSedangDiedit = null;
+
+let isAdmin = false;
+
+
+
+/* =========================================================
+   ELEMENT TABLE
+========================================================= */
+
+const jurnalTableBody =
+    document.getElementById("jurnalTableBody");
+
+const jumlahData =
+    document.getElementById("jumlahData");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const sortTanggal =
+    document.getElementById("sortTanggal");
+
+const resetFilter =
+    document.getElementById("resetFilter");
+
+const aksiHeader =
+    document.getElementById("aksiHeader");
+
+
+
+/* =========================================================
+   ELEMENT MODAL
+========================================================= */
+
+const editModal =
+    document.getElementById("editModal");
+
+const editJurnalForm =
+    document.getElementById("editJurnalForm");
+
+const closeEditModal =
+    document.getElementById("closeEditModal");
+
+const cancelEditButton =
+    document.getElementById("cancelEditButton");
+
+const resetEditButton =
+    document.getElementById("resetEditButton");
+
+const saveEditButton =
+    document.getElementById("saveEditButton");
+
+const editStatusMessage =
+    document.getElementById("editStatusMessage");
+
+const editPenulisContainer =
+    document.getElementById("editPenulisContainer");
+
+const tambahEditPenulis =
+    document.getElementById("tambahEditPenulis");
+
+const editRow =
+    document.getElementById("editRow");
+
+
+
+/* =========================================================
+   CEK ADMIN
+========================================================= */
+
+function cekAdmin() {
+
+    try {
+
+        const userData =
+            localStorage.getItem("user");
+
+        if (!userData) {
+            return false;
+        }
+
+
+        const user =
+            JSON.parse(userData);
+
+
+        return (
+            user &&
+            String(user.role || "").toLowerCase() === "admin"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Gagal membaca data user:",
+            error
+        );
+
+        return false;
+    }
+
+}
+
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+function aturNavbar() {
+
+    const adminMenu =
+        document.getElementById("adminMenu");
+
+    const loginLogoutButton =
+        document.getElementById("loginLogoutButton");
+
+
+    if (isAdmin) {
+
+
+        /* ADMIN MENU */
+
+        if (adminMenu) {
+
+            adminMenu.style.display = "";
+
+        }
+
+
+        /* LOGOUT */
+
+        if (loginLogoutButton) {
+
+            loginLogoutButton.innerText =
+                "Logout";
+
+            loginLogoutButton.href =
+                "#";
+
+
+            loginLogoutButton.onclick =
+                function(event) {
+
+                    event.preventDefault();
+
+                    localStorage.removeItem("user");
+
+                    window.location.href =
+                        "login.html";
+
+                };
+
+        }
+
+
+        /* KOLOM AKSI */
+
+        if (aksiHeader) {
+
+            aksiHeader.style.display =
+                "";
+
+        }
+
+    }
+    else {
+
+
+        /* SEMBUNYIKAN ADMIN MENU */
+
+        if (adminMenu) {
+
+            adminMenu.style.display =
+                "none";
+
+        }
+
+
+        /* LOGIN */
+
+        if (loginLogoutButton) {
+
+            loginLogoutButton.innerText =
+                "Login";
+
+            loginLogoutButton.href =
+                "login.html";
+
+            loginLogoutButton.onclick =
+                null;
+
+        }
+
+
+        /* SEMBUNYIKAN KOLOM AKSI */
+
+        if (aksiHeader) {
+
+            aksiHeader.style.display =
+                "none";
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOAD DATA JURNAL
+========================================================= */
+
+async function loadJurnalTable() {
+
+    try {
+
+        jumlahData.innerText =
+            "Memuat data...";
+
+
+        jurnalTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="${isAdmin ? 10 : 9}"
+                    class="loading"
+                >
+                    Memuat data jurnal...
+                </td>
+
+            </tr>
+
+        `;
+
+
+        const response =
+            await fetch(
+                JURNAL_TABLE_API_URL +
+                "?action=getJurnal"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Gagal mengambil data dari server."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "Response getJurnal:",
+            result
+        );
+
+
+        if (
+            !result.success ||
+            !Array.isArray(result.data)
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Data jurnal tidak tersedia."
+            );
+
+        }
+
+
+        semuaDataJurnal =
+            result.data;
+
+
+        prosesData();
+
+    }
+    catch (error) {
+
+        console.error(
+            "ERROR DATA JURNAL:",
+            error
+        );
+
+
+        jumlahData.innerText =
+            "0 data";
+
+
+        jurnalTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="${isAdmin ? 10 : 9}"
+                    class="empty-data"
+                >
+                    Data jurnal tidak dapat ditampilkan.
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   KONVERSI TANGGAL
+   UNTUK SORTING
+========================================================= */
+
+function ubahKeTanggal(value) {
+
+    if (!value) {
+        return null;
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    /*
+       FORMAT ISO
+
+       Contoh:
+       2026-09-09T17:00:00.000Z
+
+       Yang digunakan hanya:
+       2026-09-09
+
+       Tidak menggunakan new Date(ISO)
+       agar tanggal tidak bergeser karena timezone.
+    */
+
+    const isoMatch =
+        teks.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if (isoMatch) {
+
+        const tahun =
+            Number(isoMatch[1]);
+
+        const bulan =
+            Number(isoMatch[2]);
+
+        const hari =
+            Number(isoMatch[3]);
+
+
+        const tanggal =
+            new Date(
+                tahun,
+                bulan - 1,
+                hari
+            );
+
+
+        if (!isNaN(tanggal.getTime())) {
+
+            return tanggal;
+
+        }
+
+    }
+
+
+
+    /*
+       FORMAT DD/MM/YYYY
+    */
+
+    const parts =
+        teks.split("/");
+
+
+    if (parts.length === 3) {
+
+        const hari =
+            Number(parts[0]);
+
+        const bulan =
+            Number(parts[1]);
+
+        const tahun =
+            Number(parts[2]);
+
+
+        const tanggal =
+            new Date(
+                tahun,
+                bulan - 1,
+                hari
+            );
+
+
+        if (!isNaN(tanggal.getTime())) {
+
+            return tanggal;
+
+        }
+
+    }
+
+
+    return null;
+
+}
+
+
+
+/* =========================================================
+   FORMAT TANGGAL TAMPILAN
+========================================================= */
+
+function formatTanggalTampil(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    /*
+       FORMAT ISO
+
+       2026-09-09T17:00:00.000Z
+
+       HASIL:
+
+       09 09 26
+    */
+
+    const isoMatch =
+        teks.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if (isoMatch) {
+
+        const tahun =
+            isoMatch[1].slice(-2);
+
+        const bulan =
+            isoMatch[2];
+
+        const hari =
+            isoMatch[3];
+
+
+        return (
+            hari +
+            " " +
+            bulan +
+            " " +
+            tahun
+        );
+
+    }
+
+
+
+    /*
+       FORMAT DD/MM/YYYY
+    */
+
+    const dmyMatch =
+        teks.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+        );
+
+
+    if (dmyMatch) {
+
+        const hari =
+            String(dmyMatch[1])
+                .padStart(2, "0");
+
+        const bulan =
+            String(dmyMatch[2])
+                .padStart(2, "0");
+
+        const tahun =
+            dmyMatch[3].slice(-2);
+
+
+        return (
+            hari +
+            " " +
+            bulan +
+            " " +
+            tahun
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+
+/* =========================================================
+   FORMAT TANGGAL UNTUK INPUT DATE
+========================================================= */
+
+function formatTanggalInput(value) {
+
+    if (!value) {
+        return "";
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    /*
+       FORMAT:
+
+       2026-09-09T17:00:00.000Z
+
+       HASIL:
+
+       2026-09-09
+    */
+
+    const isoMatch =
+        teks.match(
+            /^(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if (isoMatch) {
+
+        return (
+            isoMatch[1] +
+            "-" +
+            isoMatch[2] +
+            "-" +
+            isoMatch[3]
+        );
+
+    }
+
+
+
+    /*
+       FORMAT:
+
+       DD/MM/YYYY
+    */
+
+    const parts =
+        teks.split("/");
+
+
+    if (parts.length === 3) {
+
+        const hari =
+            String(parts[0])
+                .padStart(2, "0");
+
+        const bulan =
+            String(parts[1])
+                .padStart(2, "0");
+
+        const tahun =
+            parts[2];
+
+
+        return (
+            tahun +
+            "-" +
+            bulan +
+            "-" +
+            hari
+        );
+
+    }
+
+
+    return "";
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+
+/* =========================================================
+   FORMAT PENULIS
+========================================================= */
+
+function formatPenulis(penulis) {
+
+    if (Array.isArray(penulis)) {
+
+        return penulis.join(", ");
+
+    }
+
+
+    return penulis || "";
+
+}
+
+
+
+/* =========================================================
+   DATA YANG SEDANG DITAMPILKAN
+========================================================= */
+
+function ambilDataTampil() {
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    let data =
+        [...semuaDataJurnal];
+
+
+    /*
+       SEARCH
+    */
+
+    if (keyword !== "") {
+
+        data =
+            data.filter(
+                function(jurnal) {
+
+                    const teks = [
+
+                        jurnal.namaDosen,
+
+                        jurnal.progdi,
+
+                        jurnal.judul,
+
+                        formatPenulis(
+                            jurnal.penulis
+                        ),
+
+                        jurnal.tanggalTerbit,
+
+                        jurnal.sitasi,
+
+                        jurnal.status
+
+                    ]
+                        .join(" ")
+                        .toLowerCase();
+
+
+                    return teks.includes(
+                        keyword
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    /*
+       SORTING
+    */
+
+    data.sort(
+        function(a, b) {
+
+            const tanggalA =
+                ubahKeTanggal(
+                    a.tanggalTerbit
+                );
+
+
+            const tanggalB =
+                ubahKeTanggal(
+                    b.tanggalTerbit
+                );
+
+
+            if (
+                !tanggalA &&
+                !tanggalB
+            ) {
+
+                return 0;
+
+            }
+
+
+            if (!tanggalA) {
+
+                return 1;
+
+            }
+
+
+            if (!tanggalB) {
+
+                return -1;
+
+            }
+
+
+            if (
+                sortTanggal.value ===
+                "terlama"
+            ) {
+
+                return (
+                    tanggalA -
+                    tanggalB
+                );
+
+            }
+
+
+            return (
+                tanggalB -
+                tanggalA
+            );
+
+        }
+    );
+
+
+    return data;
+
+}
+
+
+
+/* =========================================================
+   PROSES DATA
+========================================================= */
+
+function prosesData() {
+
+    const data =
+        ambilDataTampil();
+
+
+    tampilkanJurnal(data);
+
+}
+
+
+
+/* =========================================================
+   TAMPILKAN JURNAL
+========================================================= */
+
+function tampilkanJurnal(data) {
+
+    jumlahData.innerText =
+        data.length +
+        " data";
+
+
+    if (data.length === 0) {
+
+        jurnalTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="${isAdmin ? 10 : 9}"
+                    class="empty-data"
+                >
+                    Data jurnal tidak ditemukan.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    jurnalTableBody.innerHTML =
+        data.map(
+            function(jurnal, index) {
+
+
+                /*
+                   LINK PUBLIKASI
+                */
+
+                let linkHTML = "-";
+
+
+                if (
+                    jurnal.linkPublikasi
+                ) {
+
+                    linkHTML = `
+
+                        <a
+                            href="${escapeHTML(jurnal.linkPublikasi)}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="publication-link"
+                        >
+                            Lihat
+                        </a>
+
+                    `;
+
+                }
+
+
+
+                /*
+                   STATUS
+                */
+
+                let statusHTML = "-";
+
+
+                if (jurnal.status) {
+
+                    statusHTML = `
+
+                        <span class="status">
+
+                            ${escapeHTML(
+                                jurnal.status
+                            )}
+
+                        </span>
+
+                    `;
+
+                }
+
+
+
+                /*
+                   AKSI ADMIN
+                */
+
+                let aksiHTML = "";
+
+
+                if (isAdmin) {
+
+                    aksiHTML = `
+
+                        <td class="kolom-admin">
+
+                            <button
+                                type="button"
+                                class="edit-button"
+                                onclick="bukaEditModal(${index})"
+                            >
+                                Edit
+                            </button>
+
+                        </td>
+
+                    `;
+
+                }
+
+
+
+                return `
+
+                    <tr>
+
+                        <td class="nomor">
+                            ${index + 1}
+                        </td>
+
+
+                        <td class="dosen">
+
+                            ${escapeHTML(
+                                jurnal.namaDosen
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                jurnal.progdi
+                            )}
+
+                        </td>
+
+
+                        <td class="judul">
+
+                            ${escapeHTML(
+                                jurnal.judul
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                formatPenulis(
+                                    jurnal.penulis
+                                )
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                formatTanggalTampil(
+                                    jurnal.tanggalTerbit
+                                )
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                jurnal.sitasi
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${statusHTML}
+
+                        </td>
+
+
+                        <td>
+
+                            ${linkHTML}
+
+                        </td>
+
+
+                        ${aksiHTML}
+
+                    </tr>
+
+                `;
+
+            }
+        )
+        .join("");
+
+}
+
+
+
+/* =========================================================
+   BUKA MODAL EDIT
+========================================================= */
+
+function bukaEditModal(index) {
+
+    if (!isAdmin) {
+
+        alert(
+            "Anda harus login sebagai Admin."
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+       Ambil data yang sedang tampil
+       agar index sesuai pencarian
+       dan sorting.
+    */
+
+    const dataTampil =
+        ambilDataTampil();
+
+
+    const jurnal =
+        dataTampil[index];
+
+
+    if (!jurnal) {
+
+        alert(
+            "Data jurnal tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+       Simpan data asli
+       untuk Reset.
+    */
+
+    dataSedangDiedit = {
+        ...jurnal
+    };
+
+
+
+    /*
+       SIMPAN NOMOR BARIS SPREADSHEET
+
+       Mendukung beberapa kemungkinan
+       nama property dari Apps Script.
+    */
+
+    const row =
+        jurnal.row ||
+        jurnal._row ||
+        jurnal.rowNumber ||
+        jurnal.nomorBaris ||
+        "";
+
+
+    editRow.value =
+        row;
+
+
+
+    /*
+       ISI FORM
+    */
+
+    document.getElementById(
+        "editNamaDosen"
+    ).value =
+        jurnal.namaDosen || "";
+
+
+    document.getElementById(
+        "editProgdi"
+    ).value =
+        jurnal.progdi || "";
+
+
+    document.getElementById(
+        "editLinkPublikasi"
+    ).value =
+        jurnal.linkPublikasi || "";
+
+
+    document.getElementById(
+        "editJudul"
+    ).value =
+        jurnal.judul || "";
+
+
+    document.getElementById(
+        "editTanggalTerbit"
+    ).value =
+        formatTanggalInput(
+            jurnal.tanggalTerbit
+        );
+
+
+    document.getElementById(
+        "editSitasi"
+    ).value =
+        jurnal.sitasi || "";
+
+
+    document.getElementById(
+        "editStatus"
+    ).value =
+        jurnal.status || "";
+
+
+
+    /*
+       PENULIS
+    */
+
+    isiPenulisEdit(
+        jurnal.penulis
+    );
+
+
+
+    /*
+       STATUS MESSAGE
+    */
+
+    editStatusMessage.innerText = "";
+
+    editStatusMessage.style.color = "";
+
+
+
+    /*
+       TAMPILKAN MODAL
+    */
+
+    editModal.classList.add(
+        "show"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+
+/* =========================================================
+   ISI PENULIS EDIT
+========================================================= */
+
+function isiPenulisEdit(penulis) {
+
+    let daftarPenulis = [];
+
+
+    if (Array.isArray(penulis)) {
+
+        daftarPenulis =
+            [...penulis];
+
+    }
+    else {
+
+        daftarPenulis =
+            String(penulis || "")
+                .split(",")
+                .map(
+                    function(nama) {
+                        return nama.trim();
+                    }
+                )
+                .filter(
+                    function(nama) {
+                        return nama !== "";
+                    }
+                );
+
+    }
+
+
+
+    if (
+        daftarPenulis.length === 0
+    ) {
+
+        daftarPenulis = [""];
+
+    }
+
+
+
+    editPenulisContainer.innerHTML =
+        "";
+
+
+    daftarPenulis.forEach(
+        function(nama) {
+
+            tambahBarisEditPenulis(
+                nama
+            );
+
+        }
+    );
+
+
+}
+
+
+
+/* =========================================================
+   TAMBAH BARIS PENULIS
+========================================================= */
+
+function tambahBarisEditPenulis(
+    nama = ""
+) {
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "edit-penulis-row";
+
+
+    const input =
+        document.createElement(
+            "input"
+        );
+
+
+    input.type =
+        "text";
+
+    input.name =
+        "editPenulis[]";
+
+    input.placeholder =
+        "Nama penulis";
+
+    input.value =
+        nama;
+
+
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.type =
+        "button";
+
+    button.className =
+        "btn-remove";
+
+    button.innerText =
+        "Hapus";
+
+
+    button.onclick =
+        function() {
+
+            hapusEditPenulis(
+                button
+            );
+
+        };
+
+
+
+    row.appendChild(
+        input
+    );
+
+
+    row.appendChild(
+        button
+    );
+
+
+    editPenulisContainer.appendChild(
+        row
+    );
+
+
+    updateTombolHapusEditPenulis();
+
+}
+
+
+
+/* =========================================================
+   TAMBAH PENULIS
+========================================================= */
+
+tambahEditPenulis.addEventListener(
+    "click",
+    function() {
+
+        tambahBarisEditPenulis();
+
+    }
+);
+
+
+
+/* =========================================================
+   HAPUS PENULIS
+========================================================= */
+
+function hapusEditPenulis(button) {
+
+    const rows =
+        editPenulisContainer.querySelectorAll(
+            ".edit-penulis-row"
+        );
+
+
+    if (rows.length <= 1) {
+
+        return;
+
+    }
+
+
+    button
+        .parentElement
+        .remove();
+
+
+    updateTombolHapusEditPenulis();
+
+}
+
+
+
+/* =========================================================
+   UPDATE TOMBOL HAPUS PENULIS
+========================================================= */
+
+function updateTombolHapusEditPenulis() {
+
+    const rows =
+        editPenulisContainer.querySelectorAll(
+            ".edit-penulis-row"
+        );
+
+
+    rows.forEach(
+        function(row) {
+
+            const button =
+                row.querySelector(
+                    ".btn-remove"
+                );
+
+
+            if (button) {
+
+                button.style.display =
+                    rows.length > 1
+                        ? "inline-block"
+                        : "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   TUTUP MODAL
+========================================================= */
+
+function tutupEditModal() {
+
+    editModal.classList.remove(
+        "show"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    dataSedangDiedit =
+        null;
+
+
+    editStatusMessage.innerText =
+        "";
+
+}
+
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+closeEditModal.addEventListener(
+    "click",
+    function() {
+
+        tutupEditModal();
+
+    }
+);
+
+
+
+/* =========================================================
+   BATAL
+========================================================= */
+
+cancelEditButton.addEventListener(
+    "click",
+    function() {
+
+        tutupEditModal();
+
+    }
+);
+
+
+
+/* =========================================================
+   KLIK DI LUAR MODAL
+========================================================= */
+
+editModal.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target === editModal
+        ) {
+
+            tutupEditModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape" &&
+            editModal.classList.contains(
+                "show"
+            )
+        ) {
+
+            tutupEditModal();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   RESET FORM EDIT
+========================================================= */
+
+resetEditButton.addEventListener(
+    "click",
+    function() {
+
+        if (!dataSedangDiedit) {
+
+            return;
+
+        }
+
+
+
+        document.getElementById(
+            "editNamaDosen"
+        ).value =
+            dataSedangDiedit.namaDosen || "";
+
+
+        document.getElementById(
+            "editProgdi"
+        ).value =
+            dataSedangDiedit.progdi || "";
+
+
+        document.getElementById(
+            "editLinkPublikasi"
+        ).value =
+            dataSedangDiedit.linkPublikasi || "";
+
+
+        document.getElementById(
+            "editJudul"
+        ).value =
+            dataSedangDiedit.judul || "";
+
+
+        document.getElementById(
+            "editTanggalTerbit"
+        ).value =
+            formatTanggalInput(
+                dataSedangDiedit.tanggalTerbit
+            );
+
+
+        document.getElementById(
+            "editSitasi"
+        ).value =
+            dataSedangDiedit.sitasi || "";
+
+
+        document.getElementById(
+            "editStatus"
+        ).value =
+            dataSedangDiedit.status || "";
+
+
+        isiPenulisEdit(
+            dataSedangDiedit.penulis
+        );
+
+
+        editRow.value =
+            dataSedangDiedit.row ||
+            dataSedangDiedit._row ||
+            dataSedangDiedit.rowNumber ||
+            dataSedangDiedit.nomorBaris ||
+            "";
+
+
+        editStatusMessage.innerText =
+            "";
+
+    }
+);
+
+
+
+/* =========================================================
+   SUBMIT EDIT
+========================================================= */
+
+editJurnalForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+
+        if (!isAdmin) {
+
+            alert(
+                "Anda harus login sebagai Admin."
+            );
+
+            return;
+
+        }
+
+
+
+        if (!dataSedangDiedit) {
+
+            return;
+
+        }
+
+
+
+        /*
+           AMBIL DATA FORM
+        */
+
+        const namaDosenInput =
+            document.getElementById(
+                "editNamaDosen"
+            ).value.trim();
+
+
+        const progdiInput =
+            document.getElementById(
+                "editProgdi"
+            ).value.trim();
+
+
+        const linkPublikasiInput =
+            document.getElementById(
+                "editLinkPublikasi"
+            ).value.trim();
+
+
+        const judulInput =
+            document.getElementById(
+                "editJudul"
+            ).value.trim();
+
+
+        const tanggalTerbitInput =
+            document.getElementById(
+                "editTanggalTerbit"
+            ).value;
+
+
+        const sitasiInput =
+            document.getElementById(
+                "editSitasi"
+            ).value;
+
+
+        const statusInput =
+            document.getElementById(
+                "editStatus"
+            ).value;
+
+
+
+        /*
+           DATA AKHIR
+
+           Jika field edit kosong,
+           gunakan data lama.
+
+           Jadi ketika admin hanya
+           mengganti Status, Nama Dosen,
+           Progdi, Judul, Penulis,
+           Tanggal, dan Sitasi tetap ada.
+        */
+
+        const namaDosen =
+            namaDosenInput !== ""
+                ? namaDosenInput
+                : String(
+                    dataSedangDiedit.namaDosen || ""
+                ).trim();
+
+
+        const progdi =
+            progdiInput !== ""
+                ? progdiInput
+                : String(
+                    dataSedangDiedit.progdi || ""
+                ).trim();
+
+
+        const linkPublikasi =
+            linkPublikasiInput !== ""
+                ? linkPublikasiInput
+                : String(
+                    dataSedangDiedit.linkPublikasi || ""
+                ).trim();
+
+
+        const judul =
+            judulInput !== ""
+                ? judulInput
+                : String(
+                    dataSedangDiedit.judul || ""
+                ).trim();
+
+
+        const tanggalTerbit =
+            tanggalTerbitInput !== ""
+                ? tanggalTerbitInput
+                : formatTanggalInput(
+                    dataSedangDiedit.tanggalTerbit
+                );
+
+
+        const sitasi =
+            sitasiInput !== ""
+                ? sitasiInput
+                : String(
+                    dataSedangDiedit.sitasi || ""
+                ).trim();
+
+
+        const status =
+            statusInput !== ""
+                ? statusInput
+                : String(
+                    dataSedangDiedit.status || ""
+                ).trim();
+
+
+
+        /* =================================================
+           AMBIL PENULIS
+        ================================================== */
+
+        const penulisInputs =
+            editPenulisContainer.querySelectorAll(
+                'input[name="editPenulis[]"]'
+            );
+
+
+        const penulis = [];
+
+
+        penulisInputs.forEach(
+            function(input) {
+
+                const nama =
+                    input.value.trim();
+
+
+                if (nama) {
+
+                    penulis.push(
+                        nama
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /*
+           Jika penulis kosong,
+           gunakan data penulis lama.
+        */
+
+        if (
+            penulis.length === 0
+        ) {
+
+            if (
+                Array.isArray(
+                    dataSedangDiedit.penulis
+                )
+            ) {
+
+                dataSedangDiedit.penulis.forEach(
+                    function(nama) {
+
+                        if (
+                            String(nama).trim()
+                        ) {
+
+                            penulis.push(
+                                String(nama).trim()
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+            else {
+
+                const penulisLama =
+                    String(
+                        dataSedangDiedit.penulis ||
+                        ""
+                    )
+                        .split(",")
+                        .map(
+                            function(nama) {
+                                return nama.trim();
+                            }
+                        )
+                        .filter(
+                            function(nama) {
+                                return nama !== "";
+                            }
+                        );
+
+
+                penulis.push(
+                    ...penulisLama
+                );
+
+            }
+
+        }
+
+
+
+        /*
+           VALIDASI PENULIS
+
+           Hanya dilakukan jika
+           memang tidak ada data penulis
+           sama sekali.
+        */
+
+        if (
+            penulis.length === 0
+        ) {
+
+            editStatusMessage.style.color =
+                "#dc2626";
+
+
+            editStatusMessage.innerText =
+                "Minimal satu penulis harus diisi.";
+
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           ROW SPREADSHEET
+        ================================================== */
+
+        const row =
+            dataSedangDiedit.row ||
+            dataSedangDiedit._row ||
+            dataSedangDiedit.rowNumber ||
+            dataSedangDiedit.nomorBaris ||
+            editRow.value ||
+            "";
+
+
+        if (!row) {
+
+            editStatusMessage.style.color =
+                "#dc2626";
+
+
+            editStatusMessage.innerText =
+                "Nomor baris data tidak ditemukan.";
+
+
+            console.error(
+                "Data jurnal tidak memiliki nomor baris:",
+                dataSedangDiedit
+            );
+
+
+            return;
+
+        }
+
+
+
+        /* =================================================
+           DATA USER
+        ================================================== */
+
+        let user = {};
+
+
+        try {
+
+            user =
+                JSON.parse(
+                    localStorage.getItem(
+                        "user"
+                    ) || "{}"
+                );
+
+        }
+        catch (error) {
+
+            user = {};
+
+        }
+
+
+        const username =
+            user.username ||
+            user.email ||
+            "";
+
+
+
+        /* =================================================
+           BUTTON LOADING
+        ================================================== */
+
+        saveEditButton.disabled =
+            true;
+
+
+        saveEditButton.innerText =
+            "Menyimpan...";
+
+
+        editStatusMessage.innerText =
+            "";
+
+
+
+        /* =================================================
+           DATA UPDATE
+        ================================================== */
+
+        const dataUpdate = {
+
+            namaDosen:
+                namaDosen,
+
+            progdi:
+                progdi,
+
+            linkPublikasi:
+                linkPublikasi,
+
+            judul:
+                judul,
+
+            penulis:
+                penulis,
+
+            tanggalTerbit:
+                tanggalTerbit,
+
+            sitasi:
+                sitasi,
+
+            status:
+                status
+
+        };
+
+
+
+        console.log(
+            "Data yang dikirim:",
+            {
+                action: "updateJurnal",
+                username: username,
+                row: row,
+                data: dataUpdate
+            }
+        );
+
+
+
+        /* =================================================
+           KIRIM KE APPS SCRIPT
+        ================================================== */
+
+        try {
+
+            const response =
+                await fetch(
+                    JURNAL_TABLE_API_URL,
+                    {
+                        method: "POST",
+
+                        redirect: "follow",
+
+                        headers: {
+
+                            "Content-Type":
+                                "text/plain;charset=utf-8"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                action:
+                                    "updateJurnal",
+
+                                username:
+                                    username,
+
+                                row:
+                                    row,
+
+                                data:
+                                    dataUpdate
+
+                            })
+
+                    }
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Server error: " +
+                    response.status
+                );
+
+            }
+
+
+
+            const result =
+                await response.json();
+
+
+            console.log(
+                "Response update jurnal:",
+                result
+            );
+
+
+
+            /* =================================================
+               BERHASIL
+            ================================================== */
+
+            if (result.success) {
+
+                editStatusMessage.style.color =
+                    "#15803d";
+
+
+                editStatusMessage.innerText =
+                    result.message ||
+                    "Data jurnal berhasil diperbarui.";
+
+
+
+                /*
+                   UPDATE DATA LOKAL
+
+                   Cari berdasarkan row,
+                   bukan hanya object reference.
+                */
+
+                const index =
+                    semuaDataJurnal.findIndex(
+                        function(item) {
+
+                            const itemRow =
+                                item.row ||
+                                item._row ||
+                                item.rowNumber ||
+                                item.nomorBaris ||
+                                "";
+
+
+                            return String(itemRow) ===
+                                String(row);
+
+                        }
+                    );
+
+
+                if (index !== -1) {
+
+                    semuaDataJurnal[index] = {
+
+                        ...semuaDataJurnal[index],
+
+                        namaDosen:
+                            namaDosen,
+
+                        progdi:
+                            progdi,
+
+                        linkPublikasi:
+                            linkPublikasi,
+
+                        judul:
+                            judul,
+
+                        penulis:
+                            penulis,
+
+                        tanggalTerbit:
+                            tanggalTerbit,
+
+                        sitasi:
+                            sitasi,
+
+                        status:
+                            status,
+
+                        row:
+                            row
+
+                    };
+
+                }
+
+
+
+                /*
+                   Tutup modal setelah berhasil.
+                */
+
+                setTimeout(
+                    function() {
+
+                        tutupEditModal();
+
+                        prosesData();
+
+                    },
+                    700
+                );
+
+            }
+
+
+
+            /* =================================================
+               GAGAL DARI SERVER
+            ================================================== */
+
+            else {
+
+                editStatusMessage.style.color =
+                    "#dc2626";
+
+
+                editStatusMessage.innerText =
+                    result.message ||
+                    "Data jurnal gagal diperbarui.";
+
+            }
+
+        }
+
+
+
+        /* =================================================
+           ERROR CONNECTION
+        ================================================== */
+
+        catch (error) {
+
+            console.error(
+                "ERROR UPDATE JURNAL:",
+                error
+            );
+
+
+            editStatusMessage.style.color =
+                "#dc2626";
+
+
+            editStatusMessage.innerText =
+                "Tidak dapat terhubung ke server.";
+
+        }
+
+
+
+        /* =================================================
+           KEMBALIKAN BUTTON
+        ================================================== */
+
+        saveEditButton.disabled =
+            false;
+
+
+        saveEditButton.innerText =
+            "Simpan Perubahan";
+
+    }
+);
+
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    function() {
+
+        prosesData();
+
+    }
+);
+
+
+
+/* =========================================================
+   SORTING
+========================================================= */
+
+sortTanggal.addEventListener(
+    "change",
+    function() {
+
+        prosesData();
+
+    }
+);
+
+
+
+/* =========================================================
+   RESET FILTER
+========================================================= */
+
+resetFilter.addEventListener(
+    "click",
+    function() {
+
+        searchInput.value =
+            "";
+
+
+        sortTanggal.value =
+            "terbaru";
+
+
+        prosesData();
+
+    }
+);
+
+
+
+/* =========================================================
+   MOBILE NAVBAR + INITIAL LOAD
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+
+        /*
+           CEK ADMIN
+        */
+
+        isAdmin =
+            cekAdmin();
+
+
+
+        /*
+           ATUR NAVBAR
+        */
+
+        aturNavbar();
+
+
+
+        /*
+           LOAD DATA SPREADSHEET
+        */
+
+        loadJurnalTable();
+
+
+
+        /*
+           MOBILE MENU
+        */
+
+        const navToggle =
+            document.getElementById(
+                "navToggle"
+            );
+
+
+        const navMenu =
+            document.getElementById(
+                "navMenu"
+            );
+
+
+        if (
+            navToggle &&
+            navMenu
+        ) {
+
+            navToggle.addEventListener(
+                "click",
+                function() {
+
+                    navMenu.classList.toggle(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

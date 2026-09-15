@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Input Jurnal - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="input_jurnal.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="dashboard.html" class="nav-logo">
+            <img src="gambar/Logo_Lp3M_New.png" alt="Logo LP3M">
+            <span>LP3M PBA </span>
+        </a>
+
+        <button class="nav-toggle" id="navToggle" type="button">☰</button>
+
+        <div class="nav-menu" id="navMenu">
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="buku.html" class="nav-link">Buku</a>
+            <a href="jurnal.html" class="nav-link">Jurnal</a>
+            <a href="admin.html" class="nav-link active admin-menu" id="adminMenu">
+                Kelola Data
+            </a>
+            <a href="login.html" class="nav-login" id="loginLogoutButton">
+                Logout
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="container">
+
+
+    <div class="page-header">
+
+        <h1>
+            Input Data Jurnal
+        </h1>
+
+        <p>
+            Tambahkan data publikasi jurnal baru
+            ke dalam database LP3M.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         FORM
+    ================================================== -->
+
+    <div class="form-card">
+
+        <form id="jurnalForm">
+
+
+            <!-- NAMA DOSEN -->
+
+            <div class="form-group">
+
+                <label for="namaDosen">
+                    Nama Dosen
+                </label>
+
+                <input
+                    type="text"
+                    id="namaDosen"
+                    name="namaDosen"
+                    placeholder="Nama dosen"
+                    required
+                >
+
+            </div>
+
+
+            <!-- PROGDI -->
+
+            <div class="form-group">
+
+                <label for="progdi">
+                    Progdi <span>*</span>
+                </label>
+
+
+                <select
+                    id="progdi"
+                    name="progdi"
+                    required
+                >
+
+                    <option value="">
+                        -- Pilih Progdi --
+                    </option>
+
+                    <option value="TROK">
+                        TROK
+                    </option>
+
+                    <option value="TRPK">
+                        TRPK
+                    </option>
+
+                    <option value="MPLM">
+                        MPLM
+                    </option>
+
+                    <option value="TRANSLA">
+                        TRANSLA
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- LINK PUBLIKASI -->
+
+            <div class="form-group">
+
+                <label for="linkPublikasi">
+                    Link Publikasi
+                </label>
+
+
+                <input
+                    type="url"
+                    id="linkPublikasi"
+                    name="linkPublikasi"
+                    placeholder="https://..."
+                >
+
+            </div>
+
+
+            <!-- JUDUL -->
+
+            <div class="form-group">
+
+                <label for="judul">
+                    Judul Jurnal <span>*</span>
+                </label>
+
+
+                <textarea
+                    id="judul"
+                    name="judul"
+                    placeholder="Masukkan judul jurnal"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- PENULIS -->
+
+            <div class="form-group">
+
+                <label>
+                    Penulis
+                </label>
+
+
+                <div id="penulisContainer">
+
+                    <div class="penulis-row">
+
+                        <input
+                            type="text"
+                            name="penulis[]"
+                            placeholder="Nama penulis"
+                            required
+                        >
+
+
+                        <button
+                            type="button"
+                            class="btn-remove"
+                            onclick="hapusPenulis(this)"
+                            style="display:none;"
+                        >
+                            Hapus
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn-add"
+                    onclick="tambahPenulis()"
+                >
+                    + Tambah Penulis
+                </button>
+
+            </div>
+
+
+            <!-- TANGGAL -->
+
+            <div class="form-group">
+
+                <label for="tanggalTerbit">
+                    Tanggal Terbit
+                </label>
+
+
+                <input
+                    type="date"
+                    id="tanggalTerbit"
+                    name="tanggalTerbit"
+                    required
+                >
+
+            </div>
+
+
+            <!-- SITASI -->
+
+            <div class="form-group">
+
+                <label for="sitasi">
+                    Sitasi
+                </label>
+
+
+                <select
+                    id="sitasi"
+                    name="sitasi"
+                >
+
+                    <option value="">
+                        -- Pilih Sitasi --
+                    </option>
+
+                    <option value="Nasional Tidak Terakreditasi">
+                        Nasional Tidak Terakreditasi
+                    </option>
+
+                    <option value="Internasional Tidak Terakreditasi">
+                        Internasional Tidak Terakreditasi
+                    </option>
+
+                    <option value="Scopus Q1">
+                        Scopus Q1
+                    </option>
+
+                    <option value="Scopus Q2">
+                        Scopus Q2
+                    </option>
+
+                    <option value="Scopus Q3">
+                        Scopus Q3
+                    </option>
+
+                    <option value="Scopus Q4">
+                        Scopus Q4
+                    </option>
+
+                    <option value="Sinta 1">
+                        Sinta 1
+                    </option>
+
+                    <option value="Sinta 2">
+                        Sinta 2
+                    </option>
+
+                    <option value="Sinta 3">
+                        Sinta 3
+                    </option>
+
+                    <option value="Sinta 4">
+                        Sinta 4
+                    </option>
+
+                    <option value="Sinta 5">
+                        Sinta 5
+                    </option>
+
+                    <option value="Prosiding">
+                        Prosiding
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="form-group">
+
+                <label for="status">
+                    Status
+                </label>
+
+
+                <select
+                    id="status"
+                    name="status"
+                >
+
+                    <option value="">
+                        -- Pilih Status --
+                    </option>
+
+                    <option value="Belum di Ajukan">
+                        Belum di Ajukan
+                    </option>
+
+                    <option value="Sudah di Ajukan">
+                        Sudah di Ajukan
+                    </option>
+
+                    <option value="Proses di Ajukan">
+                        Proses di Ajukan
+                    </option>
+
+                    <option value="Ditolak">
+                        Ditolak
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 BUTTON
+            ================================================== -->
+
+            <div class="form-actions">
+
+
+                <!-- KEMBALI -->
+
+                <button
+                    type="button"
+                    class="btn-back"
+                    onclick="kembaliKeAdmin()"
+                >
+                    KEMBALI
+                </button>
+
+
+                <!-- SIMPAN -->
+
+                <button
+                    type="submit"
+                    id="simpanJurnalButton"
+                    class="btn-submit"
+                >
+                    SIMPAN DATA JURNAL
+                </button>
+
+
+                <!-- RESET -->
+
+                <button
+                    type="button"
+                    class="btn-reset"
+                    onclick="resetFormJurnal()"
+                >
+                    RESET FORM
+                </button>
+
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="jurnalMessage"
+                class="form-message"
+            >
+            </div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<script src="script.js"></script>
+
+
+<script>
+
+/* =========================================================
+   API
+========================================================= */
+
+const JURNAL_INPUT_API_URL =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+/* =========================================================
+   CEK ADMIN
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const userData =
+            localStorage.getItem("user");
+
+
+        if (!userData) {
+
+            alert(
+                "Anda harus login sebagai Admin."
+            );
+
+            window.location.href =
+                "login.html";
+
+            return;
+        }
+
+
+        try {
+
+            const user =
+                JSON.parse(userData);
+
+
+            const role =
+                String(
+                    user.role || ""
+                ).toLowerCase();
+
+
+            if (role !== "admin") {
+
+                alert(
+                    "Anda tidak memiliki akses ke halaman ini."
+                );
+
+                window.location.href =
+                    "dashboard.html";
+
+                return;
+            }
+
+
+            updateTombolHapusPenulis();
+
+
+        } catch (error) {
+
+            localStorage.removeItem(
+                "user"
+            );
+
+            window.location.href =
+                "login.html";
+        }
+
+    }
+);
+
+
+/* =========================================================
+   KEMBALI KE ADMIN
+========================================================= */
+
+function kembaliKeAdmin() {
+    window.close();
+}
+
+
+/* =========================================================
+   TAMBAH PENULIS
+========================================================= */
+
+function tambahPenulis() {
+
+    const container =
+        document.getElementById(
+            "penulisContainer"
+        );
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "penulis-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            name="penulis[]"
+            placeholder="Nama penulis"
+            required
+        >
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="hapusPenulis(this)"
+        >
+            Hapus
+        </button>
+
+    `;
+
+
+    container.appendChild(
+        row
+    );
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   HAPUS PENULIS
+========================================================= */
+
+function hapusPenulis(button) {
+
+    button
+        .parentElement
+        .remove();
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   UPDATE TOMBOL HAPUS PENULIS
+========================================================= */
+
+function updateTombolHapusPenulis() {
+
+    const rows =
+        document.querySelectorAll(
+            ".penulis-row"
+        );
+
+
+    rows.forEach(
+        function (row) {
+
+            const button =
+                row.querySelector(
+                    ".btn-remove"
+                );
+
+
+            if (button) {
+
+                button.style.display =
+                    rows.length > 1
+                        ? "inline-block"
+                        : "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RESET FORM JURNAL
+========================================================= */
+
+function resetFormJurnal() {
+
+    const form =
+        document.getElementById(
+            "jurnalForm"
+        );
+
+
+    if (!form) {
+        return;
+    }
+
+
+    const konfirmasi =
+        confirm(
+            "Apakah Anda yakin ingin mereset semua data?"
+        );
+
+
+    if (!konfirmasi) {
+        return;
+    }
+
+
+    form.reset();
+
+
+    document.getElementById(
+        "penulisContainer"
+    ).innerHTML = `
+
+        <div class="penulis-row">
+
+            <input
+                type="text"
+                name="penulis[]"
+                placeholder="Nama penulis"
+                required
+            >
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="hapusPenulis(this)"
+                style="display:none;"
+            >
+                Hapus
+            </button>
+
+        </div>
+
+    `;
+
+
+    document.getElementById(
+        "jurnalMessage"
+    ).innerText = "";
+
+
+    document.getElementById(
+        "jurnalMessage"
+    ).style.color = "";
+
+
+    const button =
+        document.getElementById(
+            "simpanJurnalButton"
+        );
+
+
+    button.disabled =
+        false;
+
+
+    button.innerText =
+        "SIMPAN DATA JURNAL";
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   SUBMIT JURNAL
+========================================================= */
+
+document
+    .getElementById("jurnalForm")
+    .addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const button =
+                document.getElementById(
+                    "simpanJurnalButton"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "jurnalMessage"
+                );
+
+
+            const namaDosen =
+                document
+                    .getElementById(
+                        "namaDosen"
+                    )
+                    .value
+                    .trim();
+
+
+            const progdi =
+                document
+                    .getElementById(
+                        "progdi"
+                    )
+                    .value
+                    .trim();
+
+
+            const linkPublikasi =
+                document
+                    .getElementById(
+                        "linkPublikasi"
+                    )
+                    .value
+                    .trim();
+
+
+            const judul =
+                document
+                    .getElementById(
+                        "judul"
+                    )
+                    .value
+                    .trim();
+
+
+            const tanggalTerbit =
+                document
+                    .getElementById(
+                        "tanggalTerbit"
+                    )
+                    .value;
+
+
+            const sitasi =
+                document
+                    .getElementById(
+                        "sitasi"
+                    )
+                    .value;
+
+
+            const status =
+                document
+                    .getElementById(
+                        "status"
+                    )
+                    .value;
+
+
+            const penulisInputs =
+                document.querySelectorAll(
+                    'input[name="penulis[]"]'
+                );
+
+
+            const penulis = [];
+
+
+            penulisInputs.forEach(
+                function (input) {
+
+                    const nama =
+                        input.value.trim();
+
+
+                    if (nama) {
+
+                        penulis.push(
+                            nama
+                        );
+
+                    }
+
+                }
+            );
+
+
+            if (penulis.length === 0) {
+
+                message.style.color =
+                    "red";
+
+                message.innerText =
+                    "Minimal satu penulis harus diisi.";
+
+                return;
+            }
+
+
+            button.disabled =
+                true;
+
+
+            button.innerText =
+                "MENYIMPAN...";
+
+
+            message.innerText =
+                "";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        JURNAL_INPUT_API_URL,
+                        {
+
+                            method: "POST",
+
+                            redirect: "follow",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify({
+
+                                    action:
+                                        "saveJurnal",
+
+                                    namaDosen:
+                                        namaDosen,
+
+                                    progdi:
+                                        progdi,
+
+                                    linkPublikasi:
+                                        linkPublikasi,
+
+                                    judul:
+                                        judul,
+
+                                    penulis:
+                                        penulis,
+
+                                    tanggalTerbit:
+                                        tanggalTerbit,
+
+                                    sitasi:
+                                        sitasi,
+
+                                    status:
+                                        status
+
+                                })
+
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Server error: " +
+                        response.status
+                    );
+
+                }
+
+
+                const result =
+                    await response.json();
+
+
+                console.log(
+                    "Response save jurnal:",
+                    result
+                );
+
+
+                if (result.success) {
+
+                    message.style.color =
+                        "green";
+
+
+                    message.innerText =
+                        result.message ||
+                        "Data jurnal berhasil disimpan.";
+
+
+                    document
+                        .getElementById(
+                            "jurnalForm"
+                        )
+                        .reset();
+
+
+                    document.getElementById(
+                        "penulisContainer"
+                    ).innerHTML = `
+
+                        <div class="penulis-row">
+
+                            <input
+                                type="text"
+                                name="penulis[]"
+                                placeholder="Nama penulis"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="btn-remove"
+                                onclick="hapusPenulis(this)"
+                                style="display:none;"
+                            >
+                                Hapus
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    updateTombolHapusPenulis();
+
+
+                } else {
+
+                    message.style.color =
+                        "red";
+
+
+                    message.innerText =
+                        result.message ||
+                        "Data jurnal gagal disimpan.";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "ERROR SAVE JURNAL:",
+                    error
+                );
+
+
+                message.style.color =
+                    "red";
+
+
+                message.innerText =
+                    "Tidak dapat terhubung ke server.";
+
+            }
+
+
+            button.disabled =
+                false;
+
+
+            button.innerText =
+                "SIMPAN DATA JURNAL";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,608 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    background:
+        linear-gradient(
+            135deg,
+            #0f2f55,
+            #174a7c
+        );
+    box-shadow:
+        0 3px 12px
+        rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    min-height: 68px;
+    padding: 0 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-logo span {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.nav-link.active {
+    background: white;
+    color: #174a7c;
+}
+
+.nav-login {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 17px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 8px;
+    transition: 0.2s ease;
+}
+
+.nav-login:hover {
+    background: white;
+    color: #174a7c;
+}
+
+.nav-toggle {
+    display: none;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* MOBILE NAVBAR */
+@media (max-width: 768px) {
+
+    .nav-container {
+        min-height: 60px;
+        padding: 0 18px;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: #123c68;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 15px 15px;
+        box-shadow:
+            0 5px 12px
+            rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+    .nav-link {
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-login {
+        margin-left: 0;
+        margin-top: 5px;
+        text-align: center;
+    }
+}
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 35px 20px 60px;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header {
+    margin-bottom: 25px;
+}
+
+
+.page-header h1 {
+    font-size: 30px;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+
+.page-header p {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+}
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+
+.form-group label span {
+    color: #dc3545;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.form-group input[type="text"],
+.form-group input[type="url"],
+.form-group input[type="date"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    padding: 12px 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #374151;
+    background: #ffffff;
+    outline: none;
+    transition: 0.2s;
+}
+
+
+.form-group input[type="text"]:focus,
+.form-group input[type="url"]:focus,
+.form-group input[type="date"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   PENULIS
+===================================================== */
+
+.penulis-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+
+.penulis-row input {
+    flex: 1;
+    min-width: 0;
+}
+
+
+.btn-remove {
+    border: none;
+    background: #dc3545;
+    color: #ffffff;
+    padding: 11px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+
+.btn-remove:hover {
+    background: #bb2d3b;
+}
+
+
+/* =====================================================
+   BUTTON TAMBAH PENULIS
+===================================================== */
+
+.btn-add {
+    border: none;
+    background: #6c757d;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+
+.btn-add:hover {
+    background: #5c636a;
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+
+/* =====================================================
+   BUTTON KEMBALI
+===================================================== */
+
+.btn-back {
+    justify-self: start;
+
+    border: none;
+
+    background: #6c757d;
+
+    color: #ffffff;
+
+    padding: 12px 22px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    min-width: 120px;
+}
+
+
+.btn-back:hover {
+    background: #5c636a;
+}
+
+
+/* =====================================================
+   BUTTON SIMPAN
+===================================================== */
+
+.btn-submit {
+    justify-self: center;
+
+    border: none;
+
+    background: #198754;
+
+    color: #ffffff;
+
+    padding: 12px 25px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    min-width: 190px;
+}
+
+
+.btn-submit:hover {
+    background: #157347;
+}
+
+
+.btn-submit:disabled {
+    background: #8fb9a5;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   BUTTON RESET
+===================================================== */
+
+.btn-reset {
+    justify-self: end;
+
+    border: none;
+
+    background: #dc3545;
+
+    color: #ffffff;
+
+    padding: 12px 22px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    min-width: 120px;
+}
+
+
+.btn-reset:hover {
+    background: #bb2d3b;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.form-message {
+    text-align: center;
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    min-height: 20px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .nav-toggle {
+        display: block;
+    }
+
+
+    .nav-menu {
+        display: none;
+
+        position: absolute;
+
+        top: 64px;
+
+        left: 0;
+
+        right: 0;
+
+        background: #ffffff;
+
+        border-bottom: 1px solid #e5e7eb;
+
+        padding: 15px 20px;
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+
+    .nav-link,
+    .nav-login {
+        width: 100%;
+
+        text-align: center;
+
+        margin: 0;
+    }
+
+
+    .form-card {
+        padding: 25px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 25px 15px 50px;
+    }
+
+
+    .page-header h1 {
+        font-size: 25px;
+    }
+
+
+    .form-card {
+        padding: 20px 15px;
+    }
+
+
+    .penulis-row {
+        gap: 7px;
+    }
+
+
+    .btn-remove {
+        padding: 10px 12px;
+    }
+
+
+    .form-actions {
+        grid-template-columns: 1fr 1fr 1fr;
+
+        gap: 7px;
+    }
+
+
+    .btn-back,
+    .btn-submit,
+    .btn-reset {
+        width: 100%;
+
+        min-width: 0;
+
+        padding: 11px 5px;
+
+        font-size: 11px;
+    }
+
+}
+
+
+@media (max-width: 380px) {
+
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+
+    .form-card {
+        padding: 15px 10px;
+    }
+
+
+    .form-actions {
+        gap: 5px;
+    }
+
+
+    .btn-back,
+    .btn-submit,
+    .btn-reset {
+        padding: 10px 3px;
+
+        font-size: 10px;
+    }
+
+}

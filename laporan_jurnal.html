@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Laporan Jurnal - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="jurnallap.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="dashboard.html"
+            class="nav-logo"
+        >
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>LP3M PBA</span>
+
+        </a>
+
+
+        <button
+            type="button"
+            class="nav-toggle"
+            id="navToggle"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link active"
+                id="adminMenu"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="login.html"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main-container">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="page-header">
+
+        <h1>
+            Laporan Jurnal
+        </h1>
+
+        <p>
+            Laporan publikasi jurnal dosen LP3M.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TABLE CARD
+    ================================================== -->
+
+    <div class="table-card">
+
+
+        <!-- =================================================
+             TABLE HEADER
+        ================================================== -->
+
+        <div class="table-header">
+
+            <div>
+
+                <h2>
+                    Daftar Publikasi Jurnal
+                </h2>
+
+                <span
+                    id="jumlahData"
+                    class="jumlah-data"
+                >
+                    Memuat data...
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTER
+        ================================================== -->
+
+        <div class="filter-area">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari nama dosen, judul, penulis, progdi..."
+                autocomplete="off"
+            >
+
+
+            <select id="sortSelect">
+
+                <option value="default">
+                    Urutkan Data
+                </option>
+
+                <option value="terbaru">
+                    Terbaru
+                </option>
+
+                <option value="terlama">
+                    Terlama
+                </option>
+
+                <option value="progdi-dosen">
+                    Progdi → Nama Dosen A-Z
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="btn-reset"
+                onclick="resetFilter()"
+            >
+                RESET
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-cetak"
+                onclick="cetakLaporan()"
+            >
+                CETAK
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+
+        <div class="table-wrapper">
+
+            <table
+                class="data-table"
+                id="jurnalTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th class="nomor">
+                            No
+                        </th>
+
+                        <th>
+                            Nama Dosen
+                        </th>
+
+                        <th class="progdi">
+                            Progdi
+                        </th>
+
+                        <th class="jumlah">
+                            Jumlah
+                        </th>
+
+                        <th class="judul">
+                            Judul Jurnal
+                        </th>
+
+                        <th class="penulis">
+                            Penulis
+                        </th>
+
+                        <th class="tanggal">
+                            Tanggal Terbit
+                        </th>
+
+                        <th class="sitasi">
+                            Sitasi
+                        </th>
+
+                        <th class="status-kolom">
+                            Status
+                        </th>
+
+                        <th class="publikasi">
+                            Publikasi
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="jurnalTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="10"
+                            class="loading"
+                        >
+                            Memuat data jurnal...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- =================================================
+             BOTTOM ACTION
+        ================================================== -->
+
+        <div class="bottom-action">
+
+            <button
+                type="button"
+                class="btn-back"
+                onclick="kembali()"
+            >
+                KEMBALI
+            </button>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+/* =========================================================
+   API
+========================================================= */
+
+const JURNAL_TABLE_API_URL =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let semuaDataJurnal = [];
+
+let dataJurnalTerfilter = [];
+
+
+
+/* =========================================================
+   ELEMENT
+========================================================= */
+
+const jurnalTableBody =
+    document.getElementById(
+        "jurnalTableBody"
+    );
+
+
+const jumlahData =
+    document.getElementById(
+        "jumlahData"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+const sortSelect =
+    document.getElementById(
+        "sortSelect"
+    );
+
+
+const navToggle =
+    document.getElementById(
+        "navToggle"
+    );
+
+
+const navMenu =
+    document.getElementById(
+        "navMenu"
+    );
+
+
+const loginLogoutButton =
+    document.getElementById(
+        "loginLogoutButton"
+    );
+
+
+const adminMenu =
+    document.getElementById(
+        "adminMenu"
+    );
+
+
+
+/* =========================================================
+   NAVBAR MOBILE
+========================================================= */
+
+if (
+    navToggle &&
+    navMenu
+) {
+
+    navToggle.addEventListener(
+        "click",
+        function () {
+
+            navMenu.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   STATUS LOGIN
+========================================================= */
+
+function aturStatusLogin() {
+
+    if (!loginLogoutButton) {
+        return;
+    }
+
+
+    const userData =
+        localStorage.getItem(
+            "user"
+        );
+
+
+    /*
+       JANGAN MENGHAPUS localStorage DI SINI.
+
+       Halaman laporan hanya membaca
+       status login.
+    */
+
+    if (!userData) {
+
+        loginLogoutButton.textContent =
+            "Login";
+
+        loginLogoutButton.href =
+            "login.html";
+
+        loginLogoutButton.onclick =
+            null;
+
+        if (adminMenu) {
+            adminMenu.style.display =
+                "none";
+        }
+
+        return;
+    }
+
+
+    try {
+
+        const user =
+            JSON.parse(userData);
+
+
+        if (
+            user &&
+            user.username
+        ) {
+
+            loginLogoutButton.textContent =
+                "Logout";
+
+            loginLogoutButton.href =
+                "#";
+
+
+            loginLogoutButton.onclick =
+                function (event) {
+
+                    event.preventDefault();
+
+
+                    const yakin =
+                        confirm(
+                            "Apakah Anda yakin ingin Logout?"
+                        );
+
+
+                    if (!yakin) {
+                        return;
+                    }
+
+
+                    /*
+                       localStorage HANYA dihapus
+                       setelah tombol Logout benar-benar
+                       diklik oleh pengguna.
+                    */
+
+                    localStorage.removeItem(
+                        "user"
+                    );
+
+
+                    window.location.href =
+                        "login.html";
+
+                };
+
+
+            /*
+               Tampilkan Kelola Data
+               hanya jika role admin.
+            */
+
+            if (adminMenu) {
+
+                const role =
+                    String(
+                        user.role || ""
+                    )
+                    .trim()
+                    .toLowerCase();
+
+
+                if (role === "admin") {
+
+                    adminMenu.style.display =
+                        "";
+
+                } else {
+
+                    adminMenu.style.display =
+                        "none";
+
+                }
+
+            }
+
+        } else {
+
+            loginLogoutButton.textContent =
+                "Login";
+
+            loginLogoutButton.href =
+                "login.html";
+
+            loginLogoutButton.onclick =
+                null;
+
+
+            if (adminMenu) {
+
+                adminMenu.style.display =
+                    "none";
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Data user tidak valid:",
+            error
+        );
+
+
+        /*
+           Jangan hapus localStorage di sini.
+           Cukup tampilkan Login.
+        */
+
+        loginLogoutButton.textContent =
+            "Login";
+
+        loginLogoutButton.href =
+            "login.html";
+
+        loginLogoutButton.onclick =
+            null;
+
+
+        if (adminMenu) {
+
+            adminMenu.style.display =
+                "none";
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   LOAD DATA JURNAL
+========================================================= */
+
+async function loadJurnalTable() {
+
+    try {
+
+        const response =
+            await fetch(
+                JURNAL_TABLE_API_URL +
+                "?action=getJurnal"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Gagal mengambil data jurnal."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success ||
+            !Array.isArray(result.data)
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Data jurnal tidak tersedia."
+            );
+
+        }
+
+
+        semuaDataJurnal =
+            result.data;
+
+
+        prosesData();
+
+
+    } catch (error) {
+
+        console.error(
+            "ERROR DATA JURNAL:",
+            error
+        );
+
+
+        jumlahData.innerText =
+            "0 data";
+
+
+        jurnalTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="10"
+                    class="empty-data"
+                >
+                    Data jurnal tidak dapat ditampilkan.
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PARSE TANGGAL
+========================================================= */
+
+function parseTanggal(value) {
+
+    if (!value) {
+        return 0;
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    let match =
+        teks.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return new Date(
+            Number(match[3]),
+            Number(match[2]) - 1,
+            Number(match[1])
+        ).getTime();
+
+    }
+
+
+    match =
+        teks.match(
+            /^(\d{1,2})-(\d{1,2})-(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return new Date(
+            Number(match[3]),
+            Number(match[2]) - 1,
+            Number(match[1])
+        ).getTime();
+
+    }
+
+
+    const tanggal =
+        new Date(value);
+
+
+    if (
+        !isNaN(
+            tanggal.getTime()
+        )
+    ) {
+
+        return tanggal.getTime();
+
+    }
+
+
+    return 0;
+
+}
+
+
+
+/* =========================================================
+   FORMAT TANGGAL
+========================================================= */
+
+function formatTanggal(value) {
+
+    if (!value) {
+        return "-";
+    }
+
+
+    const teks =
+        String(value).trim();
+
+
+    let match =
+        teks.match(
+            /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return (
+            String(match[1])
+                .padStart(2, "0") +
+            "/" +
+            String(match[2])
+                .padStart(2, "0") +
+            "/" +
+            match[3]
+        );
+
+    }
+
+
+    match =
+        teks.match(
+            /^(\d{1,2})-(\d{1,2})-(\d{4})$/
+        );
+
+
+    if (match) {
+
+        return (
+            String(match[1])
+                .padStart(2, "0") +
+            "/" +
+            String(match[2])
+                .padStart(2, "0") +
+            "/" +
+            match[3]
+        );
+
+    }
+
+
+    const tanggal =
+        new Date(value);
+
+
+    if (
+        isNaN(
+            tanggal.getTime()
+        )
+    ) {
+
+        return teks;
+
+    }
+
+
+    return (
+        String(
+            tanggal.getDate()
+        ).padStart(2, "0") +
+        "/" +
+        String(
+            tanggal.getMonth() + 1
+        ).padStart(2, "0") +
+        "/" +
+        tanggal.getFullYear()
+    );
+
+}
+
+
+
+/* =========================================================
+   PROSES DATA
+========================================================= */
+
+function prosesData() {
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    let data =
+        [...semuaDataJurnal];
+
+
+    if (keyword !== "") {
+
+        data =
+            data.filter(
+                function (jurnal) {
+
+                    const teks = [
+
+                        jurnal.namaDosen,
+
+                        jurnal.progdi,
+
+                        jurnal.judul,
+
+                        jurnal.penulis,
+
+                        jurnal.tanggalTerbit,
+
+                        jurnal.sitasi,
+
+                        jurnal.status,
+
+                        jurnal.linkPublikasi
+
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+
+                    return teks.includes(
+                        keyword
+                    );
+
+                }
+            );
+
+    }
+
+
+
+    /* =====================================================
+       SORTING
+    ===================================================== */
+
+    const sort =
+        sortSelect.value;
+
+
+    if (
+        sort === "terbaru"
+    ) {
+
+        data.sort(
+            function (a, b) {
+
+                return (
+                    parseTanggal(
+                        b.tanggalTerbit
+                    ) -
+                    parseTanggal(
+                        a.tanggalTerbit
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    else if (
+        sort === "terlama"
+    ) {
+
+        data.sort(
+            function (a, b) {
+
+                return (
+                    parseTanggal(
+                        a.tanggalTerbit
+                    ) -
+                    parseTanggal(
+                        b.tanggalTerbit
+                    )
+                );
+
+            }
+        );
+
+    }
+
+
+    else if (
+        sort === "progdi-dosen"
+    ) {
+
+        const urutanProgdi = {
+
+            TROK: 1,
+
+            TRPK: 2,
+
+            MPLM: 3,
+
+            TRANSLA: 4
+
+        };
+
+
+        data.sort(
+            function (a, b) {
+
+                const progdiA =
+                    String(
+                        a.progdi || ""
+                    )
+                    .trim()
+                    .toUpperCase();
+
+
+                const progdiB =
+                    String(
+                        b.progdi || ""
+                    )
+                    .trim()
+                    .toUpperCase();
+
+
+                const urutanA =
+                    urutanProgdi[
+                        progdiA
+                    ] || 99;
+
+
+                const urutanB =
+                    urutanProgdi[
+                        progdiB
+                    ] || 99;
+
+
+                if (
+                    urutanA !==
+                    urutanB
+                ) {
+
+                    return (
+                        urutanA -
+                        urutanB
+                    );
+
+                }
+
+
+                const namaA =
+                    String(
+                        a.namaDosen || ""
+                    ).trim();
+
+
+                const namaB =
+                    String(
+                        b.namaDosen || ""
+                    ).trim();
+
+
+                return namaA.localeCompare(
+                    namaB,
+                    "id",
+                    {
+                        sensitivity:
+                            "base"
+                    }
+                );
+
+            }
+        );
+
+    }
+
+
+    dataJurnalTerfilter =
+        [...data];
+
+
+    tampilkanJurnal(
+        data
+    );
+
+}
+
+
+
+/* =========================================================
+   KELOMPOKKAN DOSEN
+========================================================= */
+
+function kelompokkanDosen(data) {
+
+    const kelompok =
+        new Map();
+
+
+    data.forEach(
+        function (jurnal) {
+
+            const nama =
+                String(
+                    jurnal.namaDosen || ""
+                ).trim();
+
+
+            const key =
+                nama.toLowerCase();
+
+
+            if (
+                !kelompok.has(key)
+            ) {
+
+                kelompok.set(
+                    key,
+                    {
+
+                        namaDosen:
+                            nama || "-",
+
+                        progdi:
+                            String(
+                                jurnal.progdi ||
+                                ""
+                            )
+                            .trim() || "-",
+
+                        publikasi: []
+
+                    }
+                );
+
+            }
+
+
+            kelompok
+                .get(key)
+                .publikasi
+                .push(jurnal);
+
+        }
+    );
+
+
+    return Array.from(
+        kelompok.values()
+    );
+
+}
+
+
+
+/* =========================================================
+   STATUS CLASS
+========================================================= */
+
+function getStatusClass(status) {
+
+    const teks =
+        String(
+            status || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    if (
+        teks.includes("selesai") ||
+        teks.includes("terbit") ||
+        teks.includes("diterima")
+    ) {
+
+        return "status-selesai";
+
+    }
+
+
+    if (
+        teks.includes("proses") ||
+        teks.includes("review") ||
+        teks.includes("pengajuan")
+    ) {
+
+        return "status-proses";
+
+    }
+
+
+    if (
+        teks.includes("tolak") ||
+        teks.includes("ditolak")
+    ) {
+
+        return "status-tolak";
+
+    }
+
+
+    return "status-default";
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+
+/* =========================================================
+   ESCAPE ATTRIBUTE
+========================================================= */
+
+function escapeAttribute(value) {
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    );
+
+}
+
+
+
+/* =========================================================
+   LINK PUBLIKASI
+========================================================= */
+
+function buatLinkPublikasi(item) {
+
+    if (
+        !item ||
+        !item.linkPublikasi
+    ) {
+
+        return "-";
+
+    }
+
+
+    const link =
+        String(
+            item.linkPublikasi
+        ).trim();
+
+
+    if (link === "") {
+
+        return "-";
+
+    }
+
+
+    return `
+
+        <a
+            href="${escapeAttribute(link)}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="publication-link"
+            title="${escapeAttribute(link)}"
+        >
+            ${escapeHTML(link)}
+        </a>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   TAMPILKAN JURNAL
+========================================================= */
+
+function tampilkanJurnal(data) {
+
+    const kelompok =
+        kelompokkanDosen(
+            data
+        );
+
+
+    if (
+        kelompok.length === 0
+    ) {
+
+        jurnalTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="10"
+                    class="empty-data"
+                >
+                    Data jurnal tidak ditemukan.
+                </td>
+
+            </tr>
+
+        `;
+
+
+        jumlahData.innerText =
+            "0 dosen / 0 publikasi";
+
+
+        return;
+
+    }
+
+
+    let totalPublikasi = 0;
+
+
+    kelompok.forEach(
+        function (dosen) {
+
+            totalPublikasi +=
+                dosen.publikasi.length;
+
+        }
+    );
+
+
+    jumlahData.innerText =
+        `${kelompok.length} dosen / ${totalPublikasi} publikasi`;
+
+
+    let nomorDosen = 0;
+
+    let html = "";
+
+
+    kelompok.forEach(
+        function (dosen) {
+
+            nomorDosen++;
+
+
+            const publikasi =
+                dosen.publikasi || [];
+
+
+            publikasi.forEach(
+                function (
+                    item,
+                    indexPublikasi
+                ) {
+
+                    html += "<tr>";
+
+
+                    /*
+                       KOLOM YANG DIGABUNG
+                       HANYA MUNCUL PADA
+                       PUBLIKASI PERTAMA.
+                    */
+
+                    if (
+                        indexPublikasi === 0
+                    ) {
+
+                        html += `
+
+                            <td
+                                class="nomor"
+                                rowspan="${publikasi.length}"
+                            >
+                                ${nomorDosen}
+                            </td>
+
+
+                            <td
+                                class="dosen"
+                                rowspan="${publikasi.length}"
+                            >
+                                ${escapeHTML(
+                                    dosen.namaDosen ||
+                                    "-"
+                                )}
+                            </td>
+
+
+                            <td
+                                class="progdi"
+                                rowspan="${publikasi.length}"
+                            >
+                                ${escapeHTML(
+                                    dosen.progdi ||
+                                    "-"
+                                )}
+                            </td>
+
+
+                            <td
+                                class="jumlah"
+                                rowspan="${publikasi.length}"
+                            >
+                                ${publikasi.length}
+                            </td>
+
+                        `;
+
+                    }
+
+
+                    /*
+                       JUDUL
+                    */
+
+                    html += `
+
+                        <td class="judul">
+
+                            ${escapeHTML(
+                                item.judul ||
+                                "-"
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    /*
+                       PENULIS
+                    */
+
+                    html += `
+
+                        <td class="penulis">
+
+                            ${escapeHTML(
+                                item.penulis ||
+                                "-"
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    /*
+                       TANGGAL
+                    */
+
+                    html += `
+
+                        <td class="tanggal">
+
+                            ${escapeHTML(
+                                formatTanggal(
+                                    item.tanggalTerbit
+                                )
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    /*
+                       SITASI
+                    */
+
+                    html += `
+
+                        <td class="sitasi">
+
+                            ${escapeHTML(
+                                item.sitasi ||
+                                "-"
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    /*
+                       STATUS
+                    */
+
+                    const status =
+                        String(
+                            item.status ||
+                            "-"
+                        ).trim();
+
+
+                    const classStatus =
+                        getStatusClass(
+                            status
+                        );
+
+
+                    html += `
+
+                        <td
+                            class="status-kolom ${classStatus}"
+                        >
+
+                            ${escapeHTML(
+                                status
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    /*
+                       PUBLIKASI
+                    */
+
+                    html += `
+
+                        <td class="publikasi">
+
+                            ${buatLinkPublikasi(
+                                item
+                            )}
+
+                        </td>
+
+                    `;
+
+
+                    html += "</tr>";
+
+                }
+            );
+
+        }
+    );
+
+
+    jurnalTableBody.innerHTML =
+        html;
+
+}
+
+
+
+/* =========================================================
+   RESET FILTER
+========================================================= */
+
+function resetFilter() {
+
+    searchInput.value =
+        "";
+
+    sortSelect.value =
+        "default";
+
+    prosesData();
+
+}
+
+
+
+/* =========================================================
+   KEMBALI
+========================================================= */
+
+function kembali() {
+
+    window.close();
+
+}
+
+
+
+/* =========================================================
+   CETAK LAPORAN
+========================================================= */
+
+function cetakLaporan() {
+
+    const dataCetak =
+        Array.isArray(
+            dataJurnalTerfilter
+        )
+            ? [
+                ...dataJurnalTerfilter
+            ]
+            : [
+                ...semuaDataJurnal
+            ];
+
+
+    if (
+        dataCetak.length === 0
+    ) {
+
+        alert(
+            "Tidak ada data jurnal yang dapat dicetak."
+        );
+
+        return;
+
+    }
+
+
+    const kelompok =
+        kelompokkanDosen(
+            dataCetak
+        );
+
+
+    if (
+        kelompok.length === 0
+    ) {
+
+        alert(
+            "Tidak ada data dosen yang dapat dicetak."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =====================================================
+       DAFTAR KOLOM
+    ===================================================== */
+
+    const daftarKolom = [
+
+        {
+            index: 0,
+            key: "no",
+            label: "No"
+        },
+
+        {
+            index: 1,
+            key: "namaDosen",
+            label: "Nama Dosen"
+        },
+
+        {
+            index: 2,
+            key: "progdi",
+            label: "Progdi"
+        },
+
+        {
+            index: 3,
+            key: "jumlah",
+            label: "Jumlah"
+        },
+
+        {
+            index: 4,
+            key: "judul",
+            label: "Judul Jurnal"
+        },
+
+        {
+            index: 5,
+            key: "penulis",
+            label: "Penulis"
+        },
+
+        {
+            index: 6,
+            key: "tanggalTerbit",
+            label: "Tanggal Terbit"
+        },
+
+        {
+            index: 7,
+            key: "sitasi",
+            label: "Sitasi"
+        },
+
+        {
+            index: 8,
+            key: "status",
+            label: "Status"
+        },
+
+        {
+            index: 9,
+            key: "linkPublikasi",
+            label: "Publikasi"
+        }
+
+    ];
+
+
+
+    /* =====================================================
+       MODAL CETAK
+    ===================================================== */
+
+    const modalWrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    modalWrapper.className =
+        "modal-cetak-wrapper";
+
+
+    modalWrapper.innerHTML = `
+
+        <div class="modal-cetak-overlay">
+
+            <div class="modal-cetak">
+
+                <h3>
+                    Pilih Kolom yang Dicetak
+                </h3>
+
+
+                <p>
+                    Centang kolom yang ingin
+                    dimasukkan ke laporan.
+                </p>
+
+
+                <div class="kolom-pilihan">
+
+                    ${daftarKolom
+                        .map(
+                            function (
+                                kolom
+                            ) {
+
+                                return `
+
+                                    <label
+                                        class="kolom-pilihan-item"
+                                    >
+
+                                        <input
+                                            type="checkbox"
+                                            class="kolom-pilih"
+                                            data-index="${kolom.index}"
+                                            checked
+                                        >
+
+                                        <span>
+                                            ${escapeHTML(
+                                                kolom.label
+                                            )}
+                                        </span>
+
+                                    </label>
+
+                                `;
+
+                            }
+                        )
+                        .join("")}
+
+                </div>
+
+
+                <div class="modal-cetak-action">
+
+                    <button
+                        type="button"
+                        id="btnLanjutCetak"
+                        class="btn-modal-lanjut"
+                    >
+                        LANJUT
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnBatalCetak"
+                        class="btn-modal-batal"
+                    >
+                        BATAL
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modalWrapper
+    );
+
+
+    const btnLanjut =
+        modalWrapper.querySelector(
+            "#btnLanjutCetak"
+        );
+
+
+    const btnBatal =
+        modalWrapper.querySelector(
+            "#btnBatalCetak"
+        );
+
+
+    btnBatal.addEventListener(
+        "click",
+        function () {
+
+            modalWrapper.remove();
+
+        }
+    );
+
+
+    btnLanjut.addEventListener(
+        "click",
+        function () {
+
+            const checkbox =
+                modalWrapper.querySelectorAll(
+                    ".kolom-pilih:checked"
+                );
+
+
+            if (
+                checkbox.length === 0
+            ) {
+
+                alert(
+                    "Pilih minimal satu kolom untuk dicetak."
+                );
+
+                return;
+
+            }
+
+
+            const kolomTerpilih =
+                Array.from(
+                    checkbox
+                )
+                .map(
+                    function (
+                        item
+                    ) {
+
+                        return Number(
+                            item.dataset.index
+                        );
+
+                    }
+                );
+
+
+            modalWrapper.remove();
+
+
+            buatHalamanCetak(
+                kelompok,
+                kolomTerpilih,
+                daftarKolom
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   HALAMAN CETAK
+========================================================= */
+
+function buatHalamanCetak(
+    kelompok,
+    kolomTerpilih,
+    daftarKolom
+) {
+
+
+    const printWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=1200,height=800"
+        );
+
+
+    if (!printWindow) {
+
+        alert(
+            "Pop-up diblokir oleh browser. Silakan izinkan pop-up."
+        );
+
+        return;
+
+    }
+
+
+
+    /* =====================================================
+       HEADER CETAK
+    ===================================================== */
+
+    let headerHTML = "";
+
+
+    kolomTerpilih.forEach(
+        function (
+            indexKolom
+        ) {
+
+            const kolom =
+                daftarKolom[
+                    indexKolom
+                ];
+
+
+            headerHTML += `
+
+                <th
+                    class="kolom-${kolom.key}"
+                >
+
+                    ${escapeHTML(
+                        kolom.label
+                    )}
+
+                </th>
+
+            `;
+
+        }
+    );
+
+
+
+    /* =====================================================
+       BODY CETAK
+    ===================================================== */
+
+    let bodyHTML = "";
+
+
+    kelompok.forEach(
+        function (
+            dosen,
+            indexDosen
+        ) {
+
+
+            const daftar =
+                dosen.publikasi || [];
+
+
+            daftar.forEach(
+                function (
+                    item,
+                    indexPublikasi
+                ) {
+
+                    bodyHTML += "<tr>";
+
+
+
+                    /* =========================
+                       NO
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(0) &&
+                        indexPublikasi === 0
+                    ) {
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-no"
+                                rowspan="${daftar.length}"
+                            >
+                                ${indexDosen + 1}
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       NAMA DOSEN
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(1) &&
+                        indexPublikasi === 0
+                    ) {
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-namaDosen"
+                                rowspan="${daftar.length}"
+                            >
+
+                                ${escapeHTML(
+                                    dosen.namaDosen ||
+                                    "-"
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       PROGDI
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(2) &&
+                        indexPublikasi === 0
+                    ) {
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-progdi"
+                                rowspan="${daftar.length}"
+                            >
+
+                                ${escapeHTML(
+                                    dosen.progdi ||
+                                    "-"
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       JUMLAH
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(3) &&
+                        indexPublikasi === 0
+                    ) {
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-jumlah"
+                                rowspan="${daftar.length}"
+                            >
+
+                                ${daftar.length}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       JUDUL
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(4)
+                    ) {
+
+                        bodyHTML += `
+
+                            <td class="kolom-judul">
+
+                                ${escapeHTML(
+                                    item.judul ||
+                                    "-"
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       PENULIS
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(5)
+                    ) {
+
+                        bodyHTML += `
+
+                            <td class="kolom-penulis">
+
+                                ${escapeHTML(
+                                    item.penulis ||
+                                    "-"
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       TANGGAL
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(6)
+                    ) {
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-tanggalTerbit"
+                            >
+
+                                ${escapeHTML(
+                                    formatTanggal(
+                                        item.tanggalTerbit
+                                    )
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       SITASI
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(7)
+                    ) {
+
+                        bodyHTML += `
+
+                            <td class="kolom-sitasi">
+
+                                ${escapeHTML(
+                                    item.sitasi ||
+                                    "-"
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       STATUS
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(8)
+                    ) {
+
+                        const status =
+                            String(
+                                item.status ||
+                                "-"
+                            ).trim();
+
+
+                        bodyHTML += `
+
+                            <td class="kolom-status">
+
+                                ${escapeHTML(
+                                    status
+                                )}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    /* =========================
+                       PUBLIKASI
+                    ========================= */
+
+                    if (
+                        kolomTerpilih.includes(9)
+                    ) {
+
+                        let linkHTML =
+                            "-";
+
+
+                        if (
+                            item &&
+                            item.linkPublikasi
+                        ) {
+
+                            const link =
+                                String(
+                                    item.linkPublikasi
+                                ).trim();
+
+
+                            if (
+                                link !== ""
+                            ) {
+
+                                linkHTML = `
+
+                                    <a
+                                        href="${escapeAttribute(link)}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="publikasi-cetak"
+                                        title="${escapeAttribute(link)}"
+                                    >
+                                        ${escapeHTML(link)}
+                                    </a>
+
+                                `;
+
+                            }
+
+                        }
+
+
+                        bodyHTML += `
+
+                            <td
+                                class="kolom-linkPublikasi"
+                            >
+
+                                ${linkHTML}
+
+                            </td>
+
+                        `;
+
+                    }
+
+
+
+                    bodyHTML += "</tr>";
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       COLGROUP
+    ===================================================== */
+
+    const colgroupHTML =
+        kolomTerpilih
+            .map(
+                function (
+                    indexKolom
+                ) {
+
+                    const kolom =
+                        daftarKolom[
+                            indexKolom
+                        ];
+
+
+                    return `
+
+                        <col
+                            class="kolom-${kolom.key}"
+                        >
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+
+    /* =====================================================
+       HTML CETAK
+    ===================================================== */
+
+    const printHTML = `
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Laporan Jurnal LP3M
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="jurnallap.css"
+    >
+
+</head>
+
+
+<body class="halaman-cetak">
+
+
+    <div class="print-header">
+
+        <h1>
+            LAPORAN DATA JURNAL
+        </h1>
+
+
+        <h2>
+            LP3M Politeknik Bumi Akpelni
+        </h2>
+
+
+        <p>
+            Dicetak pada
+            ${new Date().toLocaleDateString("id-ID")}
+        </p>
+
+    </div>
+
+
+
+    <table class="table-print">
+
+
+        <colgroup>
+
+            ${colgroupHTML}
+
+        </colgroup>
+
+
+        <thead>
+
+            <tr>
+
+                ${headerHTML}
+
+            </tr>
+
+        </thead>
+
+
+        <tbody>
+
+            ${bodyHTML}
+
+        </tbody>
+
+
+    </table>
+
+
+</body>
+
+</html>
+
+    `;
+
+
+
+    printWindow.document.open();
+
+
+    printWindow.document.write(
+        printHTML
+    );
+
+
+    printWindow.document.close();
+
+
+    printWindow.onload =
+        function () {
+
+            setTimeout(
+                function () {
+
+                    printWindow.focus();
+
+                    printWindow.print();
+
+                },
+                300
+            );
+
+        };
+
+}
+
+
+
+/* =========================================================
+   EVENT
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    prosesData
+);
+
+
+sortSelect.addEventListener(
+    "change",
+    prosesData
+);
+
+
+
+/* =========================================================
+   MULAI
+========================================================= */
+
+/*
+   Pertama atur navbar.
+   Tidak ada localStorage.removeItem()
+   saat halaman dibuka.
+*/
+
+aturStatusLogin();
+
+
+loadJurnalTable();
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Data Buku - LP3M</title>
+
+    <link rel="stylesheet" href="buku.css">
+</head>
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <a href="dashboard.html" class="nav-logo">
+
+                <img
+                    src="gambar/Logo_Lp3M_New.png"
+                    alt="Logo LP3M"
+                    onerror="this.style.display='none';"
+                >
+
+                <span>LP3M PBA</span>
+
+            </a>
+
+            <button
+                type="button"
+                class="nav-toggle"
+                id="navToggle"
+                aria-label="Buka menu"
+            >
+                ☰
+            </button>
+
+            <div
+                class="nav-menu"
+                id="navMenu"
+            >
+
+                <a
+                    href="dashboard.html"
+                    class="nav-link"
+                >
+                    Dashboard
+                </a>
+
+                <a
+                    href="buku.html"
+                    class="nav-link active"
+                >
+                    Buku
+                </a>
+
+                <a
+                    href="jurnal.html"
+                    class="nav-link"
+                >
+                    Jurnal
+                </a>
+
+                <a
+                    href="admin.html"
+                    class="nav-link"
+                    id="menuAdmin"
+                    style="display:none;"
+                >
+                    Kelola Data
+                </a>
+
+                <a
+                    href="login.html"
+                    class="nav-login"
+                    id="loginLogoutButton"
+                >
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+    <main class="container">
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+        <section class="page-header">
+
+            <div>
+
+                <h1>
+                    Data Buku
+                </h1>
+
+                <p>
+                    Daftar buku yang telah tersimpan pada sistem LP3M.
+                </p>
+
+            </div>
+
+            <div class="user-info">
+
+                <span id="namaUser"></span>
+
+                <span id="roleUser"></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PESAN SISTEM
+        ================================================== -->
+        <div
+            id="pesanSistem"
+            class="pesan-sistem"
+            style="display:none;"
+        ></div>
+
+
+        <!-- =================================================
+             FILTER
+        ================================================== -->
+        <section class="filter-card">
+
+            <div class="filter-title">
+
+                <h2>
+                    Pencarian &amp; Pengurutan
+                </h2>
+
+                <p>
+                    Gunakan pencarian untuk menemukan data buku.
+                </p>
+
+            </div>
+
+            <div class="filter-row">
+
+                <!-- SEARCH -->
+                <div class="filter-group search-group">
+
+                    <label for="searchBuku">
+                        Cari Buku
+                    </label>
+
+                    <div class="search-box">
+
+                        <span class="search-icon">
+                            🔍
+                        </span>
+
+                        <input
+                            type="text"
+                            id="searchBuku"
+                            placeholder="Cari judul, penulis, penerbit, ISBN, HKI..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- SORT -->
+                <div class="filter-group sort-group">
+
+                    <label for="sortBuku">
+                        Urutkan
+                    </label>
+
+                    <select id="sortBuku">
+
+                        <option value="terbaru">
+                            Terbaru
+                        </option>
+
+                        <option value="terlama">
+                            Terlama
+                        </option>
+
+                        <option value="judul_asc">
+                            Judul A - Z
+                        </option>
+
+                        <option value="judul_desc">
+                            Judul Z - A
+                        </option>
+
+                        <option value="penulis_asc">
+                            Penulis A - Z
+                        </option>
+
+                        <option value="penulis_desc">
+                            Penulis Z - A
+                        </option>
+
+                        <option value="penerbit_asc">
+                            Penerbit A - Z
+                        </option>
+
+                        <option value="penerbit_desc">
+                            Penerbit Z - A
+                        </option>
+
+                        <option
+                            value="status_asc"
+                            id="sortStatusAsc"
+                        >
+                            Status A - Z
+                        </option>
+
+                        <option
+                            value="status_desc"
+                            id="sortStatusDesc"
+                        >
+                            Status Z - A
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BUTTON -->
+                <div class="filter-button-group">
+
+                    <button
+                        type="button"
+                        class="btn-reset"
+                        id="btnReset"
+                    >
+                        Reset
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn-refresh"
+                        id="btnRefresh"
+                    >
+                        ↻ Muat Ulang
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+        <section class="table-card">
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        Daftar Buku
+                    </h2>
+
+                    <p>
+                        Data buku yang tersimpan pada sistem.
+                    </p>
+
+                </div>
+
+                <div class="jumlah-data">
+
+                    Total:
+
+                    <strong id="jumlahData">
+                        0
+                    </strong>
+
+                    buku
+
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table id="tabelBuku">
+
+                    <thead>
+
+                        <tr>
+
+                            <th class="col-no">
+                                No
+                            </th>
+
+                            <th class="col-judul">
+                                Judul Buku
+                            </th>
+
+                            <th class="col-penulis">
+                                Penulis
+                            </th>
+
+                            <th class="col-cover">
+                                Cover
+                            </th>
+
+                            <th class="col-penerbit">
+                                Penerbit
+                            </th>
+
+                            <th class="col-isbn">
+                                ISBN
+                            </th>
+
+                            <th class="col-hki">
+                                HKI
+                            </th>
+
+                            <th
+                                id="thStatus"
+                                class="col-status-admin"
+                                style="display:none;"
+                            >
+                                Status
+                            </th>
+
+                            <th
+                                id="thEdit"
+                                class="col-aksi"
+                                style="display:none;"
+                            >
+                                Aksi
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="bodyBuku">
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="loading-data"
+                                id="loadingCell"
+                            >
+                                Memuat data buku...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL EDIT BUKU
+    ====================================================== -->
+    <div
+        class="modal-overlay"
+        id="modalEditBuku"
+        style="display:none;"
+    >
+
+        <div class="modal-box">
+
+            <!-- HEADER MODAL -->
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>
+                        Edit Data Buku
+                    </h2>
+
+                    <p>
+                        Perbarui informasi buku.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="modal-close"
+                    id="btnTutupModal"
+                >
+                    &times;
+                </button>
+
+            </div>
+
+
+            <!-- FORM -->
+            <form id="formEditBuku">
+
+                <input
+                    type="hidden"
+                    id="editRow"
+                >
+
+
+                <!-- JUDUL -->
+                <div class="form-group">
+
+                    <label for="editJudul">
+                        Judul Buku
+                    </label>
+
+                    <textarea
+                        id="editJudul"
+                        rows="4"
+                        placeholder="Masukkan judul buku"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- PENULIS -->
+                <div class="form-group">
+
+                    <label>
+                        Penulis
+                    </label>
+
+                    <div
+                        id="editPenulisContainer"
+                    ></div>
+
+                    <button
+                        type="button"
+                        class="btn-tambah-penulis"
+                        id="btnTambahPenulis"
+                    >
+                        + Tambah Penulis
+                    </button>
+
+                </div>
+
+
+                <!-- COVER -->
+                <div class="form-group">
+
+                    <label for="editCover">
+                        Cover Buku
+                    </label>
+
+                    <input
+                        type="file"
+                        id="editCover"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+
+                    <small>
+                        Format JPG, PNG, atau WEBP.
+                        Maksimal 5 MB.
+                        Kosongkan jika tidak ingin mengganti cover.
+                    </small>
+
+                </div>
+
+
+                <!-- PENERBIT -->
+                <div class="form-group">
+
+                    <label for="editPenerbit">
+                        Penerbit
+                    </label>
+
+                    <textarea
+                        id="editPenerbit"
+                        rows="3"
+                        placeholder="Masukkan nama penerbit"
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- ISBN -->
+                <div class="form-group">
+
+                    <label for="editISBN">
+                        ISBN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editISBN"
+                        placeholder="Masukkan ISBN"
+                    >
+
+                </div>
+
+
+                <!-- HKI -->
+                <div class="form-group">
+
+                    <label for="editHKI">
+                        HKI
+                    </label>
+
+                    <input
+                        type="text"
+                        id="editHKI"
+                        placeholder="Masukkan nomor/judul HKI"
+                    >
+
+                </div>
+
+
+                <!-- STATUS -->
+                <div class="form-group">
+
+                    <label for="editStatus">
+                        Status
+                    </label>
+
+                    <select
+                        id="editStatus"
+                        required
+                    >
+
+                        <option value="">
+                            -- Pilih Status --
+                        </option>
+
+                        <option value="Belum di Ajukan">
+                            Belum di Ajukan
+                        </option>
+
+                        <option value="Proses di Ajukan">
+                            Proses di Ajukan
+                        </option>
+
+                        <option value="Sudah di Ajukan">
+                            Sudah di Ajukan
+                        </option>
+
+                        <option value="Di Tolak">
+                            Di Tolak
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn-batal"
+                        id="btnBatalEdit"
+                    >
+                        Batal
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn-simpan"
+                        id="btnSimpanEdit"
+                    >
+                        Simpan Perubahan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+    <script>
+
+        /* =================================================
+           API
+        ================================================= */
+
+        const API_URL =
+            "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+        /* =================================================
+           GLOBAL
+        ================================================= */
+
+        let semuaBuku = [];
+
+        let editIndex = -1;
+
+
+        /* =================================================
+           USER
+        ================================================= */
+
+        function getUser() {
+
+            const data =
+                localStorage.getItem("user");
+
+            if (!data) {
+                return null;
+            }
+
+            try {
+
+                const user =
+                    JSON.parse(data);
+
+                if (
+                    user &&
+                    typeof user === "object"
+                ) {
+
+                    return user;
+                }
+
+                return null;
+
+            } catch (error) {
+
+                console.error(
+                    "Gagal membaca localStorage.user:",
+                    error
+                );
+
+                return null;
+            }
+        }
+
+
+        function getUsername(user) {
+
+            if (!user) {
+                return "";
+            }
+
+            return String(
+
+                user.username ||
+                user.userName ||
+                user.user ||
+                user.namaUser ||
+                user.nama ||
+                user.email ||
+                ""
+
+            ).trim();
+        }
+
+
+        function getRole(user) {
+
+            if (!user) {
+                return "";
+            }
+
+            return String(
+
+                user.role ||
+                user.Role ||
+                user.level ||
+                ""
+
+            ).trim().toLowerCase();
+        }
+
+
+        function isAdmin() {
+
+            const user =
+                getUser();
+
+            return getRole(user) === "admin";
+        }
+
+
+        /* =================================================
+           NAVBAR LOGIN
+        ================================================= */
+
+        function updateNavbarLogin() {
+
+            const button =
+                document.getElementById(
+                    "loginLogoutButton"
+                );
+
+            const adminMenu =
+                document.getElementById(
+                    "menuAdmin"
+                );
+
+            const namaUser =
+                document.getElementById(
+                    "namaUser"
+                );
+
+            const roleUser =
+                document.getElementById(
+                    "roleUser"
+                );
+
+            if (!button) {
+                return;
+            }
+
+
+            const user =
+                getUser();
+
+
+            if (!user) {
+
+                button.textContent =
+                    "Login";
+
+                button.href =
+                    "login.html";
+
+                button.onclick =
+                    null;
+
+
+                if (adminMenu) {
+
+                    adminMenu.style.display =
+                        "none";
+                }
+
+
+                if (namaUser) {
+                    namaUser.textContent = "";
+                }
+
+
+                if (roleUser) {
+                    roleUser.textContent = "";
+                }
+
+
+                return;
+            }
+
+
+            const username =
+                getUsername(user);
+
+            const role =
+                getRole(user);
+
+
+            button.textContent =
+                "Logout";
+
+            button.href =
+                "#";
+
+
+            button.onclick =
+                function(event) {
+
+                    event.preventDefault();
+
+                    logout();
+                };
+
+
+            if (adminMenu) {
+
+                adminMenu.style.display =
+                    role === "admin"
+                        ? "inline-flex"
+                        : "none";
+            }
+
+
+            if (namaUser) {
+
+                namaUser.textContent =
+                    username;
+            }
+
+
+            if (roleUser) {
+
+                roleUser.textContent =
+                    role === "admin"
+                        ? "Administrator"
+                        : role;
+            }
+        }
+
+
+        /* =================================================
+           LOGOUT
+        ====================================================== */
+
+        function logout() {
+
+            localStorage.removeItem(
+                "user"
+            );
+
+            window.location.href =
+                "login.html";
+        }
+
+
+        /* =================================================
+           ESCAPE HTML
+        ====================================================== */
+
+        function escapeHTML(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+            }
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+        }
+
+
+        function escapeURL(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+            }
+
+            return String(value)
+                .trim()
+                .replace(
+                    /"/g,
+                    "&quot;"
+                );
+        }
+
+
+        /* =================================================
+           PESAN
+        ====================================================== */
+
+        function tampilkanPesan(
+            pesan,
+            tipe = "info"
+        ) {
+
+            const box =
+                document.getElementById(
+                    "pesanSistem"
+                );
+
+            if (!box) {
+                return;
+            }
+
+            box.textContent =
+                pesan;
+
+            box.className =
+                "pesan-sistem " +
+                tipe;
+
+            box.style.display =
+                "block";
+
+
+            setTimeout(
+                function() {
+
+                    box.style.display =
+                        "none";
+
+                },
+                5000
+            );
+        }
+
+
+        /* =================================================
+           LOAD DATA BUKU
+        ====================================================== */
+
+        async function loadBukuTable() {
+
+            const body =
+                document.getElementById(
+                    "bodyBuku"
+                );
+
+            if (!body) {
+                return;
+            }
+
+
+            const admin =
+                isAdmin();
+
+
+            body.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="${admin ? 9 : 7}"
+                        class="loading-data"
+                    >
+                        Memuat data buku...
+                    </td>
+
+                </tr>
+
+            `;
+
+
+            try {
+
+                const url =
+                    API_URL +
+                    "?action=getBuku&_=" +
+                    Date.now();
+
+
+                const response =
+                    await fetch(
+                        url,
+                        {
+                            method: "GET",
+                            cache: "no-store"
+                        }
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Gagal terhubung ke server. HTTP " +
+                        response.status
+                    );
+                }
+
+
+                const data =
+                    await response.json();
+
+
+                console.log(
+                    "DATA BUKU TERBARU:",
+                    data
+                );
+
+
+                if (
+                    !data ||
+                    data.success === false
+                ) {
+
+                    throw new Error(
+
+                        data &&
+                        data.message
+
+                            ? data.message
+
+                            : "Data buku gagal dimuat."
+
+                    );
+                }
+
+
+                semuaBuku =
+                    Array.isArray(data.data)
+                        ? data.data
+                        : [];
+
+
+                prosesDataBuku();
+
+
+            } catch (error) {
+
+                console.error(
+                    "LOAD BUKU ERROR:",
+                    error
+                );
+
+
+                semuaBuku =
+                    [];
+
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="${admin ? 9 : 7}"
+                            class="empty-data"
+                        >
+
+                            Gagal memuat data buku.
+
+                            <br>
+
+                            <small>
+                                ${escapeHTML(
+                                    error.message
+                                )}
+                            </small>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+
+                const jumlah =
+                    document.getElementById(
+                        "jumlahData"
+                    );
+
+
+                if (jumlah) {
+
+                    jumlah.textContent =
+                        "0";
+                }
+            }
+        }
+
+
+        /* =================================================
+           NILAI BUKU
+        ====================================================== */
+
+        function nilaiBuku(
+            buku,
+            key
+        ) {
+
+            if (!buku) {
+                return "";
+            }
+
+            return String(
+                buku[key] ?? ""
+            ).trim();
+        }
+
+
+        /* =================================================
+           TANGGAL BUKU
+        ====================================================== */
+
+        function getTanggalBuku(
+            buku
+        ) {
+
+            const value =
+                buku && (
+
+                    buku.waktu ||
+                    buku.tanggal ||
+                    buku.createdAt ||
+                    buku.timestamp ||
+                    ""
+
+                );
+
+
+            if (!value) {
+                return 0;
+            }
+
+
+            const time =
+                new Date(
+                    value
+                ).getTime();
+
+
+            return Number.isNaN(time)
+                ? 0
+                : time;
+        }
+
+
+        /* =================================================
+           FILTER + SORT
+        ====================================================== */
+
+        function prosesDataBuku() {
+
+            const search =
+                document.getElementById(
+                    "searchBuku"
+                );
+
+
+            const sort =
+                document.getElementById(
+                    "sortBuku"
+                );
+
+
+            const keyword =
+                search
+                    ? search.value
+                        .trim()
+                        .toLowerCase()
+                    : "";
+
+
+            const sortValue =
+                sort
+                    ? sort.value
+                    : "terbaru";
+
+
+            let hasil =
+                [...semuaBuku];
+
+
+            if (keyword) {
+
+                hasil =
+                    hasil.filter(
+                        function(buku) {
+
+                            const judul =
+                                nilaiBuku(
+                                    buku,
+                                    "judul"
+                                ).toLowerCase();
+
+
+                            const penulis =
+                                nilaiBuku(
+                                    buku,
+                                    "penulis"
+                                ).toLowerCase();
+
+
+                            const penerbit =
+                                nilaiBuku(
+                                    buku,
+                                    "penerbit"
+                                ).toLowerCase();
+
+
+                            const isbn =
+                                nilaiBuku(
+                                    buku,
+                                    "isbn"
+                                ).toLowerCase();
+
+
+                            const hki =
+                                nilaiBuku(
+                                    buku,
+                                    "hki"
+                                ).toLowerCase();
+
+
+                            return (
+
+                                judul.includes(keyword) ||
+                                penulis.includes(keyword) ||
+                                penerbit.includes(keyword) ||
+                                isbn.includes(keyword) ||
+                                hki.includes(keyword)
+
+                            );
+                        }
+                    );
+            }
+
+
+            hasil.sort(
+                function(a, b) {
+
+                    const judulA =
+                        nilaiBuku(
+                            a,
+                            "judul"
+                        ).toLowerCase();
+
+
+                    const judulB =
+                        nilaiBuku(
+                            b,
+                            "judul"
+                        ).toLowerCase();
+
+
+                    const penulisA =
+                        nilaiBuku(
+                            a,
+                            "penulis"
+                        ).toLowerCase();
+
+
+                    const penulisB =
+                        nilaiBuku(
+                            b,
+                            "penulis"
+                        ).toLowerCase();
+
+
+                    const penerbitA =
+                        nilaiBuku(
+                            a,
+                            "penerbit"
+                        ).toLowerCase();
+
+
+                    const penerbitB =
+                        nilaiBuku(
+                            b,
+                            "penerbit"
+                        ).toLowerCase();
+
+
+                    const statusA =
+                        nilaiBuku(
+                            a,
+                            "status"
+                        ).toLowerCase();
+
+
+                    const statusB =
+                        nilaiBuku(
+                            b,
+                            "status"
+                        ).toLowerCase();
+
+
+                    switch (sortValue) {
+
+                        case "terlama":
+
+                            return (
+                                getTanggalBuku(a) -
+                                getTanggalBuku(b)
+                            );
+
+
+                        case "judul_asc":
+
+                            return judulA.localeCompare(
+                                judulB,
+                                "id"
+                            );
+
+
+                        case "judul_desc":
+
+                            return judulB.localeCompare(
+                                judulA,
+                                "id"
+                            );
+
+
+                        case "penulis_asc":
+
+                            return penulisA.localeCompare(
+                                penulisB,
+                                "id"
+                            );
+
+
+                        case "penulis_desc":
+
+                            return penulisB.localeCompare(
+                                penulisA,
+                                "id"
+                            );
+
+
+                        case "penerbit_asc":
+
+                            return penerbitA.localeCompare(
+                                penerbitB,
+                                "id"
+                            );
+
+
+                        case "penerbit_desc":
+
+                            return penerbitB.localeCompare(
+                                penerbitA,
+                                "id"
+                            );
+
+
+                        case "status_asc":
+
+                            if (!isAdmin()) {
+                                return 0;
+                            }
+
+                            return statusA.localeCompare(
+                                statusB,
+                                "id"
+                            );
+
+
+                        case "status_desc":
+
+                            if (!isAdmin()) {
+                                return 0;
+                            }
+
+                            return statusB.localeCompare(
+                                statusA,
+                                "id"
+                            );
+
+
+                        case "terbaru":
+
+                        default:
+
+                            return (
+                                getTanggalBuku(b) -
+                                getTanggalBuku(a)
+                            );
+                    }
+                }
+            );
+
+
+            tampilkanBuku(
+                hasil
+            );
+        }
+
+
+        /* =================================================
+           STATUS
+        ====================================================== */
+
+        function formatStatus(
+            status
+        ) {
+
+            const value =
+                String(
+                    status || ""
+                ).trim();
+
+
+            if (!value) {
+
+                return `
+
+                    <span class="status-pill status-kosong">
+                        -
+                    </span>
+
+                `;
+            }
+
+
+            const lower =
+                value.toLowerCase();
+
+
+            let className =
+                "status-proses";
+
+
+            if (
+                lower.includes("sudah")
+            ) {
+
+                className =
+                    "status-sudah";
+
+            } else if (
+                lower.includes("belum")
+            ) {
+
+                className =
+                    "status-belum";
+
+            } else if (
+                lower.includes("tolak")
+            ) {
+
+                className =
+                    "status-tolak";
+            }
+
+
+            return `
+
+                <span
+                    class="status-pill ${className}"
+                >
+                    ${escapeHTML(value)}
+                </span>
+
+            `;
+        }
+
+
+        /* =================================================
+           COVER
+        ====================================================== */
+
+        function formatCover(
+            cover
+        ) {
+
+            const url =
+                String(
+                    cover || ""
+                ).trim();
+
+
+            if (!url) {
+
+                return `
+
+                    <div class="cover-wrapper">
+
+                        <div class="cover-placeholder">
+                            Tidak ada cover
+                        </div>
+
+                    </div>
+
+                `;
+            }
+
+
+            const imageURL =
+                url +
+                (
+                    url.indexOf("?") >= 0
+                        ? "&"
+                        : "?"
+                ) +
+                "v=" +
+                Date.now();
+
+
+            return `
+
+                <div class="cover-wrapper">
+
+                    <a
+                        href="${escapeURL(url)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="cover-link"
+                    >
+
+                        <img
+                            src="${escapeURL(imageURL)}"
+                            alt="Cover Buku"
+                            class="cover-buku"
+                            loading="lazy"
+                            referrerpolicy="no-referrer"
+                            onload="
+                                this.classList.add('cover-loaded');
+                            "
+                            onerror="
+                                this.style.display='none';
+                                this.parentElement.innerHTML =
+                                '<div class=&quot;cover-placeholder&quot;>Cover tidak tersedia</div>';
+                            "
+                        >
+
+                    </a>
+
+                </div>
+
+            `;
+        }
+
+
+        /* =================================================
+           TAMPILKAN BUKU
+        ====================================================== */
+
+        function tampilkanBuku(
+            data
+        ) {
+
+            const body =
+                document.getElementById(
+                    "bodyBuku"
+                );
+
+
+            const jumlah =
+                document.getElementById(
+                    "jumlahData"
+                );
+
+
+            if (!body) {
+                return;
+            }
+
+
+            const admin =
+                isAdmin();
+
+
+            if (jumlah) {
+
+                jumlah.textContent =
+                    data.length;
+            }
+
+
+            const thStatus =
+                document.getElementById(
+                    "thStatus"
+                );
+
+
+            const thEdit =
+                document.getElementById(
+                    "thEdit"
+                );
+
+
+            if (thStatus) {
+
+                thStatus.style.display =
+                    admin
+                        ? "table-cell"
+                        : "none";
+            }
+
+
+            if (thEdit) {
+
+                thEdit.style.display =
+                    admin
+                        ? "table-cell"
+                        : "none";
+            }
+
+
+            if (
+                !Array.isArray(data) ||
+                data.length === 0
+            ) {
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="${admin ? 9 : 7}"
+                            class="empty-data"
+                        >
+                            Tidak ada data buku.
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+            }
+
+
+            body.innerHTML =
+                data.map(
+                    function(
+                        buku,
+                        index
+                    ) {
+
+                        const judul =
+                            nilaiBuku(
+                                buku,
+                                "judul"
+                            );
+
+
+                        const penulis =
+                            nilaiBuku(
+                                buku,
+                                "penulis"
+                            );
+
+
+                        const penerbit =
+                            nilaiBuku(
+                                buku,
+                                "penerbit"
+                            );
+
+
+                        const isbn =
+                            nilaiBuku(
+                                buku,
+                                "isbn"
+                            );
+
+
+                        const hki =
+                            nilaiBuku(
+                                buku,
+                                "hki"
+                            );
+
+
+                        const cover =
+                            buku.cover ||
+                            buku.coverURL ||
+                            buku.coverUrl ||
+                            "";
+
+
+                        const status =
+                            nilaiBuku(
+                                buku,
+                                "status"
+                            );
+
+
+                        let html = `
+
+                            <tr>
+
+                                <td
+                                    class="text-center"
+                                    data-label="No"
+                                >
+                                    ${index + 1}
+                                </td>
+
+
+                                <td
+                                    data-label="Judul Buku"
+                                    class="judul-cell"
+                                >
+                                    ${escapeHTML(judul)}
+                                </td>
+
+
+                                <td
+                                    data-label="Penulis"
+                                    class="penulis-cell"
+                                >
+                                    ${escapeHTML(penulis)}
+                                </td>
+
+
+                                <td
+                                    data-label="Cover"
+                                    class="cover-cell"
+                                >
+                                    ${formatCover(cover)}
+                                </td>
+
+
+                                <td
+                                    data-label="Penerbit"
+                                >
+                                    ${escapeHTML(penerbit)}
+                                </td>
+
+
+                                <td
+                                    data-label="ISBN"
+                                >
+                                    ${escapeHTML(isbn)}
+                                </td>
+
+
+                                <td
+                                    data-label="HKI"
+                                >
+                                    ${escapeHTML(hki)}
+                                </td>
+
+                        `;
+
+
+                        if (admin) {
+
+                            const dataIndex =
+                                semuaBuku.indexOf(
+                                    buku
+                                );
+
+
+                            html += `
+
+                                <td
+                                    data-label="Status"
+                                    class="status-cell"
+                                >
+
+                                    ${formatStatus(status)}
+
+                                </td>
+
+
+                                <td
+                                    data-label="Aksi"
+                                    class="aksi-cell"
+                                >
+
+                                    <button
+                                        type="button"
+                                        class="btn-edit"
+                                        data-index="${dataIndex}"
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="btn-delete"
+                                        data-index="${dataIndex}"
+                                    >
+                                        Hapus
+                                    </button>
+
+                                </td>
+
+                            `;
+                        }
+
+
+                        html += `
+
+                            </tr>
+
+                        `;
+
+
+                        return html;
+
+                    }
+                )
+                .join("");
+
+
+            if (admin) {
+
+                const tombolEdit =
+                    body.querySelectorAll(
+                        ".btn-edit"
+                    );
+
+
+                tombolEdit.forEach(
+                    function(button) {
+
+                        button.addEventListener(
+                            "click",
+                            function() {
+
+                                const index =
+                                    parseInt(
+                                        button.dataset.index,
+                                        10
+                                    );
+
+
+                                if (
+                                    Number.isNaN(index)
+                                ) {
+                                    return;
+                                }
+
+
+                                bukaEditBuku(
+                                    index
+                                );
+                            }
+                        );
+                    }
+                );
+
+
+                const tombolHapus =
+                    body.querySelectorAll(
+                        ".btn-delete"
+                    );
+
+
+                tombolHapus.forEach(
+                    function(button) {
+
+                        button.addEventListener(
+                            "click",
+                            function() {
+
+                                const index =
+                                    parseInt(
+                                        button.dataset.index,
+                                        10
+                                    );
+
+
+                                if (
+                                    Number.isNaN(index)
+                                ) {
+                                    return;
+                                }
+
+
+                                hapusBuku(
+                                    index
+                                );
+                            }
+                        );
+                    }
+                );
+            }
+        }
+
+
+        /* =================================================
+           HAPUS BUKU
+        ====================================================== */
+
+        async function hapusBuku(
+            index
+        ) {
+
+            if (!isAdmin()) {
+
+                alert(
+                    "Anda harus login sebagai Admin."
+                );
+
+                return;
+            }
+
+
+            if (
+                index < 0 ||
+                index >= semuaBuku.length
+            ) {
+
+                alert(
+                    "Data buku tidak ditemukan."
+                );
+
+                return;
+            }
+
+
+            const buku =
+                semuaBuku[index];
+
+
+            const judul =
+                nilaiBuku(
+                    buku,
+                    "judul"
+                );
+
+
+            const isbn =
+                nilaiBuku(
+                    buku,
+                    "isbn"
+                );
+
+
+            const row =
+                buku.row ||
+                buku.rowNumber ||
+                buku.nomorBaris ||
+                "";
+
+
+            const konfirmasi =
+                confirm(
+
+                    "Apakah Anda yakin ingin menghapus data buku ini?\n\n" +
+
+                    "Judul: " +
+                    (judul || "-") +
+
+                    "\nISBN: " +
+                    (isbn || "-") +
+
+                    "\n\nData yang dihapus tidak dapat dikembalikan."
+
+                );
+
+
+            if (!konfirmasi) {
+                return;
+            }
+
+
+            if (!row) {
+
+                alert(
+                    "Nomor baris data tidak ditemukan. Data belum dihapus."
+                );
+
+                return;
+            }
+
+
+            tampilkanPesan(
+                "Menghapus data buku...",
+                "info"
+            );
+
+
+            try {
+
+                const user =
+                    getUser();
+
+
+                const username =
+                    getUsername(user);
+
+
+                const payload = {
+
+                    action:
+                        "deleteBuku",
+
+                    row:
+                        row,
+
+                    judul:
+                        judul,
+
+                    isbn:
+                        isbn,
+
+                    username:
+                        username
+
+                };
+
+
+                console.log(
+                    "PAYLOAD DELETE BUKU:",
+                    payload
+                );
+
+
+                const response =
+                    await fetch(
+                        API_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+
+                        }
+                    );
+
+
+                const text =
+                    await response.text();
+
+
+                console.log(
+                    "RAW RESPONSE DELETE BUKU:",
+                    text
+                );
+
+
+                let result;
+
+
+                try {
+
+                    result =
+                        JSON.parse(
+                            text
+                        );
+
+                } catch (error) {
+
+                    throw new Error(
+                        "Response server bukan JSON."
+                    );
+                }
+
+
+                if (
+                    !result ||
+                    result.success === false
+                ) {
+
+                    throw new Error(
+
+                        result &&
+                        result.message
+
+                            ? result.message
+
+                            : "Data buku gagal dihapus."
+
+                    );
+                }
+
+
+                semuaBuku.splice(
+                    index,
+                    1
+                );
+
+
+                prosesDataBuku();
+
+
+                tampilkanPesan(
+
+                    result.message ||
+                    "Data buku berhasil dihapus.",
+
+                    "success"
+
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        loadBukuTable();
+
+                    },
+                    500
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "DELETE BUKU ERROR:",
+                    error
+                );
+
+
+                tampilkanPesan(
+
+                    error.message ||
+                    "Gagal menghapus data buku.",
+
+                    "error"
+
+                );
+            }
+        }
+
+
+        /* =================================================
+           RESET
+        ====================================================== */
+
+        function resetFilterBuku() {
+
+            const search =
+                document.getElementById(
+                    "searchBuku"
+                );
+
+
+            const sort =
+                document.getElementById(
+                    "sortBuku"
+                );
+
+
+            if (search) {
+
+                search.value =
+                    "";
+            }
+
+
+            if (sort) {
+
+                sort.value =
+                    "terbaru";
+            }
+
+
+            prosesDataBuku();
+        }
+
+
+        /* =================================================
+           INPUT PENULIS
+        ====================================================== */
+
+        function buatInputPenulis(
+            value = "",
+            hapus = true
+        ) {
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.className =
+                "penulis-edit-row";
+
+
+            const input =
+                document.createElement(
+                    "input"
+                );
+
+
+            input.type =
+                "text";
+
+
+            input.className =
+                "edit-penulis";
+
+
+            input.placeholder =
+                "Nama penulis";
+
+
+            input.value =
+                value || "";
+
+
+            wrapper.appendChild(
+                input
+            );
+
+
+            if (hapus) {
+
+                const button =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                button.type =
+                    "button";
+
+
+                button.className =
+                    "btn-hapus-penulis";
+
+
+                button.textContent =
+                    "Hapus";
+
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        wrapper.remove();
+
+                    }
+                );
+
+
+                wrapper.appendChild(
+                    button
+                );
+            }
+
+
+            return wrapper;
+        }
+
+
+        /* =================================================
+           BUKA EDIT
+        ====================================================== */
+
+        function bukaEditBuku(
+            index
+        ) {
+
+            if (!isAdmin()) {
+
+                alert(
+                    "Anda harus login sebagai Admin."
+                );
+
+                return;
+            }
+
+
+            if (
+                index < 0 ||
+                index >= semuaBuku.length
+            ) {
+
+                alert(
+                    "Data buku tidak ditemukan."
+                );
+
+                return;
+            }
+
+
+            editIndex =
+                index;
+
+
+            const buku =
+                semuaBuku[index];
+
+
+            const row =
+                buku.row ||
+                buku.rowNumber ||
+                buku.nomorBaris ||
+                "";
+
+
+            document.getElementById(
+                "editRow"
+            ).value =
+                row;
+
+
+            document.getElementById(
+                "editJudul"
+            ).value =
+                nilaiBuku(
+                    buku,
+                    "judul"
+                );
+
+
+            document.getElementById(
+                "editPenerbit"
+            ).value =
+                nilaiBuku(
+                    buku,
+                    "penerbit"
+                );
+
+
+            document.getElementById(
+                "editISBN"
+            ).value =
+                nilaiBuku(
+                    buku,
+                    "isbn"
+                );
+
+
+            document.getElementById(
+                "editHKI"
+            ).value =
+                nilaiBuku(
+                    buku,
+                    "hki"
+                );
+
+
+            document.getElementById(
+                "editStatus"
+            ).value =
+                nilaiBuku(
+                    buku,
+                    "status"
+                );
+
+
+            document.getElementById(
+                "editCover"
+            ).value =
+                "";
+
+
+            const container =
+                document.getElementById(
+                    "editPenulisContainer"
+                );
+
+
+            container.innerHTML =
+                "";
+
+
+            const penulisText =
+                nilaiBuku(
+                    buku,
+                    "penulis"
+                );
+
+
+            const penulisList =
+                penulisText
+
+                    ? penulisText
+                        .split(/\s*,\s*/)
+                        .map(
+                            function(item) {
+
+                                return item.trim();
+
+                            }
+                        )
+                        .filter(Boolean)
+
+                    : [""];
+
+
+            penulisList.forEach(
+                function(
+                    penulis,
+                    idx
+                ) {
+
+                    container.appendChild(
+                        buatInputPenulis(
+                            penulis,
+                            idx > 0
+                        )
+                    );
+
+                }
+            );
+
+
+            const modal =
+                document.getElementById(
+                    "modalEditBuku"
+                );
+
+
+            if (modal) {
+
+                modal.style.display =
+                    "flex";
+            }
+
+
+            document.body.style.overflow =
+                "hidden";
+        }
+
+
+        /* =================================================
+           TUTUP EDIT
+        ====================================================== */
+
+        function tutupEditBuku() {
+
+            const modal =
+                document.getElementById(
+                    "modalEditBuku"
+                );
+
+
+            if (modal) {
+
+                modal.style.display =
+                    "none";
+            }
+
+
+            document.body.style.overflow =
+                "";
+
+
+            editIndex =
+                -1;
+        }
+
+
+        /* =================================================
+           FILE -> BASE64
+        ====================================================== */
+
+        function fileToBase64(
+            file,
+            maxWidth = 1200,
+            maxHeight = 1600,
+            quality = 0.82
+        ) {
+
+            return new Promise(
+                function(
+                    resolve,
+                    reject
+                ) {
+
+                    if (!file) {
+
+                        reject(
+                            new Error(
+                                "File tidak ditemukan."
+                            )
+                        );
+
+                        return;
+                    }
+
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function(event) {
+
+                            const img =
+                                new Image();
+
+
+                            img.onload =
+                                function() {
+
+                                    let width =
+                                        img.width;
+
+
+                                    let height =
+                                        img.height;
+
+
+                                    const scale =
+                                        Math.min(
+
+                                            1,
+
+                                            maxWidth /
+                                                width,
+
+                                            maxHeight /
+                                                height
+
+                                        );
+
+
+                                    width =
+                                        Math.round(
+                                            width *
+                                            scale
+                                        );
+
+
+                                    height =
+                                        Math.round(
+                                            height *
+                                            scale
+                                        );
+
+
+                                    const canvas =
+                                        document.createElement(
+                                            "canvas"
+                                        );
+
+
+                                    canvas.width =
+                                        width;
+
+
+                                    canvas.height =
+                                        height;
+
+
+                                    const ctx =
+                                        canvas.getContext(
+                                            "2d"
+                                        );
+
+
+                                    if (!ctx) {
+
+                                        reject(
+                                            new Error(
+                                                "Canvas gambar tidak tersedia."
+                                            )
+                                        );
+
+                                        return;
+                                    }
+
+
+                                    ctx.drawImage(
+
+                                        img,
+
+                                        0,
+
+                                        0,
+
+                                        width,
+
+                                        height
+
+                                    );
+
+
+                                    const base64 =
+                                        canvas.toDataURL(
+
+                                            "image/jpeg",
+
+                                            quality
+
+                                        );
+
+
+                                    resolve(
+                                        base64
+                                    );
+
+                                };
+
+
+                            img.onerror =
+                                function() {
+
+                                    reject(
+                                        new Error(
+                                            "Gambar tidak dapat diproses."
+                                        )
+                                    );
+
+                                };
+
+
+                            img.src =
+                                event.target.result;
+
+                        };
+
+
+                    reader.onerror =
+                        function() {
+
+                            reject(
+                                new Error(
+                                    "File gagal dibaca."
+                                )
+                            );
+
+                        };
+
+
+                    reader.readAsDataURL(
+                        file
+                    );
+
+                }
+            );
+        }
+
+
+        /* =================================================
+           SIMPAN EDIT
+        ====================================================== */
+
+        async function simpanEditBuku(
+            event
+        ) {
+
+            event.preventDefault();
+
+
+            const user =
+                getUser();
+
+
+            if (!user) {
+
+                alert(
+                    "Sesi login tidak ditemukan. Silakan login sebagai Admin."
+                );
+
+                return;
+            }
+
+
+            const role =
+                getRole(user);
+
+
+            if (role !== "admin") {
+
+                alert(
+                    "Anda harus login sebagai Admin."
+                );
+
+                return;
+            }
+
+
+            const username =
+                getUsername(user);
+
+
+            if (!username) {
+
+                alert(
+                    "Username admin tidak ditemukan. Silakan logout lalu login kembali."
+                );
+
+                return;
+            }
+
+
+            const row =
+                document.getElementById(
+                    "editRow"
+                ).value.trim();
+
+
+            const judul =
+                document.getElementById(
+                    "editJudul"
+                ).value.trim();
+
+
+            const penerbit =
+                document.getElementById(
+                    "editPenerbit"
+                ).value.trim();
+
+
+            const isbn =
+                document.getElementById(
+                    "editISBN"
+                ).value.trim();
+
+
+            const hki =
+                document.getElementById(
+                    "editHKI"
+                ).value.trim();
+
+
+            const status =
+                document.getElementById(
+                    "editStatus"
+                ).value;
+
+
+            const penulisInputs =
+                document.querySelectorAll(
+                    ".edit-penulis"
+                );
+
+
+            const penulis =
+                Array.from(
+                    penulisInputs
+                )
+                .map(
+                    function(input) {
+
+                        return input.value.trim();
+
+                    }
+                )
+                .filter(Boolean);
+
+
+            if (!row) {
+
+                alert(
+                    "Nomor baris data tidak ditemukan."
+                );
+
+                return;
+            }
+
+
+            if (!judul) {
+
+                alert(
+                    "Judul buku wajib diisi."
+                );
+
+                return;
+            }
+
+
+            if (penulis.length === 0) {
+
+                alert(
+                    "Minimal satu penulis harus diisi."
+                );
+
+                return;
+            }
+
+
+            if (!penerbit) {
+
+                alert(
+                    "Penerbit wajib diisi."
+                );
+
+                return;
+            }
+
+
+            if (!status) {
+
+                alert(
+                    "Status wajib dipilih."
+                );
+
+                return;
+            }
+
+
+            const button =
+                document.getElementById(
+                    "btnSimpanEdit"
+                );
+
+
+            const teksAwal =
+                button
+                    ? button.textContent
+                    : "Simpan Perubahan";
+
+
+            if (button) {
+
+                button.disabled =
+                    true;
+
+                button.textContent =
+                    "Menyimpan...";
+            }
+
+
+            try {
+
+                let coverBase64 =
+                    "";
+
+                let coverName =
+                    "";
+
+                let coverType =
+                    "";
+
+
+                const coverInput =
+                    document.getElementById(
+                        "editCover"
+                    );
+
+
+                const file =
+                    coverInput &&
+                    coverInput.files &&
+                    coverInput.files.length > 0
+
+                        ? coverInput.files[0]
+
+                        : null;
+
+
+                if (file) {
+
+                    if (
+                        file.size >
+                        5 *
+                        1024 *
+                        1024
+                    ) {
+
+                        throw new Error(
+                            "Ukuran cover maksimal 5 MB."
+                        );
+                    }
+
+
+                    const allowedTypes = [
+
+                        "image/jpeg",
+
+                        "image/png",
+
+                        "image/webp"
+
+                    ];
+
+
+                    if (
+                        !allowedTypes.includes(
+                            file.type
+                        )
+                    ) {
+
+                        throw new Error(
+                            "Cover harus berupa JPG, PNG, atau WEBP."
+                        );
+                    }
+
+
+                    coverBase64 =
+                        await fileToBase64(
+                            file
+                        );
+
+
+                    coverType =
+                        "image/jpeg";
+
+
+                    const namaTanpaExtension =
+                        file.name
+
+                            .replace(
+                                /\.[^/.]+$/,
+                                ""
+                            )
+
+                            .replace(
+                                /[^a-zA-Z0-9_-]/g,
+                                "_"
+                            );
+
+
+                    coverName =
+                        namaTanpaExtension +
+                        "-" +
+                        Date.now() +
+                        ".jpg";
+                }
+
+
+                const payload = {
+
+                    action:
+                        "updateBuku",
+
+                    row:
+                        row,
+
+                    username:
+                        username,
+
+                    judul:
+                        judul,
+
+                    penulis:
+                        penulis,
+
+                    penerbit:
+                        penerbit,
+
+                    isbn:
+                        isbn,
+
+                    hki:
+                        hki,
+
+                    status:
+                        status,
+
+                    coverBase64:
+                        coverBase64,
+
+                    coverName:
+                        coverName,
+
+                    coverType:
+                        coverType
+
+                };
+
+
+                console.log(
+                    "PAYLOAD UPDATE BUKU:",
+                    payload
+                );
+
+
+                const response =
+                    await fetch(
+                        API_URL,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    payload
+                                )
+
+                        }
+                    );
+
+
+                const text =
+                    await response.text();
+
+
+                console.log(
+                    "RAW RESPONSE UPDATE BUKU:",
+                    text
+                );
+
+
+                let result;
+
+
+                try {
+
+                    result =
+                        JSON.parse(
+                            text
+                        );
+
+                } catch (error) {
+
+                    throw new Error(
+                        "Response server bukan JSON."
+                    );
+                }
+
+
+                if (
+                    !result ||
+                    result.success === false
+                ) {
+
+                    throw new Error(
+
+                        result &&
+                        result.message
+
+                            ? result.message
+
+                            : "Data buku gagal diperbarui."
+
+                    );
+                }
+
+
+                const coverBaru =
+
+                    result.data &&
+                    (
+                        result.data.coverURL ||
+                        result.data.cover ||
+                        ""
+                    )
+
+                    ? String(
+
+                        result.data.coverURL ||
+                        result.data.cover ||
+                        ""
+
+                    ).trim()
+
+                    : "";
+
+
+                if (
+                    coverBaru &&
+                    editIndex >= 0 &&
+                    editIndex < semuaBuku.length
+                ) {
+
+                    semuaBuku[
+                        editIndex
+                    ].cover =
+                        coverBaru;
+
+
+                    semuaBuku[
+                        editIndex
+                    ].coverURL =
+                        coverBaru;
+                }
+
+
+                tutupEditBuku();
+
+
+                prosesDataBuku();
+
+
+                setTimeout(
+                    function() {
+
+                        loadBukuTable();
+
+                    },
+                    400
+                );
+
+
+                tampilkanPesan(
+
+                    result.message ||
+                    "Data buku berhasil diperbarui.",
+
+                    "success"
+
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "UPDATE BUKU ERROR:",
+                    error
+                );
+
+
+                tampilkanPesan(
+
+                    error.message ||
+                    "Gagal menyimpan perubahan data buku.",
+
+                    "error"
+
+                );
+
+
+            } finally {
+
+                if (button) {
+
+                    button.disabled =
+                        false;
+
+                    button.textContent =
+                        teksAwal;
+                }
+            }
+        }
+
+
+        /* =================================================
+           NAVBAR MOBILE
+        ====================================================== */
+
+        function setupNavbar() {
+
+            const navToggle =
+                document.getElementById(
+                    "navToggle"
+                );
+
+
+            const navMenu =
+                document.getElementById(
+                    "navMenu"
+                );
+
+
+            if (
+                !navToggle ||
+                !navMenu
+            ) {
+
+                return;
+            }
+
+
+            navToggle.addEventListener(
+                "click",
+                function() {
+
+                    navMenu.classList.toggle(
+                        "active"
+                    );
+
+                }
+            );
+
+
+            const links =
+                navMenu.querySelectorAll(
+                    "a"
+                );
+
+
+            links.forEach(
+                function(link) {
+
+                    link.addEventListener(
+                        "click",
+                        function() {
+
+                            navMenu.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+                }
+            );
+        }
+
+
+        /* =================================================
+           SETUP EVENTS
+        ====================================================== */
+
+        function setupEvents() {
+
+            /* =========================
+               SEARCH
+            ========================== */
+
+            const search =
+                document.getElementById(
+                    "searchBuku"
+                );
+
+
+            if (search) {
+
+                search.addEventListener(
+                    "input",
+                    function() {
+
+                        prosesDataBuku();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               SORT
+            ========================== */
+
+            const sort =
+                document.getElementById(
+                    "sortBuku"
+                );
+
+
+            if (sort) {
+
+                sort.addEventListener(
+                    "change",
+                    function() {
+
+                        prosesDataBuku();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               RESET
+            ========================== */
+
+            const reset =
+                document.getElementById(
+                    "btnReset"
+                );
+
+
+            if (reset) {
+
+                reset.addEventListener(
+                    "click",
+                    function() {
+
+                        resetFilterBuku();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               REFRESH
+            ========================== */
+
+            const refresh =
+                document.getElementById(
+                    "btnRefresh"
+                );
+
+
+            if (refresh) {
+
+                refresh.addEventListener(
+                    "click",
+                    function() {
+
+                        loadBukuTable();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               TUTUP MODAL
+               HANYA DENGAN TOMBOL X
+            ========================== */
+
+            const closeButton =
+                document.getElementById(
+                    "btnTutupModal"
+                );
+
+
+            if (closeButton) {
+
+                closeButton.addEventListener(
+                    "click",
+                    function() {
+
+                        tutupEditBuku();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               BATAL EDIT
+            ========================== */
+
+            const cancelButton =
+                document.getElementById(
+                    "btnBatalEdit"
+                );
+
+
+            if (cancelButton) {
+
+                cancelButton.addEventListener(
+                    "click",
+                    function() {
+
+                        tutupEditBuku();
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               TAMBAH PENULIS
+            ========================== */
+
+            const tambahPenulis =
+                document.getElementById(
+                    "btnTambahPenulis"
+                );
+
+
+            if (tambahPenulis) {
+
+                tambahPenulis.addEventListener(
+                    "click",
+                    function() {
+
+                        const container =
+                            document.getElementById(
+                                "editPenulisContainer"
+                            );
+
+
+                        if (!container) {
+                            return;
+                        }
+
+
+                        container.appendChild(
+
+                            buatInputPenulis(
+                                "",
+                                true
+                            )
+
+                        );
+
+                    }
+                );
+            }
+
+
+            /* =========================
+               FORM EDIT
+            ========================== */
+
+            const formEdit =
+                document.getElementById(
+                    "formEditBuku"
+                );
+
+
+            if (formEdit) {
+
+                formEdit.addEventListener(
+                    "submit",
+                    simpanEditBuku
+                );
+            }
+
+        }
+
+
+        /* =================================================
+           SETUP SORT ADMIN
+        ====================================================== */
+
+        function setupAdminSort() {
+
+            const admin =
+                isAdmin();
+
+
+            const sortStatusAsc =
+                document.getElementById(
+                    "sortStatusAsc"
+                );
+
+
+            const sortStatusDesc =
+                document.getElementById(
+                    "sortStatusDesc"
+                );
+
+
+            if (sortStatusAsc) {
+
+                sortStatusAsc.style.display =
+                    admin
+                        ? ""
+                        : "none";
+            }
+
+
+            if (sortStatusDesc) {
+
+                sortStatusDesc.style.display =
+                    admin
+                        ? ""
+                        : "none";
+            }
+        }
+
+
+        /* =================================================
+           START APLIKASI
+        ====================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                updateNavbarLogin();
+
+                setupNavbar();
+
+                setupEvents();
+
+                setupAdminSort();
+
+                loadBukuTable();
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

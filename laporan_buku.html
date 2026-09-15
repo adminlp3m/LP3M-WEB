@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Laporan Data Buku - LP3M</title>
+
+    <link rel="stylesheet" href="bukulap.css">
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="dashboard.html" class="nav-logo">
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>LP3M PBA</span>
+
+        </a>
+
+
+        <button
+            class="nav-toggle"
+            id="navToggle"
+            type="button"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link active"
+                id="adminMenu"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="login.html"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<main class="main-container">
+
+
+    <div class="page-header">
+
+        <h1>
+            Laporan Data Buku
+        </h1>
+
+
+        <p>
+            Laporan seluruh data buku publikasi LP3M.
+        </p>
+
+    </div>
+
+
+
+    <div class="table-card">
+
+
+        <div class="table-header">
+
+            <h2>
+                Daftar Data Buku
+            </h2>
+
+
+            <span
+                id="jumlahData"
+                class="jumlah-data"
+            >
+                Memuat data...
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FILTER
+        ================================================== -->
+
+        <div class="filter-area">
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Cari dosen, judul, penulis..."
+            >
+
+
+            <select id="sortSelect">
+
+                <option value="default">
+                    Urutan Data
+                </option>
+
+                <option value="terbaru">
+                    Terbaru
+                </option>
+
+                <option value="terlama">
+                    Terlama
+                </option>
+
+                <option value="penulis-asc">
+                    Penulis A - Z
+                </option>
+
+                <option value="penulis-desc">
+                    Penulis Z - A
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="btn-reset"
+                onclick="resetFilter()"
+            >
+                RESET
+            </button>
+
+
+            <button
+                type="button"
+                class="btn-cetak"
+                onclick="cetakLaporan()"
+            >
+                CETAK
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             TABLE
+        ================================================== -->
+
+        <div class="table-wrapper">
+
+
+            <table class="data-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            No
+                        </th>
+
+
+                        <th>
+                            Judul Buku
+                        </th>
+
+
+                        <th>
+                            Penulis
+                        </th>
+
+
+                        <th>
+                            Penerbit
+                        </th>
+
+
+                        <th>
+                            ISBN
+                        </th>
+
+
+                        <th>
+                            HKI
+                        </th>
+
+
+                        <th>
+                            Status
+                        </th>
+
+
+                        <th>
+                            Cover
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody
+                    id="bukuTableBody"
+                >
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="loading"
+                        >
+                            Memuat data buku...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+
+        <div class="bottom-action">
+
+
+            <button
+                type="button"
+                class="btn-back"
+                onclick="kembali()"
+            >
+                KEMBALI
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+
+<script>
+
+
+/* =========================================================
+   API
+========================================================= */
+
+const BUKU_TABLE_API_URL =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+
+/* =========================================================
+   ELEMENT
+========================================================= */
+
+const bukuTableBody =
+    document.getElementById(
+        "bukuTableBody"
+    );
+
+
+const jumlahData =
+    document.getElementById(
+        "jumlahData"
+    );
+
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+const sortSelect =
+    document.getElementById(
+        "sortSelect"
+    );
+
+
+const navToggle =
+    document.getElementById(
+        "navToggle"
+    );
+
+
+const navMenu =
+    document.getElementById(
+        "navMenu"
+    );
+
+
+let semuaDataBuku = [];
+
+
+
+/* =========================================================
+   NAVBAR MOBILE
+========================================================= */
+
+if (
+    navToggle &&
+    navMenu
+) {
+
+    navToggle.addEventListener(
+        "click",
+        function () {
+
+            navMenu.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadBukuTable() {
+
+    try {
+
+        const response =
+            await fetch(
+                BUKU_TABLE_API_URL +
+                "?action=getBuku"
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Gagal mengambil data."
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            !result.success ||
+            !Array.isArray(result.data)
+        ) {
+
+            throw new Error(
+                result.message ||
+                "Data buku tidak tersedia."
+            );
+
+        }
+
+
+        semuaDataBuku =
+            result.data;
+
+
+        prosesData();
+
+
+    }
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        jumlahData.innerText =
+            "0 data";
+
+
+        bukuTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty-data"
+                >
+                    Data buku tidak dapat
+                    ditampilkan.
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   PROSES DATA
+========================================================= */
+
+function prosesData() {
+
+    let data =
+        [...semuaDataBuku];
+
+
+    const keyword =
+        searchInput.value
+            .trim()
+            .toLowerCase();
+
+
+    if (keyword) {
+
+        data =
+            data.filter(
+                function (buku) {
+
+                    const teks = [
+
+                        buku.judul,
+                        buku.penulis,
+                        buku.penerbit,
+                        buku.isbn,
+                        buku.hki,
+                        buku.status
+
+                    ]
+
+                        .map(
+                            function (item) {
+
+                                return String(
+                                    item || ""
+                                ).toLowerCase();
+
+                            }
+                        )
+
+                        .join(" ");
+
+
+                    return teks.includes(
+                        keyword
+                    );
+
+                }
+            );
+
+    }
+
+
+                const sortValue =
+                    sortSelect.value;
+
+
+                    /* =====================================================
+                    URUTKAN DATA
+                    ===================================================== */
+
+                    if (sortValue === "terbaru") {
+
+                        /*
+                        * Data terbaru berada di bagian akhir
+                        * dari data yang dikirim oleh API.
+                        */
+                        data.reverse();
+
+                    }
+                    else if (sortValue === "terlama") {
+
+                        /*
+                        * Urutan asli data dari API.
+                        */
+
+                    }
+                    else if (
+                        sortValue === "penulis-asc" ||
+                        sortValue === "penulis-desc"
+                    ) {
+
+                    data.sort(
+                        function (a, b) {
+
+                            const penulisA =
+                                String(
+                                    a.penulis || ""
+                                )
+                                .trim()
+                                .toLowerCase();
+
+
+                            const penulisB =
+                                String(
+                                    b.penulis || ""
+                                )
+                                .trim()
+                                .toLowerCase();
+
+
+                            const hasil =
+                                penulisA.localeCompare(
+                                    penulisB,
+                                    "id",
+                                    {
+                                        sensitivity: "base"
+                                    }
+                                );
+
+
+                            return sortValue === "penulis-asc"
+                                ? hasil
+                                : -hasil;
+
+                        }
+                    );
+
+                }
+
+
+    tampilkanBuku(
+        data
+    );
+
+}
+
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function tampilkanStatus(status) {
+
+    const nilai =
+        String(
+            status || ""
+        );
+
+
+    const lower =
+        nilai.toLowerCase();
+
+
+    let className =
+        "status";
+
+
+    if (
+        lower === "belum di ajukan"
+    ) {
+
+        className +=
+            " status-belum";
+
+    }
+
+    else if (
+        lower === "proses di ajukan"
+    ) {
+
+        className +=
+            " status-proses";
+
+    }
+
+    else if (
+        lower === "sudah di ajukan"
+    ) {
+
+        className +=
+            " status-sudah";
+
+    }
+
+    else if (
+        lower === "di tolak"
+    ) {
+
+        className +=
+            " status-tolak";
+
+    }
+
+
+    return `
+
+        <span class="${className}">
+
+            ${escapeHTML(
+                nilai || "-"
+            )}
+
+        </span>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   TAMPILKAN BUKU
+========================================================= */
+
+function tampilkanBuku(data) {
+
+    jumlahData.innerText =
+        data.length +
+        " data";
+
+
+    if (
+        data.length === 0
+    ) {
+
+        bukuTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    class="empty-data"
+                >
+                    Data buku tidak ditemukan.
+                </td>
+
+            </tr>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    bukuTableBody.innerHTML =
+
+        data.map(
+            function (
+                buku,
+                index
+            ) {
+
+                let coverHTML = `
+
+                    <span class="cover-empty">
+
+                        Tidak ada cover
+
+                    </span>
+
+                `;
+
+
+                if (
+                    buku.cover
+                ) {
+
+                    coverHTML = `
+
+                        <a
+                            href="${escapeHTML(
+                                buku.cover
+                            )}"
+                            target="_blank"
+                            class="cover-thumbnail-link"
+                            title="Klik untuk melihat cover"
+                        >
+
+                            <img
+                                src="${escapeHTML(
+                                    buku.cover
+                                )}"
+                                alt="Cover ${escapeHTML(
+                                    buku.judul
+                                )}"
+                                class="cover-thumbnail"
+                                onerror="
+                                    this.style.display='none';
+                                    this.parentElement.innerHTML='<span class=&quot;cover-empty&quot;>Cover tidak tersedia</span>';
+                                "
+                            >
+
+                        </a>
+
+                    `;
+
+                }
+
+
+                return `
+
+                    <tr>
+
+                        <td class="nomor">
+
+                            ${index + 1}
+
+                        </td>
+
+
+                        <td class="judul">
+
+                            ${escapeHTML(
+                                buku.judul
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                buku.penulis
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                buku.penerbit
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                buku.isbn
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${escapeHTML(
+                                buku.hki
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${tampilkanStatus(
+                                buku.status
+                            )}
+
+                        </td>
+
+
+                        <td>
+
+                            ${coverHTML}
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        ).join("");
+
+}
+
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetFilter() {
+
+    searchInput.value =
+        "";
+
+
+    sortSelect.value =
+        "default";
+
+
+    prosesData();
+
+}
+
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(
+        value || ""
+    )
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+
+/* =========================================================
+   EVENT
+========================================================= */
+
+searchInput.addEventListener(
+    "input",
+    prosesData
+);
+
+
+sortSelect.addEventListener(
+    "change",
+    prosesData
+);
+
+
+
+/* =========================================================
+   KEMBALI
+========================================================= */
+
+function kembali() {
+
+    window.close();
+
+}
+
+
+
+/* =========================================================
+   CETAK LAPORAN
+========================================================= */
+
+function cetakLaporan() {
+
+    const table =
+        document.querySelector(
+            ".data-table"
+        );
+
+
+    if (!table) {
+
+        alert(
+            "Tabel data tidak ditemukan."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * ========================================================
+     * CEK DATA YANG SEDANG DITAMPILKAN
+     * ========================================================
+     */
+
+    const visibleRows =
+        Array.from(
+            table.querySelectorAll(
+                "tbody tr"
+            )
+        ).filter(
+            function (row) {
+
+                return (
+                    !row.classList.contains(
+                        "loading"
+                    ) &&
+                    !row.querySelector(
+                        ".empty-data"
+                    )
+                );
+
+            }
+        );
+
+
+    if (
+        visibleRows.length === 0
+    ) {
+
+        alert(
+            "Tidak ada data yang dapat dicetak."
+        );
+
+        return;
+
+    }
+
+
+
+    /*
+     * ========================================================
+     * MODAL PILIH KOLOM
+     * ========================================================
+     */
+
+    const modalWrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    modalWrapper.innerHTML = `
+
+        <div
+            id="modalCetak"
+            style="
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.45);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                font-family: Arial, Helvetica, sans-serif;
+            "
+        >
+
+            <div
+                style="
+                    width: 430px;
+                    max-width: 92%;
+                    max-height: 90vh;
+                    overflow-y: auto;
+                    background: #ffffff;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+                "
+            >
+
+                <h3
+                    style="
+                        margin: 0 0 8px 0;
+                        text-align: center;
+                        color: #1f2937;
+                        font-size: 20px;
+                    "
+                >
+                    Pilih Kolom yang Dicetak
+                </h3>
+
+
+                <p
+                    style="
+                        margin: 0 0 20px 0;
+                        text-align: center;
+                        color: #6b7280;
+                        font-size: 14px;
+                    "
+                >
+                    Centang kolom yang ingin dimasukkan
+                    ke laporan.
+                </p>
+
+
+                <div
+                    style="
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 10px;
+                        margin-bottom: 20px;
+                    "
+                >
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="0"
+                            checked
+                        >
+
+                        No
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="1"
+                            checked
+                        >
+
+                        Judul Buku
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="2"
+                            checked
+                        >
+
+                        Penulis
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="3"
+                            checked
+                        >
+
+                        Penerbit
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="4"
+                            checked
+                        >
+
+                        ISBN
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="5"
+                            checked
+                        >
+
+                        HKI
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="6"
+                            checked
+                        >
+
+                        Status
+
+                    </label>
+
+
+                    <label
+                        style="
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            padding: 10px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            cursor: pointer;
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            class="pilih-kolom"
+                            data-index="7"
+                            checked
+                        >
+
+                        Cover
+
+                    </label>
+
+                </div>
+
+
+                <div
+                    style="
+                        display: flex;
+                        gap: 10px;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        id="btnLanjutCetak"
+                        style="
+                            flex: 1;
+                            padding: 12px;
+                            border: none;
+                            border-radius: 8px;
+                            background: #174f82;
+                            color: white;
+                            font-size: 14px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        "
+                    >
+                        LANJUT
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnBatalCetak"
+                        style="
+                            flex: 1;
+                            padding: 12px;
+                            border: 1px solid #d1d5db;
+                            border-radius: 8px;
+                            background: #f3f4f6;
+                            color: #374151;
+                            font-size: 14px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        "
+                    >
+                        BATAL
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        modalWrapper
+    );
+
+
+    const btnLanjut =
+        document.getElementById(
+            "btnLanjutCetak"
+        );
+
+
+    const btnBatal =
+        document.getElementById(
+            "btnBatalCetak"
+        );
+
+
+
+    /*
+     * ========================================================
+     * BATAL PILIH KOLOM
+     * ========================================================
+     */
+
+    btnBatal.addEventListener(
+        "click",
+        function () {
+
+            modalWrapper.remove();
+
+        }
+    );
+
+
+
+    /*
+     * ========================================================
+     * LANJUT
+     * ========================================================
+     */
+
+    btnLanjut.addEventListener(
+        "click",
+        function () {
+
+            const checkbox =
+                modalWrapper.querySelectorAll(
+                    ".pilih-kolom:checked"
+                );
+
+
+            if (
+                checkbox.length === 0
+            ) {
+
+                alert(
+                    "Pilih minimal satu kolom untuk dicetak."
+                );
+
+                return;
+
+            }
+
+
+            const kolomDipilih =
+                Array.from(
+                    checkbox
+                ).map(
+                    function (item) {
+
+                        return Number(
+                            item.dataset.index
+                        );
+
+                    }
+                );
+
+
+            modalWrapper.remove();
+
+
+            tampilkanModalOrientasi(
+                table,
+                kolomDipilih
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   MODAL ORIENTASI
+========================================================= */
+
+function tampilkanModalOrientasi(
+    table,
+    kolomDipilih
+) {
+
+    const orientasiWrapper =
+        document.createElement(
+            "div"
+        );
+
+
+    orientasiWrapper.innerHTML = `
+
+        <div
+            style="
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.45);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                font-family: Arial, Helvetica, sans-serif;
+            "
+        >
+
+            <div
+                style="
+                    width: 380px;
+                    max-width: 92%;
+                    background: #ffffff;
+                    border-radius: 12px;
+                    padding: 25px;
+                    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+                    text-align: center;
+                "
+            >
+
+                <h3
+                    style="
+                        margin: 0 0 8px 0;
+                        font-size: 20px;
+                        color: #1f2937;
+                    "
+                >
+                    Pilih Orientasi Kertas
+                </h3>
+
+
+                <p
+                    style="
+                        margin: 0 0 22px 0;
+                        font-size: 14px;
+                        color: #6b7280;
+                    "
+                >
+                    Pilih orientasi yang digunakan
+                    saat mencetak.
+                </p>
+
+
+                <div
+                    style="
+                        display: flex;
+                        gap: 12px;
+                        margin-bottom: 12px;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        id="pilihLandscape"
+                        style="
+                            flex: 1;
+                            padding: 13px 10px;
+                            border: none;
+                            border-radius: 8px;
+                            background: #174f82;
+                            color: white;
+                            font-size: 14px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        "
+                    >
+                        LANDSCAPE
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="pilihPortrait"
+                        style="
+                            flex: 1;
+                            padding: 13px 10px;
+                            border: none;
+                            border-radius: 8px;
+                            background: #2563eb;
+                            color: white;
+                            font-size: 14px;
+                            font-weight: bold;
+                            cursor: pointer;
+                        "
+                    >
+                        PORTRAIT
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="batalOrientasi"
+                    style="
+                        width: 100%;
+                        padding: 10px;
+                        border: 1px solid #d1d5db;
+                        border-radius: 8px;
+                        background: #f3f4f6;
+                        color: #374151;
+                        font-size: 14px;
+                        cursor: pointer;
+                    "
+                >
+                    BATAL
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document.body.appendChild(
+        orientasiWrapper
+    );
+
+
+    const btnLandscape =
+        orientasiWrapper.querySelector(
+            "#pilihLandscape"
+        );
+
+
+    const btnPortrait =
+        orientasiWrapper.querySelector(
+            "#pilihPortrait"
+        );
+
+
+    const btnBatalOrientasi =
+        orientasiWrapper.querySelector(
+            "#batalOrientasi"
+        );
+
+
+
+    /*
+     * ========================================================
+     * BATAL
+     * ========================================================
+     */
+
+    btnBatalOrientasi.addEventListener(
+        "click",
+        function () {
+
+            orientasiWrapper.remove();
+
+        }
+    );
+
+
+
+    /*
+     * ========================================================
+     * FUNGSI PROSES CETAK
+     * ========================================================
+     */
+
+    function mulaiProsesCetak(
+        orientasi
+    ) {
+
+        orientasiWrapper.remove();
+
+
+        /*
+         * ====================================================
+         * AMBIL HANYA BARIS YANG SEDANG TERLIHAT
+         * ====================================================
+         */
+
+        const originalRows =
+            Array.from(
+                table.querySelectorAll(
+                    "tbody tr"
+                )
+            );
+
+
+        const visibleRows =
+            originalRows.filter(
+                function (row) {
+
+                    const style =
+                        window.getComputedStyle(
+                            row
+                        );
+
+
+                    return (
+                        style.display !==
+                        "none"
+                        &&
+                        !row.querySelector(
+                            ".empty-data"
+                        )
+                        &&
+                        !row.querySelector(
+                            ".loading"
+                        )
+                    );
+
+                }
+            );
+
+
+        if (
+            visibleRows.length === 0
+        ) {
+
+            alert(
+                "Tidak ada data yang dapat dicetak."
+            );
+
+            return;
+
+        }
+
+
+
+        /*
+         * ====================================================
+         * BUAT CLONE TABEL
+         * ====================================================
+         */
+
+        const tableClone =
+            table.cloneNode(
+                true
+            );
+
+
+        const clonedRows =
+            Array.from(
+                tableClone.querySelectorAll(
+                    "tbody tr"
+                )
+            );
+
+
+        /*
+         * Hapus semua baris clone terlebih dahulu
+         */
+        clonedRows.forEach(
+            function (row) {
+
+                row.remove();
+
+            }
+        );
+
+
+        /*
+         * Masukkan hanya baris yang sedang terlihat
+         */
+        visibleRows.forEach(
+            function (originalRow) {
+
+                tableClone
+                    .querySelector(
+                        "tbody"
+                    )
+                    .appendChild(
+                        originalRow.cloneNode(
+                            true
+                        )
+                    );
+
+            }
+        );
+
+
+
+        /*
+         * ====================================================
+         * HAPUS KOLOM YANG TIDAK DIPILIH
+         * ====================================================
+         */
+
+        const semuaRows =
+            tableClone.querySelectorAll(
+                "tr"
+            );
+
+
+        semuaRows.forEach(
+            function (row) {
+
+                const cells =
+                    Array.from(
+                        row.children
+                    );
+
+
+                cells.forEach(
+                    function (
+                        cell,
+                        index
+                    ) {
+
+                        if (
+                            !kolomDipilih.includes(
+                                index
+                            )
+                        ) {
+
+                            cell.remove();
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /*
+         * ====================================================
+         * BUKA JENDELA CETAK
+         * ====================================================
+         */
+
+        const printWindow =
+            window.open(
+                "",
+                "_blank",
+                "width=1200,height=800"
+            );
+
+
+        if (!printWindow) {
+
+            alert(
+                "Jendela cetak diblokir oleh browser. Silakan izinkan pop-up untuk halaman ini."
+            );
+
+            return;
+
+        }
+
+
+
+        /*
+         * ====================================================
+         * JUMLAH KOLOM
+         * ====================================================
+         */
+
+        const jumlahKolom =
+            kolomDipilih.length;
+
+
+
+        /*
+         * ====================================================
+         * HTML CETAK
+         * ====================================================
+         */
+
+        printWindow.document.open();
+
+
+        printWindow.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Laporan Data Buku - LP3M
+    </title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            margin: 0;
+
+            padding: 0;
+
+            width: 100%;
+
+            background: #ffffff;
+
+            color: #000000;
+
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+        }
+
+
+
+        /* ==============================================
+           JUDUL CETAK
+        ============================================== */
+
+        .print-header {
+
+            width: 100%;
+
+            text-align: center;
+
+            margin: 0 0 10px 0;
+
+            padding: 0;
+
+        }
+
+
+        .print-header h1 {
+
+            margin: 0 0 3px 0;
+
+            padding: 0;
+
+            font-size: 18px;
+
+            line-height: 1.2;
+
+            font-weight: 700;
+
+            color: #000000;
+
+        }
+
+
+        .print-header p {
+
+            margin: 0;
+
+            padding: 0;
+
+            font-size: 11px;
+
+            line-height: 1.3;
+
+            color: #000000;
+
+        }
+
+
+
+        /* ==============================================
+           TABEL
+        ============================================== */
+
+        table {
+
+            width: 100%;
+
+            max-width: 100%;
+
+            border-collapse:
+                collapse;
+
+            table-layout:
+                fixed;
+
+            font-size:
+                10px;
+
+            margin:
+                0;
+
+        }
+
+
+        th {
+
+            background:
+                #174f82 !important;
+
+            color:
+                #ffffff !important;
+
+            border:
+                1px solid #000000;
+
+            padding:
+                5px 4px;
+
+            text-align:
+                center;
+
+            vertical-align:
+                middle;
+
+            font-weight:
+                bold;
+
+            word-wrap:
+                break-word;
+
+            overflow-wrap:
+                anywhere;
+
+        }
+
+
+        td {
+
+            border:
+                1px solid #000000;
+
+            padding:
+                5px 4px;
+
+            vertical-align:
+                middle;
+
+            word-wrap:
+                break-word;
+
+            overflow-wrap:
+                anywhere;
+
+            line-height:
+                1.25;
+
+        }
+
+
+
+        /* ==============================================
+           KOLOM NO
+        ============================================== */
+
+        th:first-child,
+        td:first-child {
+
+            width:
+                ${kolomDipilih[0] === 0
+                    ? "4%"
+                    : "auto"};
+
+            text-align:
+                ${kolomDipilih[0] === 0
+                    ? "center"
+                    : "left"};
+
+        }
+
+
+
+        /* ==============================================
+           JUDUL BUKU
+        ============================================== */
+
+        .judul {
+
+            text-align:
+                left;
+
+            font-weight:
+                normal;
+
+        }
+
+
+
+        /* ==============================================
+           COVER THUMBNAIL
+        ============================================== */
+
+        .cover-thumbnail-link {
+
+            display:
+                flex;
+
+            width:
+                45px;
+
+            height:
+                60px;
+
+            margin:
+                0 auto;
+
+            padding:
+                0;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            text-decoration:
+                none;
+
+        }
+
+
+        .cover-thumbnail {
+
+            display:
+                block;
+
+            width:
+                45px !important;
+
+            height:
+                60px !important;
+
+            min-width:
+                45px !important;
+
+            min-height:
+                60px !important;
+
+            max-width:
+                45px !important;
+
+            max-height:
+                60px !important;
+
+            object-fit:
+                cover;
+
+            object-position:
+                center;
+
+            margin:
+                0;
+
+            padding:
+                0;
+
+            border:
+                1px solid #999999;
+
+        }
+
+
+        .cover-empty {
+
+            display:
+                block;
+
+            font-size:
+                8px;
+
+            line-height:
+                1.2;
+
+            text-align:
+                center;
+
+            color:
+                #555555;
+
+        }
+
+
+
+        /* ==============================================
+           STATUS
+        ============================================== */
+
+        .status {
+
+            display:
+                inline-block;
+
+            font-size:
+                9px;
+
+            line-height:
+                1.2;
+
+        }
+
+
+
+        /* ==============================================
+           BARIS TABEL
+        ============================================== */
+
+        tr {
+
+            page-break-inside:
+                avoid;
+
+        }
+
+
+
+        /* ==============================================
+           CETAK A4
+        ============================================== */
+
+        @page {
+
+            size:
+                A4 ${orientasi};
+
+            margin:
+                10mm;
+
+        }
+
+
+        @media print {
+
+            body {
+
+                width:
+                    100%;
+
+                margin:
+                    0;
+
+                padding:
+                    0;
+
+            }
+
+
+            .print-header {
+
+                margin-bottom:
+                    10px;
+
+            }
+
+
+            table {
+
+                width:
+                    100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==============================================
+         JUDUL LAPORAN
+    ============================================== -->
+
+    <div class="print-header">
+
+        <h1>
+            LAPORAN DATA BUKU
+        </h1>
+
+
+        <p>
+            Laporan seluruh data buku Ber ISBN dan HKI
+        </p>
+
+    </div>
+
+
+    <!-- ==============================================
+         TABEL DATA
+    ============================================== -->
+
+    ${tableClone.outerHTML}
+
+
+</body>
+
+</html>
+
+        `);
+
+
+        printWindow.document.close();
+
+
+
+        /*
+         * ====================================================
+         * TUNGGU GAMBAR COVER
+         * ====================================================
+         */
+
+        const images =
+            printWindow.document.querySelectorAll(
+                ".cover-thumbnail"
+            );
+
+
+        if (
+            images.length === 0
+        ) {
+
+            setTimeout(
+                function () {
+
+                    printWindow.focus();
+
+                    printWindow.print();
+
+                },
+                400
+            );
+
+            return;
+
+        }
+
+
+
+        let imagesLoaded =
+            0;
+
+
+        function cekGambarSelesai() {
+
+            imagesLoaded++;
+
+
+            if (
+                imagesLoaded >=
+                images.length
+            ) {
+
+                setTimeout(
+                    function () {
+
+                        printWindow.focus();
+
+                        printWindow.print();
+
+                    },
+                    300
+                );
+
+            }
+
+        }
+
+
+        images.forEach(
+            function (img) {
+
+                if (
+                    img.complete
+                ) {
+
+                    cekGambarSelesai();
+
+                }
+                else {
+
+                    img.addEventListener(
+                        "load",
+                        cekGambarSelesai
+                    );
+
+
+                    img.addEventListener(
+                        "error",
+                        cekGambarSelesai
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /*
+     * ========================================================
+     * LANDSCAPE
+     * ========================================================
+     */
+
+    btnLandscape.addEventListener(
+        "click",
+        function () {
+
+            mulaiProsesCetak(
+                "landscape"
+            );
+
+        }
+    );
+
+
+
+    /*
+     * ========================================================
+     * PORTRAIT
+     * ========================================================
+     */
+
+    btnPortrait.addEventListener(
+        "click",
+        function () {
+
+            mulaiProsesCetak(
+                "portrait"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   LOAD AWAL
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadBukuTable();
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>

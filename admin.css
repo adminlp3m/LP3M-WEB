@@ -1,0 +1,760 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        #f4f7fb;
+
+    color:
+        #1f2937;
+
+    min-height: 100vh;
+}
+
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar {
+
+    width: 100%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f4c81,
+            #1769aa
+        );
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    box-shadow:
+        0 4px 20px
+        rgba(15, 76, 129, 0.18);
+}
+
+
+.nav-container {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    min-height: 68px;
+
+    margin: 0 auto;
+
+    padding:
+        0 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.nav-logo span {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+
+.nav-logo:hover {
+
+    opacity:
+        0.9;
+
+    transform:
+        translateY(-1px);
+}
+
+
+
+/* =====================================================
+   MENU NAVBAR
+===================================================== */
+
+.nav-menu {
+
+    display: flex;
+
+    align-items: center;
+
+    gap:
+        6px;
+}
+
+
+.nav-link {
+
+    color:
+        rgba(255, 255, 255, 0.92);
+
+    text-decoration: none;
+
+    font-size:
+        14px;
+
+    font-weight:
+        600;
+
+    padding:
+        10px 14px;
+
+    border-radius:
+        8px;
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.nav-link:hover {
+
+    color:
+        #ffffff;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+}
+
+
+.nav-link.active {
+
+    color:
+        #ffffff;
+
+    background:
+        rgba(255, 255, 255, 0.18);
+
+    box-shadow:
+        inset 0 0 0 1px
+        rgba(255, 255, 255, 0.08);
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+.nav-login {
+
+    color:
+        #ffffff;
+
+    text-decoration: none;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    padding:
+        10px 16px;
+
+    margin-left:
+        5px;
+
+    border-radius:
+        8px;
+
+    background:
+        rgba(255, 255, 255, 0.12);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.nav-login:hover {
+
+    background:
+        #ffffff;
+
+    color:
+        #0f4c81;
+
+    transform:
+        translateY(-1px);
+}
+
+
+
+/* =====================================================
+   HAMBURGER
+===================================================== */
+
+.nav-toggle {
+
+    display:
+        none;
+
+    border:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        #ffffff;
+
+    font-size:
+        26px;
+
+    cursor:
+        pointer;
+
+    padding:
+        5px 8px;
+}
+
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    width:
+        100%;
+
+    max-width:
+        1100px;
+
+    margin:
+        0 auto;
+
+    padding:
+        45px 25px 60px;
+}
+
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.page-header {
+
+    text-align:
+        center;
+
+    margin-bottom:
+        35px;
+}
+
+
+.page-header h1 {
+
+    font-size:
+        34px;
+
+    color:
+        #12395b;
+
+    margin-bottom:
+        10px;
+}
+
+
+.page-header p {
+
+    color:
+        #6b7280;
+
+    font-size:
+        15px;
+
+    line-height:
+        1.6;
+}
+
+
+
+/* =====================================================
+   ADMIN GRID
+===================================================== */
+
+.admin-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap:
+        25px;
+}
+
+
+
+/* =====================================================
+   ADMIN CARD
+===================================================== */
+
+.admin-card {
+
+    background:
+        #ffffff;
+
+    border:
+        1px solid
+        #e5eaf0;
+
+    border-radius:
+        16px;
+
+    padding:
+        30px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(15, 76, 129, 0.08);
+
+    transition:
+        all 0.25s ease;
+}
+
+
+.admin-card:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 14px 35px
+        rgba(15, 76, 129, 0.13);
+}
+
+
+
+/* =====================================================
+   CARD ICON
+===================================================== */
+
+.card-icon {
+
+    width:
+        55px;
+
+    height:
+        55px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    background:
+        #eef6ff;
+
+    border-radius:
+        12px;
+
+    font-size:
+        27px;
+
+    margin-bottom:
+        20px;
+}
+
+
+
+/* =====================================================
+   CARD TITLE
+===================================================== */
+
+.admin-card h2 {
+
+    font-size:
+        22px;
+
+    color:
+        #12395b;
+
+    margin-bottom:
+        10px;
+}
+
+
+.admin-card p {
+
+    color:
+        #6b7280;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.7;
+
+    min-height:
+        70px;
+
+    margin-bottom:
+        22px;
+}
+
+
+
+/* =====================================================
+   CARD BUTTONS
+===================================================== */
+
+.card-buttons {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+}
+
+
+
+/* =====================================================
+   BUTTON ADMIN
+===================================================== */
+
+.btn-admin {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    width:
+        100%;
+
+    min-height:
+        44px;
+
+    padding:
+        11px 16px;
+
+    border-radius:
+        9px;
+
+    background:
+        #0f4c81;
+
+    color:
+        #ffffff;
+
+    text-decoration:
+        none;
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+    border:
+        1px solid
+        #0f4c81;
+
+    transition:
+        all 0.2s ease;
+}
+
+
+.btn-admin:hover {
+
+    background:
+        #1769aa;
+
+    border-color:
+        #1769aa;
+
+    transform:
+        translateY(-1px);
+}
+
+
+
+/* =====================================================
+   SECONDARY BUTTON
+===================================================== */
+
+.btn-admin.secondary {
+
+    background:
+        #ffffff;
+
+    color:
+        #0f4c81;
+
+    border:
+        1px solid
+        #b8cde0;
+}
+
+
+.btn-admin.secondary:hover {
+
+    background:
+        #eef6ff;
+
+    border-color:
+        #0f4c81;
+}
+
+
+
+/* =====================================================
+   RESPONSIVE TABLET
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .admin-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   RESPONSIVE MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+
+    .nav-container {
+
+        min-height:
+            62px;
+
+        padding:
+            0 18px;
+
+    }
+
+
+    .nav-logo {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .nav-toggle {
+
+        display:
+            block;
+
+    }
+
+
+    .nav-menu {
+
+        display:
+            none;
+
+        position:
+            absolute;
+
+        top:
+            62px;
+
+        left:
+            0;
+
+        right:
+            0;
+
+        background:
+            #0f4c81;
+
+        padding:
+            10px 18px 16px;
+
+        flex-direction:
+            column;
+
+        align-items:
+            stretch;
+
+        gap:
+            4px;
+
+        box-shadow:
+            0 8px 20px
+            rgba(0, 0, 0, 0.15);
+
+    }
+
+
+    .nav-menu.show {
+
+        display:
+            flex;
+
+    }
+
+
+    .nav-link {
+
+        width:
+            100%;
+
+        padding:
+            12px 14px;
+
+    }
+
+
+    .nav-login {
+
+        width:
+            100%;
+
+        text-align:
+            center;
+
+        margin-left:
+            0;
+
+        margin-top:
+            4px;
+
+    }
+
+
+    .container {
+
+        padding:
+            35px 18px 50px;
+
+    }
+
+
+    .page-header h1 {
+
+        font-size:
+            28px;
+
+    }
+
+
+    .page-header p {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .admin-card {
+
+        padding:
+            24px;
+
+    }
+
+}
+
+
+
+/* =====================================================
+   MOBILE KECIL
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .page-header h1 {
+
+        font-size:
+            25px;
+
+    }
+
+
+    .admin-card {
+
+        padding:
+            20px;
+
+    }
+
+
+    .admin-card h2 {
+
+        font-size:
+            20px;
+
+    }
+
+}

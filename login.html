@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="login.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     LOGIN PAGE
+===================================================== -->
+
+<div class="login-page">
+
+
+    <!-- =================================================
+         BACKGROUND DECORATION
+    ================================================== -->
+
+    <div class="background-shape shape-one"></div>
+
+    <div class="background-shape shape-two"></div>
+
+    <div class="background-shape shape-three"></div>
+
+
+
+    <!-- =================================================
+         LOGIN CARD
+    ================================================== -->
+
+    <div class="login-card">
+
+
+        <!-- =================================================
+             LOGO / BRAND
+        ================================================== -->
+
+        <div class="brand">
+
+
+            <!-- LOGO LP3M -->
+
+            <div class="brand-logo">
+
+                <img
+                    src="gambar/Logo_Lp3M_New.png"
+                    alt="Logo LP3M"
+                >
+
+            </div>
+
+
+            <!-- NAMA SISTEM -->
+
+            <h1>
+                LP3M
+            </h1>
+
+
+            <!-- DESKRIPSI -->
+
+            <p>
+                Lembaga Penelitian dan Pengabdian
+                kepada Masyarakat
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DIVIDER
+        ================================================== -->
+
+        <div class="divider"></div>
+
+
+
+        <!-- =================================================
+             LOGIN HEADING
+        ================================================== -->
+
+        <div class="login-heading">
+
+            <span class="welcome-icon">
+                🔐
+            </span>
+
+            <h2>
+                Selamat Datang
+            </h2>
+
+            <p>
+                Silakan masuk untuk mengakses sistem
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM LOGIN
+        ================================================== -->
+
+        <form id="loginForm">
+
+
+            <!-- =================================================
+                 USERNAME
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">
+                        👤
+                    </span>
+
+
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Masukkan username"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PASSWORD
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+
+                <div class="input-wrapper password-wrapper">
+
+
+                    <!-- ICON PASSWORD -->
+
+                    <span class="input-icon">
+                        🔒
+                    </span>
+
+
+                    <!-- INPUT PASSWORD -->
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Masukkan password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <!-- =================================================
+                         BUTTON LIHAT PASSWORD
+                    ================================================== -->
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        id="passwordToggle"
+                        aria-label="Lihat password"
+                        title="Lihat password"
+                    >
+
+                        <span id="passwordToggleIcon">
+                            👁
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TOMBOL LOGIN
+            ================================================== -->
+
+            <button
+                type="submit"
+                id="loginButton"
+            >
+
+                <span
+                    id="loginButtonText"
+                >
+                    LOGIN
+                </span>
+
+            </button>
+
+
+
+            <!-- =================================================
+                 PESAN LOGIN
+            ================================================== -->
+
+            <p id="message"></p>
+
+
+        </form>
+
+
+
+        <!-- =================================================
+             LOGIN FOOTER
+        ================================================== -->
+
+        <div class="login-footer">
+
+            <div class="footer-line"></div>
+
+            <p>
+                Sistem Informasi Publikasi LP3M
+            </p>
+
+            <span>
+                © 2026 LP3M
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+<!-- =====================================================
+     PASSWORD TOGGLE
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        const passwordInput =
+            document.getElementById(
+                "password"
+            );
+
+
+        const passwordToggle =
+            document.getElementById(
+                "passwordToggle"
+            );
+
+
+        const passwordToggleIcon =
+            document.getElementById(
+                "passwordToggleIcon"
+            );
+
+
+        if (
+            !passwordInput ||
+            !passwordToggle ||
+            !passwordToggleIcon
+        ) {
+
+            return;
+
+        }
+
+
+        passwordToggle.addEventListener(
+            "click",
+            function () {
+
+
+                if (
+                    passwordInput.type ===
+                    "password"
+                ) {
+
+
+                    /* =================================
+                       TAMPILKAN PASSWORD
+                    ================================= */
+
+                    passwordInput.type =
+                        "text";
+
+
+                    passwordToggleIcon.textContent =
+                        "🙈";
+
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Sembunyikan password"
+                    );
+
+
+                    passwordToggle.setAttribute(
+                        "title",
+                        "Sembunyikan password"
+                    );
+
+
+                } else {
+
+
+                    /* =================================
+                       SEMBUNYIKAN PASSWORD
+                    ================================= */
+
+                    passwordInput.type =
+                        "password";
+
+
+                    passwordToggleIcon.textContent =
+                        "👁";
+
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Lihat password"
+                    );
+
+
+                    passwordToggle.setAttribute(
+                        "title",
+                        "Lihat password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

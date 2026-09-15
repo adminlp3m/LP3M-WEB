@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Input Data Buku - LP3M</title>
+
+    <link
+        rel="stylesheet"
+        href="input_buku.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a
+            href="dashboard.html"
+            class="nav-logo"
+        >
+
+            <img
+                src="gambar/Logo_Lp3M_New.png"
+                alt="Logo LP3M"
+            >
+
+            <span>
+                LP3M PBA
+            </span>
+
+        </a>
+
+
+        <button
+            class="nav-toggle"
+            id="navToggle"
+            type="button"
+            aria-label="Buka menu"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-menu"
+            id="navMenu"
+        >
+
+            <a
+                href="dashboard.html"
+                class="nav-link"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="buku.html"
+                class="nav-link"
+            >
+                Buku
+            </a>
+
+
+            <a
+                href="jurnal.html"
+                class="nav-link"
+            >
+                Jurnal
+            </a>
+
+
+            <a
+                href="admin.html"
+                class="nav-link active admin-menu"
+                id="adminMenu"
+            >
+                Kelola Data
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-login"
+                id="loginLogoutButton"
+            >
+                Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     CONTENT
+===================================================== -->
+
+<main class="container">
+
+    <div class="page-header">
+
+        <h1>
+            Input Data Buku
+        </h1>
+
+        <p>
+            Tambahkan data buku publikasi LP3M.
+        </p>
+
+    </div>
+
+
+    <div class="form-card">
+
+        <form
+            id="bukuForm"
+        >
+
+
+            <!-- =================================================
+                 JUDUL BUKU
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="judul">
+                    Judul Buku
+                </label>
+
+                <textarea
+                    id="judul"
+                    name="judul"
+                    rows="4"
+                    placeholder="Masukkan judul buku"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- =================================================
+                 PENULIS
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label>
+                    Penulis
+                </label>
+
+
+                <div id="penulisContainer">
+
+                    <div class="penulis-row">
+
+                        <input
+                            type="text"
+                            name="penulis[]"
+                            placeholder="Nama penulis"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="btn-remove"
+                            onclick="hapusPenulis(this)"
+                            style="display:none;"
+                        >
+                            Hapus
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn-add"
+                    onclick="tambahPenulis()"
+                >
+                    + Tambah Penulis
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 PENERBIT
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="penerbit">
+                    Penerbit
+                </label>
+
+                <input
+                    type="text"
+                    id="penerbit"
+                    name="penerbit"
+                    placeholder="Masukkan nama penerbit"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 ISBN
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="isbn">
+                    ISBN
+                </label>
+
+                <input
+                    type="text"
+                    id="isbn"
+                    name="isbn"
+                    placeholder="Masukkan ISBN"
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 COVER BUKU
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="cover">
+                    Cover Buku
+                </label>
+
+                <input
+                    type="file"
+                    id="cover"
+                    name="cover"
+                    accept="image/*"
+                >
+
+                <small>
+                    Format gambar dan maksimal 5 MB.
+                </small>
+
+            </div>
+
+
+            <!-- =================================================
+                 HKI
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="hki">
+                    HKI
+                </label>
+
+                <input
+                    type="text"
+                    id="hki"
+                    name="hki"
+                    placeholder="Masukkan nomor/judul HKI"
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 STATUS
+            ================================================== -->
+
+            <div class="form-group">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select
+                    id="status"
+                    name="status"
+                    required
+                >
+
+                    <option value="">
+                        -- Pilih Status --
+                    </option>
+
+                    <option value="Belum di Ajukan">
+                        Belum di Ajukan
+                    </option>
+
+                    <option value="Proses di Ajukan">
+                        Proses di Ajukan
+                    </option>
+
+                    <option value="Sudah di Ajukan">
+                        Sudah di Ajukan
+                    </option>
+
+                    <option value="Di Tolak">
+                        Di Tolak
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 MESSAGE
+            ================================================== -->
+
+            <div
+                id="bukuMessage"
+                class="message"
+            ></div>
+
+
+            <!-- =================================================
+                 BUTTON
+            ================================================== -->
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="btn-back"
+                    onclick="kembaliKeAdmin()"
+                >
+                    KEMBALI
+                </button>
+
+
+                <button
+                    type="submit"
+                    id="simpanBukuButton"
+                    class="btn-submit"
+                >
+                    SIMPAN DATA BUKU
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn-reset"
+                    onclick="resetFormBuku()"
+                >
+                    RESET FORM
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     SCRIPT UTAMA
+===================================================== -->
+
+<script src="script.js"></script>
+
+
+<script>
+
+/* =========================================================
+   API
+========================================================= */
+
+const BUKU_INPUT_API_URL =
+    "https://script.google.com/macros/s/AKfycby9EAteDad4Z-TIbHBaZ2UU6q4XAb1WJI-nPL307EiH5ENU3gjOcsbHy3inkT-XH3DFZw/exec";
+
+
+/* =========================================================
+   TAMBAH PENULIS
+========================================================= */
+
+function tambahPenulis() {
+
+    const container =
+        document.getElementById(
+            "penulisContainer"
+        );
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "penulis-row";
+
+
+    row.innerHTML = `
+
+        <input
+            type="text"
+            name="penulis[]"
+            placeholder="Nama penulis"
+            required
+        >
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="hapusPenulis(this)"
+        >
+            Hapus
+        </button>
+
+    `;
+
+
+    container.appendChild(
+        row
+    );
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   HAPUS PENULIS
+========================================================= */
+
+function hapusPenulis(button) {
+
+    const container =
+        document.getElementById(
+            "penulisContainer"
+        );
+
+
+    const rows =
+        container.querySelectorAll(
+            ".penulis-row"
+        );
+
+
+    if (rows.length <= 1) {
+
+        alert(
+            "Minimal harus ada satu penulis."
+        );
+
+        return;
+
+    }
+
+
+    button
+        .parentElement
+        .remove();
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   UPDATE TOMBOL HAPUS PENULIS
+========================================================= */
+
+function updateTombolHapusPenulis() {
+
+    const rows =
+        document.querySelectorAll(
+            ".penulis-row"
+        );
+
+
+    rows.forEach(
+        function (row) {
+
+            const button =
+                row.querySelector(
+                    ".btn-remove"
+                );
+
+
+            if (!button) {
+                return;
+            }
+
+
+            if (rows.length === 1) {
+
+                button.style.display =
+                    "none";
+
+            } else {
+
+                button.style.display =
+                    "inline-block";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FILE KE BASE64
+========================================================= */
+
+function fileToBase64(file) {
+
+    return new Promise(
+        function (resolve, reject) {
+
+            if (!file) {
+
+                resolve("");
+
+                return;
+
+            }
+
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function () {
+
+                    resolve(
+                        reader.result
+                    );
+
+                };
+
+
+            reader.onerror =
+                function () {
+
+                    reject(
+                        new Error(
+                            "Cover buku gagal dibaca."
+                        )
+                    );
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SUBMIT FORM
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const form =
+            document.getElementById(
+                "bukuForm"
+            );
+
+
+        if (!form) {
+
+            console.error(
+                "Form bukuForm tidak ditemukan."
+            );
+
+            return;
+
+        }
+
+
+        form.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const button =
+                    document.getElementById(
+                        "simpanBukuButton"
+                    );
+
+
+                const message =
+                    document.getElementById(
+                        "bukuMessage"
+                    );
+
+
+                button.disabled =
+                    true;
+
+
+                button.innerText =
+                    "MENYIMPAN...";
+
+
+                message.className =
+                    "message";
+
+
+                message.innerText =
+                    "Menyiapkan data buku...";
+
+
+                try {
+
+
+                    /* =========================================
+                       PENULIS
+                    ========================================= */
+
+                    const penulis =
+                        Array.from(
+                            document.querySelectorAll(
+                                'input[name="penulis[]"]'
+                            )
+                        )
+                        .map(
+                            function (input) {
+
+                                return input.value.trim();
+
+                            }
+                        )
+                        .filter(
+                            function (value) {
+
+                                return value !== "";
+
+                            }
+                        );
+
+
+                    if (penulis.length === 0) {
+
+                        throw new Error(
+                            "Minimal harus ada satu penulis."
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       COVER
+                    ========================================= */
+
+                    const coverInput =
+                        document.getElementById(
+                            "cover"
+                        );
+
+
+                    const coverFile =
+                        coverInput &&
+                        coverInput.files &&
+                        coverInput.files.length > 0
+
+                            ? coverInput.files[0]
+
+                            : null;
+
+
+                    let coverBase64 =
+                        "";
+
+
+                    let coverName =
+                        "";
+
+
+                    let coverType =
+                        "";
+
+
+                    if (coverFile) {
+
+
+                        /* -------------------------------------
+                           CEK UKURAN
+                        ------------------------------------- */
+
+                        const maxSize =
+                            5 * 1024 * 1024;
+
+
+                        if (
+                            coverFile.size >
+                            maxSize
+                        ) {
+
+                            throw new Error(
+                                "Ukuran cover maksimal 5 MB."
+                            );
+
+                        }
+
+
+                        /* -------------------------------------
+                           CEK TIPE
+                        ------------------------------------- */
+
+                        if (
+                            !coverFile.type ||
+                            !coverFile.type.startsWith(
+                                "image/"
+                            )
+                        ) {
+
+                            throw new Error(
+                                "File cover harus berupa gambar."
+                            );
+
+                        }
+
+
+                        message.innerText =
+                            "Membaca cover buku...";
+
+
+                        /* -------------------------------------
+                           BACA FILE
+                        ------------------------------------- */
+
+                        coverBase64 =
+                            await fileToBase64(
+                                coverFile
+                            );
+
+
+                        if (!coverBase64) {
+
+                            throw new Error(
+                                "Cover buku tidak dapat dibaca."
+                            );
+
+                        }
+
+
+                        coverName =
+                            coverFile.name;
+
+
+                        coverType =
+                            coverFile.type;
+
+                    }
+
+
+                    /* =========================================
+                       DATA
+                    ========================================= */
+
+                    const data = {
+
+                        action:
+                            "saveBuku",
+
+
+                        judul:
+                            document
+                                .getElementById(
+                                    "judul"
+                                )
+                                .value
+                                .trim(),
+
+
+                        penulis:
+                            penulis,
+
+
+                        penerbit:
+                            document
+                                .getElementById(
+                                    "penerbit"
+                                )
+                                .value
+                                .trim(),
+
+
+                        isbn:
+                            document
+                                .getElementById(
+                                    "isbn"
+                                )
+                                .value
+                                .trim(),
+
+
+                        coverBase64:
+                            coverBase64,
+
+
+                        coverName:
+                            coverName,
+
+
+                        coverType:
+                            coverType,
+
+
+                        hki:
+                            document
+                                .getElementById(
+                                    "hki"
+                                )
+                                .value
+                                .trim(),
+
+
+                        status:
+                            document
+                                .getElementById(
+                                    "status"
+                                )
+                                .value
+
+                    };
+
+
+                    /* =========================================
+                       VALIDASI DATA
+                    ========================================= */
+
+                    if (!data.judul) {
+
+                        throw new Error(
+                            "Judul Buku wajib diisi."
+                        );
+
+                    }
+
+
+                    if (!data.penerbit) {
+
+                        throw new Error(
+                            "Penerbit wajib diisi."
+                        );
+
+                    }
+
+
+                    if (!data.status) {
+
+                        throw new Error(
+                            "Status wajib dipilih."
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       AMBIL USERNAME ADMIN
+                    ========================================= */
+
+                    let username =
+                        localStorage.getItem(
+                            "username"
+                        );
+
+
+                    if (!username) {
+
+                        try {
+
+                            const user =
+                                JSON.parse(
+                                    localStorage.getItem(
+                                        "user"
+                                    ) || "{}"
+                                );
+
+
+                            username =
+                                user.username || "";
+
+                        } catch (error) {
+
+                            username = "";
+
+                        }
+
+                    }
+
+
+                    /* =========================================
+                       KIRIM DATA
+                    ========================================= */
+
+                    message.innerText =
+                        coverFile
+
+                            ? "Mengupload cover dan menyimpan data..."
+
+                            : "Menyimpan data buku...";
+
+
+                    console.log(
+                        "Data buku dikirim:",
+                        data
+                    );
+
+
+                    const response =
+                        await fetch(
+                            BUKU_INPUT_API_URL,
+                            {
+
+                                method:
+                                    "POST",
+
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "text/plain;charset=utf-8"
+
+                                },
+
+
+                                body:
+                                    JSON.stringify(
+                                        data
+                                    )
+
+                            }
+                        );
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            "Server tidak dapat menerima data. HTTP " +
+                            response.status
+                        );
+
+                    }
+
+
+                    const result =
+                        await response.json();
+
+
+                    console.log(
+                        "Response Apps Script:",
+                        result
+                    );
+
+
+                    if (
+                        !result ||
+                        result.success !== true
+                    ) {
+
+                        throw new Error(
+                            result &&
+                            result.message
+
+                                ? result.message
+
+                                : "Data buku gagal disimpan."
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       BERHASIL
+                    ========================================= */
+
+                    message.className =
+                        "message success";
+
+
+                    message.innerText =
+                        coverFile
+
+                            ? "Data buku dan cover berhasil disimpan."
+
+                            : "Data buku berhasil disimpan.";
+
+
+                    /* =========================================
+                       RESET FORM
+                    ========================================= */
+
+                    resetFormBuku(
+                        false
+                    );
+
+
+                    /* =========================================
+                       TAMPILKAN PESAN SUKSES
+                    ========================================= */
+
+                    message.className =
+                        "message success";
+
+
+                    message.innerText =
+                        coverFile
+
+                            ? "Data buku dan cover berhasil disimpan."
+
+                            : "Data buku berhasil disimpan.";
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Gagal menyimpan buku:",
+                        error
+                    );
+
+
+                    message.className =
+                        "message error";
+
+
+                    message.innerText =
+                        error.message ||
+                        "Terjadi kesalahan saat menyimpan data.";
+
+
+                } finally {
+
+                    button.disabled =
+                        false;
+
+
+                    button.innerText =
+                        "SIMPAN DATA BUKU";
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   RESET FORM
+========================================================= */
+
+function resetFormBuku(
+    tampilkanKonfirmasi = true
+) {
+
+    if (
+        tampilkanKonfirmasi &&
+        !confirm(
+            "Apakah Anda yakin ingin mengosongkan formulir?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const form =
+        document.getElementById(
+            "bukuForm"
+        );
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    /* =============================================
+       KEMBALIKAN PENULIS
+    ============================================= */
+
+    const container =
+        document.getElementById(
+            "penulisContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="penulis-row">
+
+            <input
+                type="text"
+                name="penulis[]"
+                placeholder="Nama penulis"
+                required
+            >
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="hapusPenulis(this)"
+                style="display:none;"
+            >
+                Hapus
+            </button>
+
+        </div>
+
+    `;
+
+
+    updateTombolHapusPenulis();
+
+}
+
+
+/* =========================================================
+   KEMBALI KE ADMIN
+========================================================= */
+
+function kembaliKeAdmin() {
+
+    window.close();
+
+
+    setTimeout(
+        function () {
+
+            if (!window.closed) {
+
+                window.location.href =
+                    "admin.html";
+
+            }
+
+        },
+        300
+    );
+
+}
+
+
+/* =========================================================
+   NAVBAR MOBILE
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const navToggle =
+            document.getElementById(
+                "navToggle"
+            );
+
+
+        const navMenu =
+            document.getElementById(
+                "navMenu"
+            );
+
+
+        if (
+            navToggle &&
+            navMenu
+        ) {
+
+            navToggle.addEventListener(
+                "click",
+                function () {
+
+                    navMenu.classList.toggle(
+                        "show"
+                    );
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INISIALISASI
+========================================================= */
+
+updateTombolHapusPenulis();
+
+</script>
+
+
+</body>
+
+</html>
