@@ -1,3 +1,4 @@
+```css
 /* =====================================================
    RESET
 ===================================================== */
@@ -76,6 +77,8 @@ body {
     align-items: center;
 
     justify-content: space-between;
+
+    position: relative;
 }
 
 
@@ -257,7 +260,23 @@ body {
         pointer;
 
     padding:
-        5px 8px;
+        6px 8px;
+
+    border-radius:
+        6px;
+
+    line-height:
+        1;
+
+    transition:
+        background 0.2s ease;
+}
+
+
+.nav-toggle:hover {
+
+    background:
+        rgba(255, 255, 255, 0.12);
 }
 
 
@@ -627,13 +646,16 @@ body {
             absolute;
 
         top:
-            62px;
+            100%;
 
         left:
             0;
 
         right:
             0;
+
+        width:
+            100%;
 
         background:
             #0f4c81;
@@ -672,6 +694,9 @@ body {
 
         padding:
             12px 14px;
+
+        text-align:
+            center;
 
     }
 
@@ -758,3 +783,4 @@ body {
     }
 
 }
+```
