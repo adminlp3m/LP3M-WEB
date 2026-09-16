@@ -1,3 +1,4 @@
+```css
 * {
     margin: 0;
     padding: 0;
@@ -59,26 +60,38 @@ body {
     align-items: center;
 
     justify-content: space-between;
+
+    position: relative;
 }
 
 
 .nav-logo {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
     text-decoration: none;
+
     color: white;
 }
 
+
 .nav-logo img {
     width: 40px;
+
     height: 40px;
+
     object-fit: contain;
 }
 
+
 .nav-logo span {
     font-size: 25px;
+
     font-weight: 800;
+
     letter-spacing: 1px;
 }
 
@@ -168,6 +181,22 @@ body {
     font-size: 26px;
 
     cursor: pointer;
+
+    padding:
+        6px 8px;
+
+    border-radius: 6px;
+
+    line-height: 1;
+
+    transition:
+        0.2s ease;
+}
+
+
+.nav-toggle:hover {
+    background:
+        rgba(255, 255, 255, 0.12);
 }
 
 
@@ -195,22 +224,32 @@ body {
 
         position: absolute;
 
-        top: 60px;
+        top: 100%;
 
         left: 0;
 
-        right: 0;
+        width: 100%;
 
-        background: #123c68;
+        padding:
+            10px 15px 15px;
+
+        margin: 0;
 
         flex-direction: column;
 
         align-items: stretch;
 
-        padding: 10px 15px 15px;
+        gap: 5px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0f2f55,
+                #174a7c
+            );
 
         box-shadow:
-            0 5px 12px
+            0 6px 12px
             rgba(0, 0, 0, 0.15);
     }
 
@@ -223,11 +262,16 @@ body {
     .nav-link {
         width: 100%;
 
-        text-align: left;
+        text-align: center;
+
+        padding:
+            10px 12px;
     }
 
 
     .nav-login {
+        width: 100%;
+
         margin-left: 0;
 
         margin-top: 5px;
@@ -341,7 +385,10 @@ body {
 
     color: #1f2937;
 
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
     font-size: 14px;
 
@@ -371,7 +418,8 @@ body {
 
     min-height: 120px;
 
-    padding: 12px 13px;
+    padding:
+        12px 13px;
 
     border:
         1px solid #d1d5db;
@@ -783,70 +831,10 @@ body {
 
 
 /* =========================================================
-   MOBILE
+   MOBILE FORM
 ========================================================= */
 
 @media (max-width: 768px) {
-
-    .nav-container {
-        min-height: 60px;
-
-        padding:
-            0 18px;
-    }
-
-
-    .nav-toggle {
-        display: block;
-    }
-
-
-    .nav-menu {
-        display: none;
-
-        position: absolute;
-
-        top: 60px;
-
-        left: 0;
-
-        right: 0;
-
-        background: #123c68;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        padding:
-            10px 15px 15px;
-
-        box-shadow:
-            0 5px 12px
-            rgba(0, 0, 0, 0.15);
-    }
-
-
-    .nav-menu.show {
-        display: flex;
-    }
-
-
-    .nav-link {
-        width: 100%;
-
-        text-align: left;
-    }
-
-
-    .nav-login {
-        margin-left: 0;
-
-        margin-top: 5px;
-
-        text-align: center;
-    }
-
 
     .container {
         margin-top: 25px;
@@ -920,6 +908,10 @@ body {
 }
 
 
+/* =========================================================
+   MOBILE EXTRA SMALL
+========================================================= */
+
 @media (max-width: 480px) {
 
     .form-card {
@@ -956,3 +948,4 @@ body {
             0 9px;
     }
 }
+```
