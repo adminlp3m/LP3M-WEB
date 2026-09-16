@@ -1,8 +1,11 @@
+```css
 /* =========================================================
    LAPORAN DATA BUKU - LP3M
 ========================================================= */
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -44,7 +47,9 @@ body {
     z-index: 1000;
 }
 
+
 .nav-container {
+    width: 100%;
     max-width: 1200px;
 
     margin: auto;
@@ -56,27 +61,44 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    position: relative;
 }
+
 
 .nav-logo {
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
     text-decoration: none;
+
     color: white;
+
+    flex-shrink: 0;
 }
+
 
 .nav-logo img {
     width: 40px;
     height: 40px;
+
     object-fit: contain;
+
+    display: block;
 }
+
 
 .nav-logo span {
     font-size: 25px;
+
     font-weight: 800;
+
     letter-spacing: 1px;
 }
+
 
 .nav-menu {
     display: flex;
@@ -85,6 +107,7 @@ body {
 
     gap: 8px;
 }
+
 
 .nav-link {
     color: #ffffff;
@@ -96,21 +119,28 @@ body {
     border-radius: 7px;
 
     font-size: 14px;
+
     font-weight: 600;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
+
 
 .nav-link:hover {
     background:
         rgba(255, 255, 255, 0.15);
 }
 
+
 .nav-link.active {
     background: white;
 
     color: #174a7c;
 }
+
 
 .nav-login {
     color: #ffffff;
@@ -126,12 +156,16 @@ body {
         rgba(255, 255, 255, 0.5);
 
     font-size: 14px;
+
     font-weight: 600;
 
     margin-left: 8px;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
 }
+
 
 .nav-login:hover {
     background: white;
@@ -139,18 +173,35 @@ body {
     color: #174a7c;
 }
 
+
+/* =========================================================
+   NAV TOGGLE / HAMBURGER
+========================================================= */
+
 .nav-toggle {
     display: none;
 
-    border: none;
-
     background: transparent;
 
-    color: white;
+    border: none;
+
+    color: #ffffff;
 
     font-size: 26px;
 
     cursor: pointer;
+
+    padding: 6px 8px;
+
+    border-radius: 6px;
+
+    line-height: 1;
+}
+
+
+.nav-toggle:hover {
+    background:
+        rgba(255, 255, 255, 0.12);
 }
 
 
@@ -180,6 +231,7 @@ body {
 
     font-weight: 800;
 }
+
 
 .page-description {
     margin: 0 0 25px;
@@ -229,6 +281,7 @@ body {
         #e5e9ef;
 }
 
+
 .table-header h2 {
     margin: 0;
 
@@ -238,6 +291,7 @@ body {
 
     font-weight: 700;
 }
+
 
 .data-count {
     padding: 7px 14px;
@@ -306,6 +360,7 @@ body {
     outline: none;
 }
 
+
 .filter-area input:focus {
     border-color: #174a7c;
 
@@ -343,6 +398,7 @@ body {
     cursor: pointer;
 }
 
+
 .filter-area select:focus {
     border-color: #174a7c;
 }
@@ -371,11 +427,16 @@ body {
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
+
 
 .btn-reset:hover {
     background: #4b5563;
+
+    transform: translateY(-1px);
 }
 
 
@@ -402,11 +463,16 @@ body {
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
 }
+
 
 .btn-cetak:hover {
     background: #0f3558;
+
+    transform: translateY(-1px);
 }
 
 
@@ -488,6 +554,7 @@ body {
 
     white-space: normal;
 }
+
 
 .data-table tbody tr:hover {
     background: #f8fafc;
@@ -607,8 +674,10 @@ body {
 
     word-break: break-word;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease;
 }
+
 
 .btn-link:hover {
     background: #0f3558;
@@ -629,167 +698,6 @@ body {
     font-size: 14px;
 }
 
-
-/* =========================================================
-   RESPONSIVE TABLET
-========================================================= */
-
-@media (max-width: 1050px) {
-
-    .main-container {
-        width: calc(100% - 24px);
-    }
-
-    .filter-area {
-        grid-template-columns:
-            minmax(0, 1fr)
-            180px
-            85px
-            85px
-            85px;
-
-        padding: 16px;
-
-        gap: 8px;
-    }
-
-    .data-table {
-        font-size: 10px;
-    }
-
-    .data-table thead th {
-        font-size: 10px;
-
-        padding: 10px 4px;
-    }
-
-    .data-table tbody td {
-        font-size: 10px;
-
-        padding: 10px 4px;
-    }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 768px) {
-
-    .nav-container {
-        min-height: 60px;
-
-        padding: 0 18px;
-    }
-
-    .nav-toggle {
-        display: block;
-    }
-
-    .nav-menu {
-        display: none;
-
-        position: absolute;
-
-        top: 60px;
-
-        left: 0;
-        right: 0;
-
-        background: #123c68;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        padding: 10px 15px 15px;
-
-        box-shadow:
-            0 5px 12px
-            rgba(0, 0, 0, 0.15);
-    }
-
-    .nav-menu.show {
-        display: flex;
-    }
-
-    .nav-link {
-        width: 100%;
-
-        text-align: left;
-    }
-
-    .nav-login {
-        margin-left: 0;
-
-        margin-top: 5px;
-
-        text-align: center;
-    }
-
-
-    .main-container {
-        width: calc(100% - 20px);
-
-        margin-top: 20px;
-    }
-
-
-    .page-title {
-        font-size: 25px;
-    }
-
-    .page-description {
-        font-size: 13px;
-    }
-
-
-    .table-header {
-        padding: 16px;
-    }
-
-    .table-header h2 {
-        font-size: 18px;
-    }
-
-
-    /* Filter menjadi 2 kolom */
-    .filter-area {
-        grid-template-columns: 1fr 1fr;
-
-        padding: 15px;
-
-        gap: 8px;
-    }
-
-    .filter-area input {
-        grid-column: span 2;
-    }
-
-
-    .data-table {
-        font-size: 9px;
-    }
-
-    .data-table thead th {
-        font-size: 9px;
-
-        padding: 8px 3px;
-    }
-
-    .data-table tbody td {
-        font-size: 9px;
-
-        padding: 8px 3px;
-    }
-
-    .btn-link {
-        font-size: 9px;
-
-        padding: 5px 6px;
-    }
-}
 
 /* =========================================================
    COVER THUMBNAIL
@@ -821,7 +729,9 @@ body {
 
     border-radius: 5px;
 
-    border: 1px solid #d1d5db;
+    border:
+        1px solid
+        #d1d5db;
 
     display: block;
 
@@ -847,3 +757,313 @@ body {
 
     white-space: nowrap;
 }
+
+
+/* =========================================================
+   RESPONSIVE TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .main-container {
+        width: calc(100% - 24px);
+    }
+
+
+    .filter-area {
+        grid-template-columns:
+            minmax(0, 1fr)
+            180px
+            85px
+            85px
+            85px;
+
+        padding: 16px;
+
+        gap: 8px;
+    }
+
+
+    .data-table {
+        font-size: 10px;
+    }
+
+
+    .data-table thead th {
+        font-size: 10px;
+
+        padding: 10px 4px;
+    }
+
+
+    .data-table tbody td {
+        font-size: 10px;
+
+        padding: 10px 4px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* -----------------------------------------------------
+       NAVBAR MOBILE
+    ----------------------------------------------------- */
+
+    .nav-container {
+        min-height: 60px;
+
+        padding: 0 15px;
+    }
+
+
+    .nav-logo img {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    .nav-logo span {
+        font-size: 20px;
+    }
+
+
+    .nav-toggle {
+        display: block;
+    }
+
+
+    .nav-menu {
+        display: none;
+
+        position: absolute;
+
+        top: 100%;
+
+        left: 0;
+
+        width: 100%;
+
+        padding:
+            10px 15px 15px;
+
+        margin: 0;
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 5px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #0f2f55,
+                #174a7c
+            );
+
+        box-shadow:
+            0 6px 12px
+            rgba(0, 0, 0, 0.15);
+    }
+
+
+    .nav-menu.show {
+        display: flex;
+    }
+
+
+    .nav-link {
+        width: 100%;
+
+        text-align: center;
+
+        padding:
+            10px 12px;
+    }
+
+
+    .nav-link.active {
+        background: #ffffff;
+
+        color: #174a7c;
+    }
+
+
+    .nav-login {
+        width: 100%;
+
+        margin-left: 0;
+
+        margin-top: 5px;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       CONTENT MOBILE
+    ----------------------------------------------------- */
+
+    .main-container {
+        width: calc(100% - 20px);
+
+        margin-top: 20px;
+    }
+
+
+    .page-title {
+        font-size: 25px;
+    }
+
+
+    .page-description {
+        font-size: 13px;
+    }
+
+
+    .table-header {
+        padding: 16px;
+    }
+
+
+    .table-header h2 {
+        font-size: 18px;
+    }
+
+
+    /* -----------------------------------------------------
+       FILTER MOBILE
+    ----------------------------------------------------- */
+
+    .filter-area {
+        grid-template-columns:
+            1fr 1fr;
+
+        padding: 15px;
+
+        gap: 8px;
+    }
+
+
+    .filter-area input {
+        grid-column: span 2;
+    }
+
+
+    /* -----------------------------------------------------
+       TABLE MOBILE
+    ----------------------------------------------------- */
+
+    .data-table {
+        font-size: 9px;
+    }
+
+
+    .data-table thead th {
+        font-size: 9px;
+
+        padding: 8px 3px;
+    }
+
+
+    .data-table tbody td {
+        font-size: 9px;
+
+        padding: 8px 3px;
+    }
+
+
+    .btn-link {
+        font-size: 9px;
+
+        padding: 5px 6px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE SMALL
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .nav-container {
+        padding:
+            0 12px;
+    }
+
+
+    .nav-logo {
+        gap: 7px;
+    }
+
+
+    .nav-logo img {
+        width: 34px;
+        height: 34px;
+    }
+
+
+    .nav-logo span {
+        font-size: 18px;
+    }
+
+
+    .nav-toggle {
+        font-size: 24px;
+
+        padding:
+            5px 7px;
+    }
+
+
+    .main-container {
+        width: calc(100% - 16px);
+
+        margin-top: 16px;
+    }
+
+
+    .page-title {
+        font-size: 22px;
+    }
+
+
+    .page-description {
+        font-size: 12px;
+
+        margin-bottom: 18px;
+    }
+
+
+    .table-header {
+        padding: 14px;
+    }
+
+
+    .table-header h2 {
+        font-size: 17px;
+    }
+
+
+    .data-count {
+        font-size: 11px;
+
+        padding:
+            6px 10px;
+    }
+
+
+    .filter-area {
+        padding: 12px;
+    }
+
+}
+```
