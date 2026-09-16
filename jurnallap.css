@@ -1,1475 +1,1623 @@
 /* =====================================================
-   RESET
+RESET
 ===================================================== */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
 
 /* =====================================================
-   BODY
+BODY
 ===================================================== */
 
 body {
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+font-family:
+Arial,
+Helvetica,
+sans-serif;
 
-    background: #f4f7fb;
+```
+background: #f4f7fb;
 
-    color: #1f2937;
+color: #1f2937;
 
-    min-height: 100vh;
+min-height: 100vh;
+```
+
 }
 
-
 /* =====================================================
-   NAVBAR
+NAVBAR
 ===================================================== */
 
 .navbar {
-    width: 100%;
+width: 100%;
 
-    background: #174f82;
+```
+background: #174f82;
 
-    box-shadow:
-        0 3px 12px
-        rgba(0, 0, 0, 0.12);
+box-shadow:
+    0 3px 12px
+    rgba(0, 0, 0, 0.12);
+```
+
 }
-
 
 .nav-container {
-    width: 100%;
+width: 100%;
 
-    max-width: 1180px;
+```
+max-width: 1180px;
 
-    margin: 0 auto;
+margin: 0 auto;
 
-    padding: 0 20px;
+padding: 0 20px;
 
-    min-height: 68px;
+min-height: 68px;
 
-    display: flex;
+display: flex;
 
-    align-items: center;
+align-items: center;
 
-    justify-content: space-between;
+justify-content: space-between;
+
+position: relative;
+```
+
 }
-
 
 .nav-logo {
-    display: flex;
+display: flex;
 
-    align-items: center;
+```
+align-items: center;
 
-    gap: 10px;
+gap: 10px;
 
-    color: #ffffff;
+color: #ffffff;
 
-    text-decoration: none;
+text-decoration: none;
 
-    font-size: 18px;
+font-size: 18px;
 
-    font-weight: 700;
+font-weight: 700;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
-
 
 .nav-logo img {
-    width: 38px;
+width: 38px;
 
-    height: 38px;
+```
+height: 38px;
 
-    object-fit: contain;
+object-fit: contain;
+```
+
 }
-
 
 .nav-menu {
-    display: flex;
+display: flex;
 
-    align-items: center;
+```
+align-items: center;
 
-    gap: 5px;
+gap: 5px;
+```
+
 }
-
 
 .nav-link,
 .nav-login {
-    color: #ffffff;
+color: #ffffff;
 
-    text-decoration: none;
+```
+text-decoration: none;
 
-    padding: 10px 14px;
+padding: 10px 14px;
 
-    border-radius: 7px;
+border-radius: 7px;
 
-    font-size: 14px;
+font-size: 14px;
 
-    font-weight: 600;
+font-weight: 600;
 
-    transition: 0.2s ease;
+transition: 0.2s ease;
+```
+
 }
-
 
 .nav-link:hover {
-    background: rgba(255, 255, 255, 0.15);
+background: rgba(255, 255, 255, 0.15);
 }
-
 
 .nav-link.active {
-    background: rgba(255, 255, 255, 0.18);
+background: rgba(255, 255, 255, 0.18);
 }
-
 
 .nav-login {
-    background: #dc3545;
+background: #dc3545;
 
-    margin-left: 5px;
+```
+margin-left: 5px;
+```
+
 }
-
 
 .nav-login:hover {
-    background: #bb2d3b;
+background: #bb2d3b;
 }
-
-
-.nav-toggle {
-    display: none;
-
-    border: none;
-
-    background: transparent;
-
-    color: #ffffff;
-
-    font-size: 27px;
-
-    cursor: pointer;
-}
-
 
 /* =====================================================
-   MAIN
+NAV TOGGLE
+===================================================== */
+
+.nav-toggle {
+display: none;
+
+```
+border: none;
+
+background: transparent;
+
+color: #ffffff;
+
+font-size: 27px;
+
+cursor: pointer;
+
+padding: 6px 8px;
+
+border-radius: 6px;
+
+line-height: 1;
+
+transition: 0.2s ease;
+```
+
+}
+
+.nav-toggle:hover {
+background: rgba(255, 255, 255, 0.12);
+}
+
+/* =====================================================
+MAIN
 ===================================================== */
 
 .main-container {
-    width: 100%;
+width: 100%;
 
-    max-width: 1250px;
+```
+max-width: 1250px;
 
-    margin: 0 auto;
+margin: 0 auto;
 
-    padding: 35px 20px 50px;
+padding: 35px 20px 50px;
+```
+
 }
 
-
 /* =====================================================
-   PAGE HEADER
+PAGE HEADER
 ===================================================== */
 
 .page-header {
-    text-align: center;
+text-align: center;
 
-    margin-bottom: 25px;
+```
+margin-bottom: 25px;
+```
+
 }
-
 
 .page-header h1 {
-    font-size: 28px;
+font-size: 28px;
 
-    color: #174f82;
+```
+color: #174f82;
 
-    margin-bottom: 7px;
+margin-bottom: 7px;
+```
+
 }
-
 
 .page-header p {
-    font-size: 14px;
+font-size: 14px;
 
-    color: #6b7280;
+```
+color: #6b7280;
+```
+
 }
 
-
 /* =====================================================
-   TABLE CARD
+TABLE CARD
 ===================================================== */
 
 .table-card {
-    background: #ffffff;
+background: #ffffff;
 
-    border-radius: 14px;
+```
+border-radius: 14px;
 
-    padding: 22px;
+padding: 22px;
 
-    box-shadow:
-        0 6px 25px
-        rgba(0, 0, 0, 0.08);
+box-shadow:
+    0 6px 25px
+    rgba(0, 0, 0, 0.08);
+```
+
 }
 
-
 /* =====================================================
-   TABLE HEADER
+TABLE HEADER
 ===================================================== */
 
 .table-header {
-    display: flex;
+display: flex;
 
-    align-items: center;
+```
+align-items: center;
 
-    justify-content: space-between;
+justify-content: space-between;
 
-    gap: 15px;
+gap: 15px;
 
-    margin-bottom: 18px;
+margin-bottom: 18px;
+```
+
 }
-
 
 .table-header h2 {
-    font-size: 20px;
+font-size: 20px;
 
-    color: #1f2937;
+```
+color: #1f2937;
+```
+
 }
-
 
 .jumlah-data {
-    background: #e8f1fa;
+background: #e8f1fa;
 
-    color: #174f82;
+```
+color: #174f82;
 
-    padding: 7px 12px;
+padding: 7px 12px;
 
-    border-radius: 20px;
+border-radius: 20px;
 
-    font-size: 13px;
+font-size: 13px;
 
-    font-weight: 700;
+font-weight: 700;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
 
-
 /* =====================================================
-   FILTER
+FILTER
 ===================================================== */
 
 .filter-area {
-    display: flex;
+display: flex;
 
-    flex-wrap: wrap;
+```
+flex-wrap: wrap;
 
-    gap: 10px;
+gap: 10px;
 
-    margin-bottom: 20px;
+margin-bottom: 20px;
+```
+
 }
-
 
 .filter-area input,
 .filter-area select {
-    height: 42px;
+height: 42px;
 
-    border: 1px solid #d1d5db;
+```
+border: 1px solid #d1d5db;
 
-    border-radius: 8px;
+border-radius: 8px;
 
-    padding: 0 12px;
+padding: 0 12px;
 
-    font-size: 14px;
+font-size: 14px;
 
-    background: #ffffff;
+background: #ffffff;
 
-    color: #1f2937;
+color: #1f2937;
 
-    outline: none;
+outline: none;
+```
+
 }
-
 
 .filter-area input {
-    flex: 1;
+flex: 1;
 
-    min-width: 260px;
+```
+min-width: 260px;
+```
+
 }
-
 
 .filter-area select {
-    min-width: 180px;
+min-width: 180px;
 }
-
 
 .filter-area input:focus,
 .filter-area select:focus {
-    border-color: #174f82;
+border-color: #174f82;
 
-    box-shadow:
-        0 0 0 3px
-        rgba(23, 79, 130, 0.10);
+```
+box-shadow:
+    0 0 0 3px
+    rgba(23, 79, 130, 0.10);
+```
+
 }
 
-
 /* =====================================================
-   BUTTON
+BUTTON
 ===================================================== */
 
 .btn-reset,
 .btn-cetak,
 .btn-back {
-    height: 42px;
+height: 42px;
 
-    border: none;
+```
+border: none;
 
-    border-radius: 8px;
+border-radius: 8px;
 
-    padding: 0 17px;
+padding: 0 17px;
 
-    font-size: 13px;
+font-size: 13px;
 
-    font-weight: 700;
+font-weight: 700;
 
-    cursor: pointer;
+cursor: pointer;
 
-    transition: 0.2s ease;
+transition: 0.2s ease;
+```
+
 }
-
 
 .btn-reset {
-    background: #6b7280;
+background: #6b7280;
 
-    color: #ffffff;
+```
+color: #ffffff;
+```
+
 }
-
 
 .btn-reset:hover {
-    background: #4b5563;
+background: #4b5563;
 }
-
 
 .btn-cetak {
-    background: #174f82;
+background: #174f82;
 
-    color: #ffffff;
+```
+color: #ffffff;
+```
+
 }
-
 
 .btn-cetak:hover {
-    background: #123d65;
+background: #123d65;
 }
-
 
 .btn-back {
-    background: #e5e7eb;
+background: #e5e7eb;
 
-    color: #374151;
+```
+color: #374151;
+```
+
 }
-
 
 .btn-back:hover {
-    background: #d1d5db;
+background: #d1d5db;
 }
 
-
 /* =====================================================
-   TABLE WRAPPER
+TABLE WRAPPER
 ===================================================== */
 
 .table-wrapper {
-    width: 100%;
+width: 100%;
 
-    overflow-x: auto;
+```
+overflow-x: auto;
 
-    border: 1px solid #e5e7eb;
+border: 1px solid #e5e7eb;
 
-    border-radius: 10px;
+border-radius: 10px;
+```
+
 }
 
-
 /* =====================================================
-   TABLE
+TABLE
 ===================================================== */
 
 .data-table {
-    width: 100%;
+width: 100%;
 
-    min-width: 1120px;
+```
+min-width: 1120px;
 
-    table-layout: fixed;
+table-layout: fixed;
 
-    border-collapse: collapse;
+border-collapse: collapse;
 
-    font-size: 13px;
+font-size: 13px;
+```
+
 }
-
 
 .data-table thead th {
-    background: #174f82;
+background: #174f82;
 
-    color: #ffffff;
+```
+color: #ffffff;
 
-    padding: 11px 8px;
+padding: 11px 8px;
 
-    border: 1px solid #174f82;
+border: 1px solid #174f82;
 
-    text-align: center;
+text-align: center;
 
-    vertical-align: middle;
+vertical-align: middle;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
-
 
 .data-table tbody td {
-    padding: 9px 8px;
+padding: 9px 8px;
 
-    border: 1px solid #cbd5e1;
+```
+border: 1px solid #cbd5e1;
 
-    vertical-align: top;
+vertical-align: top;
 
-    line-height: 1.4;
+line-height: 1.4;
 
-    overflow-wrap: anywhere;
+overflow-wrap: anywhere;
 
-    word-break: break-word;
+word-break: break-word;
+```
+
 }
-
 
 .data-table tbody tr:nth-child(even) {
-    background: #f8fafc;
+background: #f8fafc;
 }
-
 
 .data-table tbody tr:hover {
-    background: #eef5fb;
+background: #eef5fb;
 }
 
-
 /* =====================================================
-   LEBAR KOLOM TABEL
+LEBAR KOLOM TABEL
 ===================================================== */
 
 /*
-   Total dibuat tetap supaya garis kolom
-   halaman laporan tidak berubah-ubah.
+Total dibuat tetap supaya garis kolom
+halaman laporan tidak berubah-ubah.
 */
-
 
 /* NO */
 
 .data-table th:nth-child(1),
 .data-table td:nth-child(1) {
-    width: 38px;
+width: 38px;
 }
-
 
 /* NAMA DOSEN */
 
 .data-table th:nth-child(2),
 .data-table td:nth-child(2) {
-    width: 125px;
+width: 125px;
 }
-
 
 /* PROGDI */
 
 .data-table th:nth-child(3),
 .data-table td:nth-child(3) {
-    width: 62px;
+width: 62px;
 }
-
 
 /* JUMLAH */
 
 .data-table th:nth-child(4),
 .data-table td:nth-child(4) {
-    width: 48px;
+width: 48px;
 }
-
 
 /* JUDUL */
 
 .data-table th:nth-child(5),
 .data-table td:nth-child(5) {
-    width: 180px;
+width: 180px;
 }
-
 
 /* PENULIS */
 
 .data-table th:nth-child(6),
 .data-table td:nth-child(6) {
-    width: 145px;
+width: 145px;
 }
-
 
 /* TANGGAL */
 
 .data-table th:nth-child(7),
 .data-table td:nth-child(7) {
-    width: 82px;
+width: 82px;
 }
-
 
 /* SITASI */
 
 .data-table th:nth-child(8),
 .data-table td:nth-child(8) {
-    width: 110px;
+width: 110px;
 }
-
 
 /* STATUS */
 
 .data-table th:nth-child(9),
 .data-table td:nth-child(9) {
-    width: 80px;
+width: 80px;
 }
-
 
 /* PUBLIKASI */
 
 .data-table th:nth-child(10),
 .data-table td:nth-child(10) {
-    width: 220px;
+width: 220px;
 }
 
-
 /* =====================================================
-   KOLOM KHUSUS
+KOLOM KHUSUS
 ===================================================== */
 
 .nomor {
-    text-align: center;
+text-align: center;
 
-    font-weight: 600;
+```
+font-weight: 600;
 
-    vertical-align: middle !important;
+vertical-align: middle !important;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
-
 
 .dosen {
-    vertical-align: middle !important;
+vertical-align: middle !important;
 
-    font-weight: 600;
+```
+font-weight: 600;
+```
+
 }
-
 
 .progdi {
-    text-align: center;
+text-align: center;
 
-    vertical-align: middle !important;
+```
+vertical-align: middle !important;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
-
 
 .jumlah {
-    text-align: center;
+text-align: center;
 
-    vertical-align: middle !important;
+```
+vertical-align: middle !important;
 
-    font-weight: 600;
+font-weight: 600;
 
-    white-space: nowrap;
+white-space: nowrap;
+```
+
 }
-
 
 .judul {
-    font-weight: 600;
+font-weight: 600;
 
-    text-align: left;
+```
+text-align: left;
+```
+
 }
-
 
 .penulis {
-    text-align: left;
+text-align: left;
 }
-
 
 .tanggal {
-    text-align: center;
+text-align: center;
 
-    white-space: nowrap;
+```
+white-space: nowrap;
+```
+
 }
-
 
 .sitasi {
-    text-align: left;
+text-align: left;
 }
-
 
 .status-kolom {
-    text-align: left;
+text-align: left;
 
-    vertical-align: top !important;
+```
+vertical-align: top !important;
 
-    white-space: normal;
+white-space: normal;
 
-    font-weight: 500;
+font-weight: 500;
+```
+
 }
-
 
 .publikasi {
-    text-align: left;
+text-align: left;
 }
 
-
 /* =====================================================
-   JUDUL JURNAL
-   MAKSIMAL 5 BARIS
+JUDUL JURNAL
+MAKSIMAL 5 BARIS
 ===================================================== */
 
 .data-table td.judul {
-    display: table-cell;
+display: table-cell;
 
-    overflow: hidden;
+```
+overflow: hidden;
+```
+
 }
-
 
 .data-table td.judul {
-    line-height: 1.4;
+line-height: 1.4;
 }
-
 
 .data-table td.judul {
-    overflow-wrap: anywhere;
+overflow-wrap: anywhere;
 
-    word-break: break-word;
+```
+word-break: break-word;
+```
+
 }
-
 
 /* =====================================================
-   STATUS
+STATUS
 ===================================================== */
 
 /*
-   STATUS SENGAJA TIDAK DIBUAT BADGE.
-   Tidak ada background, border-radius,
-   atau bentuk lingkaran.
+STATUS SENGAJA TIDAK DIBUAT BADGE.
+Tidak ada background, border-radius,
+atau bentuk lingkaran.
 */
 
 .status-selesai {
-    color: #166534;
+color: #166534;
 
-    font-weight: 600;
+```
+font-weight: 600;
+```
+
 }
-
 
 .status-proses {
-    color: #92400e;
+color: #92400e;
 
-    font-weight: 600;
+```
+font-weight: 600;
+```
+
 }
-
 
 .status-tolak {
-    color: #991b1b;
+color: #991b1b;
 
-    font-weight: 600;
+```
+font-weight: 600;
+```
+
 }
-
 
 .status-default {
-    color: #374151;
+color: #374151;
 
-    font-weight: 500;
+```
+font-weight: 500;
+```
+
 }
 
-
 /* =====================================================
-   LINK PUBLIKASI
+LINK PUBLIKASI
 ===================================================== */
 
 /*
-   URL PUBLIKASI DITAMPILKAN LANGSUNG.
-   Tidak lagi dibuat seperti tombol "Lihat Publikasi".
+URL PUBLIKASI DITAMPILKAN LANGSUNG.
+Tidak lagi dibuat seperti tombol "Lihat Publikasi".
 */
 
 .publication-link,
 .publikasi-link {
-    display: block;
+display: block;
 
-    width: 100%;
+```
+width: 100%;
 
-    padding: 0;
+padding: 0;
 
-    margin: 0;
+margin: 0;
 
-    background: transparent;
+background: transparent;
 
-    color: #174f82;
+color: #174f82;
 
-    text-decoration: underline;
+text-decoration: underline;
 
-    border-radius: 0;
+border-radius: 0;
 
-    font-size: 12px;
+font-size: 12px;
 
-    font-weight: 500;
+font-weight: 500;
 
-    line-height: 1.4;
+line-height: 1.4;
 
-    white-space: normal;
+white-space: normal;
 
-    overflow-wrap: anywhere;
+overflow-wrap: anywhere;
 
-    word-break: break-word;
+word-break: break-word;
+```
+
 }
-
 
 .publication-link:hover,
 .publikasi-link:hover {
-    background: transparent;
+background: transparent;
 
-    color: #0d3b63;
+```
+color: #0d3b63;
 
-    text-decoration: underline;
+text-decoration: underline;
+```
+
 }
 
-
 /* =====================================================
-   LOADING / EMPTY
+LOADING / EMPTY
 ===================================================== */
 
 .loading,
 .empty-data {
-    text-align: center;
+text-align: center;
 
-    padding: 35px !important;
+```
+padding: 35px !important;
 
-    color: #6b7280;
+color: #6b7280;
+```
+
 }
-
 
 .empty-data {
-    color: #dc2626;
+color: #dc2626;
 }
 
-
 /* =====================================================
-   BOTTOM ACTION
+BOTTOM ACTION
 ===================================================== */
 
 .bottom-action {
-    display: flex;
+display: flex;
 
-    justify-content: flex-start;
+```
+justify-content: flex-start;
 
-    margin-top: 20px;
+margin-top: 20px;
+```
+
 }
 
-
 /* =====================================================
-   MODAL PILIH KOLOM CETAK
+MODAL PILIH KOLOM CETAK
 ===================================================== */
 
 .modal-cetak-wrapper {
-    position: fixed;
+position: fixed;
 
-    inset: 0;
+```
+inset: 0;
 
-    z-index: 9999;
+z-index: 9999;
+```
+
 }
-
 
 .modal-cetak-overlay {
-    position: fixed;
+position: fixed;
 
-    inset: 0;
+```
+inset: 0;
 
-    display: flex;
+display: flex;
 
-    align-items: center;
+align-items: center;
 
-    justify-content: center;
+justify-content: center;
 
-    padding: 20px;
+padding: 20px;
 
-    background:
-        rgba(0, 0, 0, 0.45);
+background:
+    rgba(0, 0, 0, 0.45);
+```
+
 }
-
 
 .modal-cetak {
-    width: 100%;
+width: 100%;
 
-    max-width: 520px;
+```
+max-width: 520px;
 
-    background: #ffffff;
+background: #ffffff;
 
-    border-radius: 14px;
+border-radius: 14px;
 
-    padding: 24px;
+padding: 24px;
 
-    box-shadow:
-        0 15px 45px
-        rgba(0, 0, 0, 0.20);
+box-shadow:
+    0 15px 45px
+    rgba(0, 0, 0, 0.20);
+```
+
 }
-
 
 .modal-cetak h3 {
-    margin-bottom: 8px;
+margin-bottom: 8px;
 
-    color: #174f82;
+```
+color: #174f82;
 
-    font-size: 20px;
+font-size: 20px;
+```
+
+}
+
+.modal-cetak p {
+margin-bottom: 18px;
+
+```
+color: #6b7280;
+
+font-size: 13px;
+
+line-height: 1.5;
+```
+
+}
+
+.kolom-pilihan {
+display: grid;
+
+```
+grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+gap: 9px;
+
+margin-bottom: 20px;
+```
+
+}
+
+.kolom-pilihan-item,
+.pilihan-kolom {
+display: flex;
+
+```
+align-items: center;
+
+gap: 8px;
+
+padding: 10px;
+
+border: 1px solid #d1d5db;
+
+border-radius: 8px;
+
+cursor: pointer;
+
+font-size: 13px;
+
+color: #374151;
+
+background: #ffffff;
+
+transition: 0.2s ease;
+```
+
+}
+
+.kolom-pilihan-item:hover,
+.pilihan-kolom:hover {
+background: #f3f6fa;
+
+```
+border-color: #b7c4d2;
+```
+
+}
+
+.kolom-pilihan-item input,
+.pilihan-kolom input {
+width: 16px;
+
+```
+height: 16px;
+
+accent-color: #174f82;
+
+cursor: pointer;
+```
+
+}
+
+.modal-cetak-action {
+display: flex;
+
+```
+justify-content: flex-end;
+
+gap: 10px;
+
+padding-top: 5px;
+```
+
+}
+
+.btn-modal-lanjut,
+.btn-modal-batal {
+min-height: 40px;
+
+```
+border: none;
+
+border-radius: 8px;
+
+padding: 0 17px;
+
+font-size: 13px;
+
+font-weight: 700;
+
+cursor: pointer;
+
+transition: 0.2s ease;
+```
+
+}
+
+.btn-modal-lanjut {
+background: #174f82;
+
+```
+color: #ffffff;
+```
+
+}
+
+.btn-modal-lanjut:hover {
+background: #123d65;
+}
+
+.btn-modal-batal {
+background: #e5e7eb;
+
+```
+color: #374151;
+```
+
+}
+
+.btn-modal-batal:hover {
+background: #d1d5db;
+}
+
+/* =====================================================
+PRINT HEADER
+===================================================== */
+
+.halaman-cetak {
+background: #ffffff;
+
+```
+color: #000000;
+
+font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+```
+
+}
+
+.print-header {
+text-align: center;
+
+```
+margin-bottom: 18px;
+```
+
+}
+
+.print-header h1 {
+margin-bottom: 5px;
+
+```
+font-size: 20px;
+
+color: #000000;
+```
+
+}
+
+.print-header h2 {
+margin-bottom: 4px;
+
+```
+font-size: 14px;
+
+color: #000000;
+```
+
+}
+
+.print-header p {
+margin: 0;
+
+```
+font-size: 11px;
+
+color: #333333;
+```
+
+}
+
+/* =====================================================
+PRINT TABLE
+===================================================== */
+
+.table-print {
+width: 100%;
+
+```
+border-collapse: collapse;
+
+table-layout: fixed;
+
+font-size: 9px;
+
+color: #000000;
+```
+
+}
+
+.table-print th {
+background: #174f82;
+
+```
+color: #ffffff;
+
+border: 1px solid #000000;
+
+padding: 6px 4px;
+
+text-align: center;
+
+vertical-align: middle;
+
+font-weight: 700;
+
+line-height: 1.2;
+```
+
+}
+
+.table-print td {
+border: 1px solid #000000;
+
+```
+padding: 5px 4px;
+
+vertical-align: top;
+
+line-height: 1.3;
+
+overflow-wrap: anywhere;
+
+word-break: break-word;
+```
+
+}
+
+/* =====================================================
+LEBAR KOLOM CETAK
+===================================================== */
+
+/*
+TOTAL 100%.
+Kolom kecil dibuat lebih kecil,
+kolom publikasi dibuat lebih lebar.
+*/
+
+/* NO */
+
+.table-print .kolom-no {
+width: 3%;
+}
+
+/* NAMA DOSEN */
+
+.table-print .kolom-namaDosen {
+width: 12%;
+}
+
+/* PROGDI */
+
+.table-print .kolom-progdi {
+width: 5%;
+}
+
+/* JUMLAH */
+
+.table-print .kolom-jumlah {
+width: 4%;
+}
+
+/* JUDUL */
+
+.table-print .kolom-judul {
+width: 19%;
+}
+
+/* PENULIS */
+
+.table-print .kolom-penulis {
+width: 15%;
+}
+
+/* TANGGAL */
+
+.table-print .kolom-tanggalTerbit {
+width: 7%;
+}
+
+/* SITASI */
+
+.table-print .kolom-sitasi {
+width: 10%;
+}
+
+/* STATUS */
+
+.table-print .kolom-status {
+width: 7%;
+}
+
+/* PUBLIKASI */
+
+.table-print .kolom-linkPublikasi {
+width: 18%;
+}
+
+/* =====================================================
+PRINT - KOLOM KHUSUS
+===================================================== */
+
+.table-print td.kolom-no {
+text-align: center;
+
+```
+vertical-align: middle;
+```
+
+}
+
+.table-print td.kolom-namaDosen {
+text-align: left;
+
+```
+vertical-align: middle;
+
+font-weight: 600;
+```
+
+}
+
+.table-print td.kolom-progdi {
+text-align: center;
+
+```
+vertical-align: middle;
+```
+
+}
+
+.table-print td.kolom-jumlah {
+text-align: center;
+
+```
+vertical-align: middle;
+
+font-weight: 600;
+```
+
+}
+
+.table-print td.kolom-judul {
+text-align: left;
+
+```
+font-weight: 600;
+```
+
+}
+
+.table-print td.kolom-penulis {
+text-align: left;
+}
+
+.table-print td.kolom-tanggalTerbit {
+text-align: center;
+
+```
+vertical-align: middle;
+
+white-space: nowrap;
+```
+
+}
+
+.table-print td.kolom-sitasi {
+text-align: left;
+}
+
+.table-print td.kolom-status {
+text-align: left;
+
+```
+vertical-align: top;
+```
+
+}
+
+.table-print td.kolom-linkPublikasi {
+text-align: left;
+
+```
+vertical-align: top;
+```
+
+}
+
+/* =====================================================
+JUDUL CETAK
+===================================================== */
+
+.table-print td.kolom-judul {
+overflow-wrap: anywhere;
+
+```
+word-break: break-word;
+```
+
+}
+
+/* =====================================================
+STATUS CETAK
+===================================================== */
+
+/*
+STATUS CETAK JUGA TEKS BIASA.
+Tidak ada badge / lingkaran.
+*/
+
+.table-print .kolom-status {
+background: transparent;
+
+```
+border-radius: 0;
+
+padding: 5px 4px;
+
+font-weight: 500;
+```
+
+}
+
+/* =====================================================
+LINK PUBLIKASI CETAK
+===================================================== */
+
+.table-print .publikasi-cetak {
+display: block;
+
+```
+width: 100%;
+
+color: #000000;
+
+background: transparent;
+
+text-decoration: underline;
+
+font-weight: 400;
+
+line-height: 1.3;
+
+overflow-wrap: anywhere;
+
+word-break: break-word;
+```
+
+}
+
+.table-print .publikasi-cetak:hover {
+color: #000000;
+
+```
+background: transparent;
+```
+
+}
+
+/* =====================================================
+PRINT PAGE
+===================================================== */
+
+@page {
+size: A4 landscape;
+
+```
+margin: 10mm;
+```
+
+}
+
+@media print {
+
+```
+html,
+body {
+    width: 100%;
+
+    background: #ffffff !important;
 }
 
 
-.modal-cetak p {
-    margin-bottom: 18px;
+body {
+    margin: 0;
 
-    color: #6b7280;
+    padding: 0;
+}
 
-    font-size: 13px;
 
-    line-height: 1.5;
+.halaman-cetak {
+    width: 100%;
+
+    background: #ffffff;
+}
+
+
+.print-header {
+    margin-bottom: 10px;
+}
+
+
+.table-print {
+    width: 100%;
+
+    table-layout: fixed;
+}
+
+
+.table-print tr {
+    page-break-inside: avoid;
+}
+
+
+.table-print thead {
+    display: table-header-group;
+}
+
+
+.table-print tfoot {
+    display: table-footer-group;
+}
+
+
+.table-print th,
+.table-print td {
+    border: 1px solid #000000;
+}
+```
+
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+```
+.nav-container {
+    min-height: 62px;
+}
+
+
+.nav-toggle {
+    display: block;
+}
+
+
+.nav-menu {
+    display: none;
+
+    position: absolute;
+
+    top: 100%;
+
+    left: 0;
+
+    right: 0;
+
+    width: 100%;
+
+    background: #174f82;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 5px;
+
+    padding: 10px 20px 15px;
+
+    box-shadow:
+        0 8px 15px
+        rgba(0, 0, 0, 0.12);
+}
+
+
+.nav-menu.show {
+    display: flex;
+}
+
+
+.nav-link,
+.nav-login {
+    width: 100%;
+
+    text-align: center;
+
+    margin: 2px 0;
+}
+
+
+.nav-login {
+    margin-left: 0;
+}
+
+
+.table-card {
+    padding: 15px;
+}
+
+
+.table-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+
+.filter-area {
+    flex-direction: column;
+}
+
+
+.filter-area input,
+.filter-area select,
+.btn-reset,
+.btn-cetak {
+    width: 100%;
+
+    min-width: 0;
 }
 
 
 .kolom-pilihan {
-    display: grid;
+    grid-template-columns: 1fr;
+}
+```
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+}
 
-    gap: 9px;
+/* =====================================================
+MOBILE
+===================================================== */
 
-    margin-bottom: 20px;
+@media (max-width: 500px) {
+
+```
+.main-container {
+    padding: 25px 12px 40px;
 }
 
 
-.kolom-pilihan-item,
-.pilihan-kolom {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    padding: 10px;
-
-    border: 1px solid #d1d5db;
-
-    border-radius: 8px;
-
-    cursor: pointer;
-
-    font-size: 13px;
-
-    color: #374151;
-
-    background: #ffffff;
-
-    transition: 0.2s ease;
+.page-header h1 {
+    font-size: 23px;
 }
 
 
-.kolom-pilihan-item:hover,
-.pilihan-kolom:hover {
-    background: #f3f6fa;
-
-    border-color: #b7c4d2;
+.nav-logo span {
+    font-size: 16px;
 }
 
 
-.kolom-pilihan-item input,
-.pilihan-kolom input {
-    width: 16px;
+.table-card {
+    padding: 12px;
+}
 
-    height: 16px;
 
-    accent-color: #174f82;
+.table-header h2 {
+    font-size: 18px;
+}
 
-    cursor: pointer;
+
+.modal-cetak {
+    padding: 18px;
 }
 
 
 .modal-cetak-action {
-    display: flex;
-
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    padding-top: 5px;
+    flex-direction: column-reverse;
 }
 
 
 .btn-modal-lanjut,
 .btn-modal-batal {
-    min-height: 40px;
-
-    border: none;
-
-    border-radius: 8px;
-
-    padding: 0 17px;
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: 0.2s ease;
-}
-
-
-.btn-modal-lanjut {
-    background: #174f82;
-
-    color: #ffffff;
-}
-
-
-.btn-modal-lanjut:hover {
-    background: #123d65;
-}
-
-
-.btn-modal-batal {
-    background: #e5e7eb;
-
-    color: #374151;
-}
-
-
-.btn-modal-batal:hover {
-    background: #d1d5db;
-}
-
-
-/* =====================================================
-   PRINT HEADER
-===================================================== */
-
-.halaman-cetak {
-    background: #ffffff;
-
-    color: #000000;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-}
-
-
-.print-header {
-    text-align: center;
-
-    margin-bottom: 18px;
-}
-
-
-.print-header h1 {
-    margin-bottom: 5px;
-
-    font-size: 20px;
-
-    color: #000000;
-}
-
-
-.print-header h2 {
-    margin-bottom: 4px;
-
-    font-size: 14px;
-
-    color: #000000;
-}
-
-
-.print-header p {
-    margin: 0;
-
-    font-size: 11px;
-
-    color: #333333;
-}
-
-
-/* =====================================================
-   PRINT TABLE
-===================================================== */
-
-.table-print {
     width: 100%;
-
-    border-collapse: collapse;
-
-    table-layout: fixed;
-
-    font-size: 9px;
-
-    color: #000000;
 }
+```
 
-
-.table-print th {
-    background: #174f82;
-
-    color: #ffffff;
-
-    border: 1px solid #000000;
-
-    padding: 6px 4px;
-
-    text-align: center;
-
-    vertical-align: middle;
-
-    font-weight: 700;
-
-    line-height: 1.2;
-}
-
-
-.table-print td {
-    border: 1px solid #000000;
-
-    padding: 5px 4px;
-
-    vertical-align: top;
-
-    line-height: 1.3;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-}
-
-
-/* =====================================================
-   LEBAR KOLOM CETAK
-===================================================== */
-
-/*
-   TOTAL 100%.
-   Kolom kecil dibuat lebih kecil,
-   kolom publikasi dibuat lebih lebar.
-*/
-
-
-/* NO */
-
-.table-print .kolom-no {
-    width: 3%;
-}
-
-
-/* NAMA DOSEN */
-
-.table-print .kolom-namaDosen {
-    width: 12%;
-}
-
-
-/* PROGDI */
-
-.table-print .kolom-progdi {
-    width: 5%;
-}
-
-
-/* JUMLAH */
-
-.table-print .kolom-jumlah {
-    width: 4%;
-}
-
-
-/* JUDUL */
-
-.table-print .kolom-judul {
-    width: 19%;
-}
-
-
-/* PENULIS */
-
-.table-print .kolom-penulis {
-    width: 15%;
-}
-
-
-/* TANGGAL */
-
-.table-print .kolom-tanggalTerbit {
-    width: 7%;
-}
-
-
-/* SITASI */
-
-.table-print .kolom-sitasi {
-    width: 10%;
-}
-
-
-/* STATUS */
-
-.table-print .kolom-status {
-    width: 7%;
-}
-
-
-/* PUBLIKASI */
-
-.table-print .kolom-linkPublikasi {
-    width: 18%;
-}
-
-
-/* =====================================================
-   PRINT - KOLOM KHUSUS
-===================================================== */
-
-.table-print td.kolom-no {
-    text-align: center;
-
-    vertical-align: middle;
-}
-
-
-.table-print td.kolom-namaDosen {
-    text-align: left;
-
-    vertical-align: middle;
-
-    font-weight: 600;
-}
-
-
-.table-print td.kolom-progdi {
-    text-align: center;
-
-    vertical-align: middle;
-}
-
-
-.table-print td.kolom-jumlah {
-    text-align: center;
-
-    vertical-align: middle;
-
-    font-weight: 600;
-}
-
-
-.table-print td.kolom-judul {
-    text-align: left;
-
-    font-weight: 600;
-}
-
-
-.table-print td.kolom-penulis {
-    text-align: left;
-}
-
-
-.table-print td.kolom-tanggalTerbit {
-    text-align: center;
-
-    vertical-align: middle;
-
-    white-space: nowrap;
-}
-
-
-.table-print td.kolom-sitasi {
-    text-align: left;
-}
-
-
-.table-print td.kolom-status {
-    text-align: left;
-
-    vertical-align: top;
-}
-
-
-.table-print td.kolom-linkPublikasi {
-    text-align: left;
-
-    vertical-align: top;
-}
-
-
-/* =====================================================
-   JUDUL CETAK
-===================================================== */
-
-.table-print td.kolom-judul {
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-}
-
-
-/* =====================================================
-   STATUS CETAK
-===================================================== */
-
-/*
-   STATUS CETAK JUGA TEKS BIASA.
-   Tidak ada badge / lingkaran.
-*/
-
-.table-print .kolom-status {
-    background: transparent;
-
-    border-radius: 0;
-
-    padding: 5px 4px;
-
-    font-weight: 500;
-}
-
-
-/* =====================================================
-   LINK PUBLIKASI CETAK
-===================================================== */
-
-.table-print .publikasi-cetak {
-    display: block;
-
-    width: 100%;
-
-    color: #000000;
-
-    background: transparent;
-
-    text-decoration: underline;
-
-    font-weight: 400;
-
-    line-height: 1.3;
-
-    overflow-wrap: anywhere;
-
-    word-break: break-word;
-}
-
-
-.table-print .publikasi-cetak:hover {
-    color: #000000;
-
-    background: transparent;
-}
-
-
-/* =====================================================
-   PRINT PAGE
-===================================================== */
-
-@page {
-    size: A4 landscape;
-
-    margin: 10mm;
-}
-
-
-@media print {
-
-    html,
-    body {
-        width: 100%;
-
-        background: #ffffff !important;
-    }
-
-
-    body {
-        margin: 0;
-
-        padding: 0;
-    }
-
-
-    .halaman-cetak {
-        width: 100%;
-
-        background: #ffffff;
-    }
-
-
-    .print-header {
-        margin-bottom: 10px;
-    }
-
-
-    .table-print {
-        width: 100%;
-
-        table-layout: fixed;
-    }
-
-
-    .table-print tr {
-        page-break-inside: avoid;
-    }
-
-
-    .table-print thead {
-        display: table-header-group;
-    }
-
-
-    .table-print tfoot {
-        display: table-footer-group;
-    }
-
-
-    .table-print th,
-    .table-print td {
-        border: 1px solid #000000;
-    }
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 850px) {
-
-    .nav-container {
-        min-height: 62px;
-    }
-
-
-    .nav-toggle {
-        display: block;
-    }
-
-
-    .nav-menu {
-        display: none;
-
-        position: absolute;
-
-        top: 62px;
-
-        left: 0;
-
-        right: 0;
-
-        background: #174f82;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        padding: 10px 20px 15px;
-
-        box-shadow:
-            0 8px 15px
-            rgba(0, 0, 0, 0.12);
-    }
-
-
-    .nav-menu.active {
-        display: flex;
-    }
-
-
-    .nav-link,
-    .nav-login {
-        width: 100%;
-
-        text-align: center;
-
-        margin: 2px 0;
-    }
-
-
-    .nav-login {
-        margin-left: 0;
-    }
-
-
-    .table-card {
-        padding: 15px;
-    }
-
-
-    .table-header {
-        flex-direction: column;
-
-        align-items: flex-start;
-    }
-
-
-    .filter-area {
-        flex-direction: column;
-    }
-
-
-    .filter-area input,
-    .filter-area select,
-    .btn-reset,
-    .btn-cetak {
-        width: 100%;
-
-        min-width: 0;
-    }
-
-
-    .kolom-pilihan {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 500px) {
-
-    .main-container {
-        padding: 25px 12px 40px;
-    }
-
-
-    .page-header h1 {
-        font-size: 23px;
-    }
-
-
-    .nav-logo span {
-        font-size: 16px;
-    }
-
-
-    .table-card {
-        padding: 12px;
-    }
-
-
-    .table-header h2 {
-        font-size: 18px;
-    }
-
-
-    .modal-cetak {
-        padding: 18px;
-    }
-
-
-    .modal-cetak-action {
-        flex-direction: column-reverse;
-    }
-
-
-    .btn-modal-lanjut,
-    .btn-modal-batal {
-        width: 100%;
-    }
 }
